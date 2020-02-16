@@ -1,0 +1,49 @@
+{
+  "name": "realtime_chat_interface",
+  "version": "1.0.0",
+  "adonis-version": "1.0.0",
+  "description": "Real-time chat interface where multiple users can interact with each other by sending messages.\n",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node ace test",
+    "assets-dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "assets-watch": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "assets-hot": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "assets-production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "keywords": [
+    "adonisjs",
+    "adonis-app"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/auth": "^3.0.7",
+    "@adonisjs/bodyparser": "^2.0.5",
+    "@adonisjs/cors": "^1.0.7",
+    "@adonisjs/fold": "^4.0.9",
+    "@adonisjs/framework": "^5.0.9",
+    "@adonisjs/ignitor": "^2.0.8",
+    "@adonisjs/lucid": "^6.1.3",
+    "@adonisjs/session": "^1.0.27",
+    "@adonisjs/shield": "^1.0.8",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.13",
+    "browser-cookies": "^1.2.0",
+    "laravel-mix": "^2.1.14",
+    "mysql": "^2.16.0",
+    "vuelidate": "^0.7.4",
+    "vuex": "^3.1.0"
+  },
+  "devDependencies": {
+    "vue": "^2.6.7",
+    "vue-router": "^3.0.1"
+  },
+  "autoload": {
+    "App": "./app"
+  }
+}
