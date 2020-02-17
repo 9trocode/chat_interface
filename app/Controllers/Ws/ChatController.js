@@ -8,7 +8,7 @@ class ChatController {
 
   onMessage (message) {
     // same as: socket.on('message')
-    this.socket.broadcastToAll('message', message)
+    this.socket.broadcastToAll('message', message);
   }
 
   onClose () {

@@ -15,4 +15,4 @@
 
 const Ws = use('Ws');
 
-Ws.channel('chat', 'ChatController.onMessage');
+Ws.channel('chat', 'ChatController.onMessage').middleware('auth');
