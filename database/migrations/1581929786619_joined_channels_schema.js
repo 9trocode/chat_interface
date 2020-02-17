@@ -18,4 +18,4 @@ class JoinedChannelsSchema extends Schema {
   }
 }
 
-module.exports = JoinedChannelsSchema
+module.exports = JoinedChannelsSchema;
