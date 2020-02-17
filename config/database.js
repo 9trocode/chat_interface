@@ -78,4 +78,4 @@ module.exports = {
       database: Env.get('DB_DATABASE', 'adonis')
     }
   }
-}
+};
