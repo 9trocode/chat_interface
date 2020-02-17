@@ -36,4 +36,4 @@ const namedMiddleware = {
 
 Ws
   .registerGlobal(globalMiddleware)
-  .registerNamed(namedMiddleware)
+  .registerNamed(namedMiddleware);
