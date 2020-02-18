@@ -1,16 +1,26 @@
 "use strict";
 
 const User = use("App/Models/User");
+const { validate } = use('Validator')
 
 class UserController {
   async register({ request, response, auth }) {
+    const rules = {
+      username: 'required'
+    }
     const { username } = request.post();
+    const validation = await validate(username, rules);
+    if (validation.fails()) {
+      return response.json({
+        status: 'error',
+        message: validation.messages()[0].message
+      })
+    }
     const userData  = username.trim();
     try {
       const user = await User.create({
         username: userData
       });
-      console.log('Userd',user)
       let token = await auth.generate(user)
       return response.json({
         status: 'success',
@@ -19,7 +29,6 @@ class UserController {
         token
       })
     } catch (error) {
-      console.log(error)
       return response.status(400).json({
         status: "error",
         message: error.message,
