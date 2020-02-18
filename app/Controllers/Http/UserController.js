@@ -8,14 +8,14 @@ class UserController {
     const rules = {
       username: 'required'
     }
-    const { username } = request.post();
-    const validation = await validate(username, rules);
+    const validation = await validate(request.post(), rules);
     if (validation.fails()) {
       return response.json({
         status: 'error',
         message: validation.messages()[0].message
       })
     }
+    const { username } = request.post();
     const userData  = username.trim();
     try {
       const user = await User.create({
