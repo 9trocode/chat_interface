@@ -1,10 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/components/pages/Index";
-import About from "@/components/pages/About";
-import Register from "@/components/pages/Register";
-import Login from "@/components/pages/Login";
-import Admin from "@/components/pages/Admin";
 
 import AppInit from "./guards/AppInit";
 import IsLoggedIn from "./guards/IsLoggedIn";
@@ -19,32 +15,17 @@ const router = new Router({
       name: "Index",
       component: Index
     },
-    {
-      path: "/register",
-      name: "Register",
-      component: Register
-    },
-    {
-      path: "/login",
-      name: "Login",
-      component: Login
-    },
-    {
-      path: "/about",
-      name: "About",
-      component: About
-    },
-    {
-      path: "/admin",
-      component: Admin,
-      beforeEnter: IsLoggedIn,
-      meta: {
-        isAdmin: true
-      }
-    }
+    // {
+    //   path: "/admin",
+    //   component: Admin,
+    //   beforeEnter: IsLoggedIn,
+    //   meta: {
+    //     isAdmin: true
+    //   }
+    // }
   ]
 });
 
-router.beforeEach(AppInit);
+// router.beforeEach(AppInit);
 
 export default router;
