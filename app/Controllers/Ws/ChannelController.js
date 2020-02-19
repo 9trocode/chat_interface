@@ -7,8 +7,6 @@ class ChannelController {
   constructor({socket, request}) {
     this.socket = socket;
     this.request = request;
-
-    console.log('A new subscription for Channels topic', socket.topic)
   }
 
 
@@ -43,18 +41,15 @@ class ChannelController {
 
 
 
-
-
-
   //Error Handlers
   async onClose(error) {
     // same as: socket.on('close')
-    this.socket.broadcastToAll('error',error)
+    this.socket.broadcastToAll('error', error)
   }
 
   async onError(error) {
     // same as: socket.on('error')
-    this.socket.broadcastToAll('error',error)
+    this.socket.broadcastToAll('error', error)
   }
 }
 

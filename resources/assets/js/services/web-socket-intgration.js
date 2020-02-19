@@ -54,12 +54,6 @@ export class SocketConnection {
       });
 
 
-
-
-
-
-
-
       //Error Handlers
       result.on('error', (error) => {
         store.commit("SOCKET_RECONNECT_ERROR", error);

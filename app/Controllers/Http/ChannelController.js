@@ -5,9 +5,9 @@ const JoinedChannel = use('App/Models/JoinedChannel');
 const User = use('App/Models/User');
 
 class ChannelController {
- async joinChannel({ request, auth, response}) {
-    try{
-      const { channel_name, topic } = request.all();
+  async joinChannel({request, auth, response}) {
+    try {
+      const {channel_name, topic} = request.all();
       let loggedin_user = await auth.getUser();
       if (!loggedin_user) {
         return response.status(400).json({
@@ -31,7 +31,7 @@ class ChannelController {
         data: new_channel
       })
 
-    } catch(error) {
+    } catch (error) {
       return response.status(400).json({
         status: "error",
         message: error.message,
@@ -39,14 +39,15 @@ class ChannelController {
       });
     }
   }
-  static async getUserJoinedChannel({ auth, response }){
+
+  static async getUserJoinedChannel({auth, response}) {
     try {
       const loggedin_user = await auth.getUser();
       if (!loggedin_user) {
         return response.status(400).json({
-            status: 'error',
-            message: 'Please Log in to perform this action',
-            data: {},
+          status: 'error',
+          message: 'Please Log in to perform this action',
+          data: {},
         })
       }
       const joined_channel = await loggedin_user.joinedChannels().fetch();
@@ -55,7 +56,7 @@ class ChannelController {
         message: 'Data retreived successfully',
         data: joined_channel
       })
-    }catch(error) {
+    } catch (error) {
       return response.status(400).json({
         status: "error",
         message: error.message,
@@ -64,21 +65,21 @@ class ChannelController {
     }
   }
 
-  async getChannelUsers({ auth, response, request }) {
+  async getChannelUsers({auth, response, request}) {
     const loggedin_user = await auth.getUser();
-    try{
+    try {
       if (!loggedin_user) {
         return response.status(400).json({
-            status: 'error',
-            message: 'Please Log in to perform this action',
-            data: {},
+          status: 'error',
+          message: 'Please Log in to perform this action',
+          data: {},
         })
       }
-      const { channel_id } = request.all();
+      const {channel_id} = request.all();
       const channels = await JoinedChannel.query().where('channel_id', channel_id).fetch()
 
       let joined_users = [];
-      for(let user of channels.rows) {
+      for (let user of channels.rows) {
         let userData = {};
         userData.channel = await Channel.find(user.channel_id);
         userData.user = await User.find(user.user_id);
@@ -89,7 +90,7 @@ class ChannelController {
         message: 'Data retreived successfully',
         data: joined_users
       })
-    }catch(error) {
+    } catch (error) {
       return response.status(400).json({
         status: "error",
         message: error.message,
