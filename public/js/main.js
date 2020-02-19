@@ -2612,7 +2612,7 @@ class WsPlugin extends __WEBPACK_IMPORTED_MODULE_0_vue___default.a{
         this.$emitToFront(`${event}`, data)
     }
     // Register a custom callback as meddler that gets called upon each event emission.
-    // It can be bound to $on as well.
+    // It can be bound to $on as well. 
     $onAny(callback) {
         this.meddler = callback
     }
@@ -33911,7 +33911,7 @@ exports.set = function(name, value, options) {
 
 exports.get = function(name) {
   var cookies = document.cookie.split(';');
-
+  
   // Iterate all cookies
   while(cookies.length) {
     var cookie = cookies.pop();
@@ -36712,15 +36712,15 @@ Popper.Defaults = Defaults;
 
 "use strict";
 
- /*!
-  * portal-vue © Thorsten Lünborg, 2019
-  *
+ /*! 
+  * portal-vue © Thorsten Lünborg, 2019 
+  * 
   * Version: 2.1.7
-  *
-  * LICENCE: MIT
-  *
+  * 
+  * LICENCE: MIT 
+  * 
   * https://github.com/linusborg/portal-vue
-  *
+  * 
  */
 
 
@@ -56293,7 +56293,7 @@ var SocketConnection = function () {
   _createClass(SocketConnection, [{
     key: 'connect',
     value: function connect() {
-      this.ws = __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */])() + '0.0.0.0:38573')
+      this.ws = __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */])() + 'staging-chatyard.herokuapp.com')
       // .withApiToken(token)
       .connect();
 

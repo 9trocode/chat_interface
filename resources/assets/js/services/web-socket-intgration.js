@@ -11,7 +11,6 @@ export class SocketConnection {
 
     this.ws.on('open', () => {
       console.log('Connection initialized');
-      console.log('test',getSocketProtocol);
     });
 
     this.ws.on('close', () => {
