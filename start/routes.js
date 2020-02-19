@@ -16,18 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.get("hello", () => {
-  return { greeting: "Hello from the backend" };
-}).prefix("api");
+Route.post("/authenticate", "UserController.authenticate").prefix("api").validator('User');
 
-Route.post("post-example", () => {
-  return { greeting: "Nice post!" };
-}).prefix("api");
-
-Route.post("/register", "UserController.register").prefix("api");
-Route.post("/login", "UserController.login").prefix("api");
-Route.get("/authenticate", "UserController.authenticate").prefix("api");
-Route.get("/logout", "UserController.logout").prefix("api");
 
 // just forward to the client. This has to be the last route
 Route.any("*", ({ view }) => view.render("app"));

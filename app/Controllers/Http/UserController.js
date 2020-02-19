@@ -2,55 +2,27 @@
 
 const User = use("App/Models/User");
 
+
 class UserController {
-  async register({ request, response }) {
-    const userData = request.only(["email", "password", "username"]);
+  async authenticate({ request, response, auth }) {
+    const { username } = request.post();
+    const userData  = username.trim();
     try {
-      const user = await User.create(userData);
+      const user = await User.findOrCreate(
+        {username: userData}
+        );
+      let token = await auth.generate(user);
       return response.json({
-        status: "success",
-        data: user
-      });
+        status: 'success',
+        message: 'User log in successful',
+        data: user,
+        token
+      })
     } catch (error) {
       return response.status(400).json({
         status: "error",
-        message:
-          "There was a problem creating the user, please try again later."
-      });
-    }
-  }
-  async login({ request, auth, response }) {
-    try {
-      await auth.attempt(request.input("email"), request.input("password"));
-      return response.json({
-        status: "success",
-        data: auth.user
-      });
-    } catch (error) {
-      response.status(400).json({
-        status: "error",
-        message: error.message
-      });
-    }
-  }
-  async logout({ auth, request, response }) {
-    try {
-      await auth.logout();
-    } catch (error) {
-      return error;
-    }
-  }
-  async authenticate({ auth, response }) {
-    try {
-      const user = await auth.getUser();
-      return response.json({
-        status: "success",
-        data: user
-      });
-    } catch (error) {
-      response.status(400).json({
-        status: "error",
-        message: "Invalid processes"
+        message: error.message,
+        data: {}
       });
     }
   }

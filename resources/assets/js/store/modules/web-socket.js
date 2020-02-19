@@ -1,4 +1,4 @@
-import Auth from "../../services/Auth";
+import Auth from "../../services/web-socket-intgration";
 
 const state = {
   loggedin: false,
@@ -66,31 +66,27 @@ const actions = {
 };
 
 const mutations = {
-  setUser(state, user) {
-    state.user = user;
+  SOCKET_ONOPEN (state, event)  {
+    Vue.prototype.$socket = event.currentTarget;
+    state.socket.isConnected = true
   },
-  clearUser(state, user) {
-    state.user = false;
+  SOCKET_ONCLOSE (state, event)  {
+    state.socket.isConnected = false
   },
-  setAccessToken(state, token) {
-    localStorage.setItem("accessToken", token);
-    state.tokens.access = token;
+  SOCKET_ONERROR (state, event)  {
+    console.error(state, event)
   },
-  clearAccessToken(state) {
-    localStorage.removeItem("accessToken");
-    state.tokens.access = false;
+  // default handler called for all methods
+  SOCKET_ONMESSAGE (state, message)  {
+    state.socket.message = message
   },
-  setRefreshToken(state, token) {
-    localStorage.setItem("refreshToken", token);
-    state.tokens.refresh = token;
+  // mutations for reconnect methods
+  SOCKET_RECONNECT(state, count) {
+    console.info(state, count)
   },
-  clearRefreshToken(state) {
-    localStorage.removeItem("refreshToken");
-    state.tokens.refresh = false;
+  SOCKET_RECONNECT_ERROR(state) {
+    state.socket.reconnectError = true;
   },
-  setLoggedIn(state, status) {
-    state.loggedin = status;
-  }
 };
 
 export default {
