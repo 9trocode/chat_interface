@@ -26,6 +26,6 @@ const router = new Router({
   ]
 });
 
-// router.beforeEach(AppInit);
+router.beforeEach(AppInit);
 
 export default router;

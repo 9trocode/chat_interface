@@ -16,10 +16,10 @@ class ChannelController {
           data: {},
         })
       }
-      const new_channel = await Channel.findOrCreate({
-        channel_name,
-        topic
-      });
+      // const new_channel = await Channel.findOrCreate({
+      //   channel_name,
+      //   topic
+      // });
 
       await JoinedChannel.create({
         channel_id: new_channel.id,
