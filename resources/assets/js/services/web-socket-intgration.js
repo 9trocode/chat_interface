@@ -4,7 +4,7 @@ import { getSocketProtocol } from '../utils/data';
 
 export class SocketConnection {
   connect () {
-    this.ws = Ws(`${getSocketProtocol()}0.0.0.0:3333`)
+    this.ws = Ws(`${getSocketProtocol()}localhost:3333`)
       // .withApiToken(token)
       .connect();
 
