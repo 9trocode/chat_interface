@@ -1,13 +1,12 @@
 import store from "../store/store";
 import Ws from '@adonisjs/websocket-client';
 
-import {getSocketProtocol} from '../utils/data';
+import {getSocketProtocol, getHostname} from '../utils/data';
 
 export class SocketConnection {
   connect() {
     let token = localStorage.getItem("accessToken");
-    // console.log(token);
-    this.ws = Ws(`${getSocketProtocol()}0.0.0.0:3333`)
+    this.ws = Ws(`${getSocketProtocol()}${getHostname()}`)
       .withJwtToken(token)
       .connect();
 

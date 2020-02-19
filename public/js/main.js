@@ -57881,8 +57881,7 @@ var SocketConnection = function () {
       var _this = this;
 
       var token = localStorage.getItem("accessToken");
-      // console.log(token);
-      this.ws = __WEBPACK_IMPORTED_MODULE_1__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_2__utils_data__["a" /* getSocketProtocol */])() + '0.0.0.0:3333').withJwtToken(token).connect();
+      this.ws = __WEBPACK_IMPORTED_MODULE_1__adonisjs_websocket_client___default()('' + Object(__WEBPACK_IMPORTED_MODULE_2__utils_data__["b" /* getSocketProtocol */])() + Object(__WEBPACK_IMPORTED_MODULE_2__utils_data__["a" /* getHostname */])()).withJwtToken(token).connect();
 
       this.ws.on('open', function () {
         __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_ONOPEN", _this);
@@ -58171,10 +58170,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export getHostname */
-/* harmony export (immutable) */ __webpack_exports__["a"] = getSocketProtocol;
+/* harmony export (immutable) */ __webpack_exports__["a"] = getHostname;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getSocketProtocol;
 function getHostname() {
-  return window.location.hostname === 'localhost' ? 'http://' : 'https://';
+  return window.location.hostname === 'localhost' ? 'localhost:3333' : window.location.hostname;
 }
 
 function getSocketProtocol() {
