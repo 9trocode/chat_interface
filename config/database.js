@@ -4,7 +4,7 @@
 const Env = use('Env')
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
-const Helpers = use('Helpers')
+const Helpers = use('Helpers');
 
 module.exports = {
   /*
@@ -78,4 +78,6 @@ module.exports = {
       database: Env.get('DB_DATABASE', 'adonis')
     }
   }
+
+
 };
