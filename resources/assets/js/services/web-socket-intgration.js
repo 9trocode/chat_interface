@@ -4,12 +4,14 @@ import { getSocketProtocol } from '../utils/data';
 
 export class SocketConnection {
   connect () {
-    this.ws = Ws(`${getSocketProtocol()}0.0.0.0:38573`)
+    this.ws = Ws(`${getSocketProtocol()}staging-chatyard.herokuapp.com`)
       // .withApiToken(token)
       .connect();
 
+
     this.ws.on('open', () => {
       console.log('Connection initialized');
+      console.log('test',getSocketProtocol);
     });
 
     this.ws.on('close', () => {

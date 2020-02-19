@@ -56293,12 +56293,13 @@ var SocketConnection = function () {
   _createClass(SocketConnection, [{
     key: 'connect',
     value: function connect() {
-      this.ws = __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */])() + '0.0.0.0:3333')
+      this.ws = __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */])() + 'staging-chatyard.herokuapp.com')
       // .withApiToken(token)
       .connect();
 
       this.ws.on('open', function () {
         console.log('Connection initialized');
+        console.log('test', __WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */]);
       });
 
       this.ws.on('close', function () {
