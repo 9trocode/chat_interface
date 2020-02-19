@@ -4,7 +4,7 @@ const JoinedChannel = use('App/Models/JoinedChannel');
 const User = use('App/Models/User');
 
 class ChannelController {
-  constructor ({ socket, request }) {
+  constructor({socket, request}) {
     this.socket = socket;
     this.request = request;
 
@@ -12,7 +12,7 @@ class ChannelController {
   }
 
 
-  async onGet (data) {
+  async onGet(data) {
     let allChannels = await Channel.query().fetch();
 
     let responseData = {
@@ -25,19 +25,36 @@ class ChannelController {
   }
 
 
-  async onJoin (data) {
+  async onJoin(data) {
+    let joinedChannels = await JoinedChannel.findOrCreate({
+      channel_id: data.channel_id,
+      user_id: data.user_id,
+    });
 
+    let responseData = {
+      status: 'success',
+      message: 'Joined Channels Successfully fetched',
+      data: joinedChannels
+    };
+
+    this.socket.broadcastToAll('joinChannel', responseData)
   }
 
-  async  onClose () {
+
+
+
+
+
+
+  //Error Handlers
+  async onClose(error) {
     // same as: socket.on('close')
-    console.log('Closing subscription for room topic', this.socket.topic);
+    this.socket.broadcastToAll('error',error)
   }
 
-  async  onError (me) {
+  async onError(error) {
     // same as: socket.on('error')
-    console.log(me);
-
+    this.socket.broadcastToAll('error',error)
   }
 }
 

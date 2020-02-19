@@ -49,8 +49,25 @@ export class SocketConnection {
         return (data)
       });
 
+      result.on('joinChannel', data => {
+        store.commit("SOCKET_JOINED_CHANNEL_LIST", data.data);
+        return (data)
+      });
+
+
+
+
+
+
+
+
+      //Error Handlers
       result.on('error', (error) => {
-        return error;
+        store.commit("SOCKET_RECONNECT_ERROR", error);
+      });
+
+      result.on('close', (error) => {
+        store.commit("SOCKET_ONCLOSE", error);
       });
 
       return result

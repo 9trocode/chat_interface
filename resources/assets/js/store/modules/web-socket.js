@@ -9,7 +9,8 @@ export default {
       reconnectError: false,
     },
     channels:{
-      channel_list:false
+      channel_list:false,
+      joined_list:false
     }
   },
   mutations: {
@@ -37,16 +38,20 @@ export default {
     SOCKET_SET_CHANNEL_LIST(state, data) {
       state.channels.channel_list = data;
     },
+    SOCKET_JOINED_CHANNEL_LIST(state, data) {
+      state.channels.joined_list = data;
+    },
   },
   actions: {
     async connectWs({commit}, data) {
       await WS.connect();
      let subscribe = await WS.subscribe('channels');
-     subscribe.emit("get", { user: 'Alex', name });
+     subscribe.emit("get", data);
     },
   },
   getters: {
     getChannel: state => state.channels.channel_list,
-    isSocketOn: state => state.socket.isConnected
+    isSocketOn: state => state.socket.isConnected,
+    getJoinedChannels: state => state.channels.joined_list
   }
 };

@@ -57926,8 +57926,18 @@ var SocketConnection = function () {
           return data;
         });
 
+        result.on('joinChannel', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_JOINED_CHANNEL_LIST", data.data);
+          return data;
+        });
+
+        //Error Handlers
         result.on('error', function (error) {
-          return error;
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_RECONNECT_ERROR", error);
+        });
+
+        result.on('close', function (error) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_ONCLOSE", error);
         });
 
         return result;
@@ -58042,7 +58052,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       reconnectError: false
     },
     channels: {
-      channel_list: false
+      channel_list: false,
+      joined_list: false
     }
   },
   mutations: {
@@ -58069,6 +58080,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     // Channels Mutations
     SOCKET_SET_CHANNEL_LIST: function SOCKET_SET_CHANNEL_LIST(state, data) {
       state.channels.channel_list = data;
+    },
+    SOCKET_JOINED_CHANNEL_LIST: function SOCKET_JOINED_CHANNEL_LIST(state, data) {
+      state.channels.joined_list = data;
     }
   },
   actions: {
@@ -58090,7 +58104,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               case 4:
                 subscribe = _context.sent;
 
-                subscribe.emit("get", { user: 'Alex', name: name });
+                subscribe.emit("get", data);
 
               case 6:
               case 'end':
@@ -58113,6 +58127,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     isSocketOn: function isSocketOn(state) {
       return state.socket.isConnected;
+    },
+    getJoinedChannels: function getJoinedChannels(state) {
+      return state.channels.joined_list;
     }
   }
 });
