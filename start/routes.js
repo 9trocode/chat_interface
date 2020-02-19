@@ -17,6 +17,8 @@
 const Route = use("Route");
 
 Route.post("/authenticate", "UserController.authenticate").prefix("api").validator('User');
+Route.get('/join', 'ChannelController.joinChannel').prefix('api').validator('Channel');
+Route.get('/my_channels', 'ChannelController.getChannelUsers').prefix('api')
 
 
 // just forward to the client. This has to be the last route
