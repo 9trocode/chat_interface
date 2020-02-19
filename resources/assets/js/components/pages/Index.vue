@@ -7,9 +7,22 @@
 </template>
 
 <script>
-export default {
-  name: "Index"
-};
+  import SocketConnection from '../../services/web-socket-intgration'
+  export default {
+    name:"Index",
+    data () {
+      return {
+        loading: true
+      }
+    },
+    async created() {
+      let connect_ws = await SocketConnection.connect();
+      let subscribe_to_channel = await SocketConnection.subscribe('chat',);
+      let emit_message = subscribe_to_channel.emit("message", { user: 'Alex', name });
+      console.log(connect_ws, emit_message);
+      this.loading = false
+    }
+  }
 </script>
 
 <style lang="sass">

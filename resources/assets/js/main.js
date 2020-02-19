@@ -4,6 +4,9 @@ import store from "./store/store";
 import Vuelidate from "vuelidate";
 import App from "@/components/layout/App";
 import cookies from "browser-cookies";
+import WsPlugin from 'adonis-vue-websocket'
+Vue.use(WsPlugin, { adonisWS: window.adonis.Ws });
+
 import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 

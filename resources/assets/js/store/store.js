@@ -6,7 +6,7 @@ import feedback from "./modules/feedback";
 import loading from "./modules/loading";
 // import posts from "./modules/posts";
 // import users from "./modules/users";
-import auth from "./modules/auth";
+import auth from "./modules/web-socket";
 
 Vue.use(Vuex);
 
