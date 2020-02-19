@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
 const Channel = use('App/Models/Channel');
 const JoinedChannel = use('App/Models/JoinedChannel');
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class ChannelController {
- async joinChannel({ request, auth, response}) { 
+ async joinChannel({ request, auth, response}) {
     try{
       const { channel_name, topic } = request.all();
       let loggedin_user = await auth.getUser();
@@ -37,7 +37,7 @@ class ChannelController {
         message: error.message,
         data: {}
       });
-    }    
+    }
   }
   static async getUserJoinedChannel({ auth, response }){
     try {
@@ -99,4 +99,4 @@ class ChannelController {
   }
 }
 
-module.exports = ChannelController
+module.exports = ChannelController;
