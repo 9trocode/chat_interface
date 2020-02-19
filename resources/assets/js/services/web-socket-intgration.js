@@ -44,7 +44,7 @@ export class SocketConnection {
         return (message)
       });
 
-      result.on('channelsFn', data => {
+      result.on('getChannels', data => {
         store.commit("SOCKET_SET_CHANNEL_LIST", data.data);
         return (data)
       });

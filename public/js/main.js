@@ -57921,7 +57921,7 @@ var SocketConnection = function () {
           return message;
         });
 
-        result.on('channelsFn', function (data) {
+        result.on('getChannels', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
           return data;
         });
@@ -58107,7 +58107,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return connectWs;
     }()
   },
-  getters: {}
+  getters: {
+    getChannel: function getChannel(state) {
+      return state.channels.channel_list;
+    },
+    isSocketOn: function isSocketOn(state) {
+      return state.socket.isConnected;
+    }
+  }
 });
 
 /***/ }),

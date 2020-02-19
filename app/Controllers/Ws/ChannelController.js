@@ -21,7 +21,7 @@ class ChannelController {
       data: allChannels
     };
 
-    this.socket.broadcastToAll('channelsFn', responseData)
+    this.socket.broadcastToAll('getChannels', responseData)
   }
 
 

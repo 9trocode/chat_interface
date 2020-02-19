@@ -45,5 +45,8 @@ export default {
      subscribe.emit("get", { user: 'Alex', name });
     },
   },
-  getters: {}
+  getters: {
+    getChannel: state => state.channels.channel_list,
+    isSocketOn: state => state.socket.isConnected
+  }
 };
