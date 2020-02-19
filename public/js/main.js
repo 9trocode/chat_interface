@@ -65,1526 +65,2647 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/axios/index.js":
+/***/ "./node_modules/@adonisjs/websocket-client/dist/Ws.browser.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/axios/lib/axios.js");
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, factory) {
+	 true ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.adonis = global.adonis || {}, global.adonis.Ws = factory());
+}(this, (function () { 'use strict';
 
-/***/ }),
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
-/***/ "./node_modules/axios/lib/adapters/xhr.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var settle = __webpack_require__("./node_modules/axios/lib/core/settle.js");
-var buildURL = __webpack_require__("./node_modules/axios/lib/helpers/buildURL.js");
-var parseHeaders = __webpack_require__("./node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __webpack_require__("./node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    // Listen for ready state
-    request.onreadystatechange = function handleLoad() {
-      if (!request || request.readyState !== 4) {
-        return;
-      }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-      var response = {
-        data: responseData,
-        status: request.status,
-        statusText: request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
-        request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__("./node_modules/axios/lib/helpers/cookies.js");
-
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
-    }
-
-    // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
-          throw e;
-        }
-      }
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
+var asyncToGenerator = function (fn) {
+  return function () {
+    var gen = fn.apply(this, arguments);
+    return new Promise(function (resolve, reject) {
+      function step(key, arg) {
+        try {
+          var info = gen[key](arg);
+          var value = info.value;
+        } catch (error) {
+          reject(error);
           return;
         }
 
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (requestData === undefined) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/axios.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
-var Axios = __webpack_require__("./node_modules/axios/lib/core/Axios.js");
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
-
-/**
- * Create an instance of Axios
- *
- * @param {Object} defaultConfig The default config for the instance
- * @return {Axios} A new instance of Axios
- */
-function createInstance(defaultConfig) {
-  var context = new Axios(defaultConfig);
-  var instance = bind(Axios.prototype.request, context);
-
-  // Copy axios.prototype to instance
-  utils.extend(instance, Axios.prototype, context);
-
-  // Copy context to instance
-  utils.extend(instance, context);
-
-  return instance;
-}
-
-// Create the default instance to be exported
-var axios = createInstance(defaults);
-
-// Expose Axios class to allow class inheritance
-axios.Axios = Axios;
-
-// Factory for creating new instances
-axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults, instanceConfig));
-};
-
-// Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __webpack_require__("./node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
-
-// Expose all/spread
-axios.all = function all(promises) {
-  return Promise.all(promises);
-};
-axios.spread = __webpack_require__("./node_modules/axios/lib/helpers/spread.js");
-
-module.exports = axios;
-
-// Allow use of default import syntax in TypeScript
-module.exports.default = axios;
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/cancel/Cancel.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-module.exports = Cancel;
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/cancel/CancelToken.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Cancel = __webpack_require__("./node_modules/axios/lib/cancel/Cancel.js");
-
-/**
- * A `CancelToken` is an object that can be used to request cancellation of an operation.
- *
- * @class
- * @param {Function} executor The executor function.
- */
-function CancelToken(executor) {
-  if (typeof executor !== 'function') {
-    throw new TypeError('executor must be a function.');
-  }
-
-  var resolvePromise;
-  this.promise = new Promise(function promiseExecutor(resolve) {
-    resolvePromise = resolve;
-  });
-
-  var token = this;
-  executor(function cancel(message) {
-    if (token.reason) {
-      // Cancellation has already been requested
-      return;
-    }
-
-    token.reason = new Cancel(message);
-    resolvePromise(token.reason);
-  });
-}
-
-/**
- * Throws a `Cancel` if cancellation has been requested.
- */
-CancelToken.prototype.throwIfRequested = function throwIfRequested() {
-  if (this.reason) {
-    throw this.reason;
-  }
-};
-
-/**
- * Returns an object that contains a new `CancelToken` and a function that, when called,
- * cancels the `CancelToken`.
- */
-CancelToken.source = function source() {
-  var cancel;
-  var token = new CancelToken(function executor(c) {
-    cancel = c;
-  });
-  return {
-    token: token,
-    cancel: cancel
-  };
-};
-
-module.exports = CancelToken;
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/cancel/isCancel.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/Axios.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var InterceptorManager = __webpack_require__("./node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __webpack_require__("./node_modules/axios/lib/core/dispatchRequest.js");
-
-/**
- * Create a new instance of Axios
- *
- * @param {Object} instanceConfig The default config for the instance
- */
-function Axios(instanceConfig) {
-  this.defaults = instanceConfig;
-  this.interceptors = {
-    request: new InterceptorManager(),
-    response: new InterceptorManager()
-  };
-}
-
-/**
- * Dispatch a request
- *
- * @param {Object} config The config specific for this request (merged with this.defaults)
- */
-Axios.prototype.request = function request(config) {
-  /*eslint no-param-reassign:0*/
-  // Allow for axios('example/url'[, config]) a la fetch API
-  if (typeof config === 'string') {
-    config = utils.merge({
-      url: arguments[0]
-    }, arguments[1]);
-  }
-
-  config = utils.merge(defaults, {method: 'get'}, this.defaults, config);
-  config.method = config.method.toLowerCase();
-
-  // Hook up interceptors middleware
-  var chain = [dispatchRequest, undefined];
-  var promise = Promise.resolve(config);
-
-  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    chain.unshift(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    chain.push(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  while (chain.length) {
-    promise = promise.then(chain.shift(), chain.shift());
-  }
-
-  return promise;
-};
-
-// Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url
-    }));
-  };
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
-});
-
-module.exports = Axios;
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/InterceptorManager.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
- * Add a new interceptor to the stack
- *
- * @param {Function} fulfilled The function to handle `then` for a `Promise`
- * @param {Function} rejected The function to handle `reject` for a `Promise`
- *
- * @return {Number} An ID used to remove interceptor later
- */
-InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected
-  });
-  return this.handlers.length - 1;
-};
-
-/**
- * Remove an interceptor from the stack
- *
- * @param {Number} id The ID that was returned by `use`
- */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
- * Iterate over all the registered interceptors
- *
- * This method is particularly useful for skipping over any
- * interceptors that may have become `null` calling `eject`.
- *
- * @param {Function} fn The function to call for each interceptor
- */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-
-module.exports = InterceptorManager;
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/createError.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__("./node_modules/axios/lib/core/enhanceError.js");
-
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/dispatchRequest.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var transformData = __webpack_require__("./node_modules/axios/lib/core/transformData.js");
-var isCancel = __webpack_require__("./node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __webpack_require__("./node_modules/axios/lib/defaults.js");
-var isAbsoluteURL = __webpack_require__("./node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __webpack_require__("./node_modules/axios/lib/helpers/combineURLs.js");
-
-/**
- * Throws a `Cancel` if cancellation has been requested.
- */
-function throwIfCancellationRequested(config) {
-  if (config.cancelToken) {
-    config.cancelToken.throwIfRequested();
-  }
-}
-
-/**
- * Dispatch a request to the server using the configured adapter.
- *
- * @param {object} config The config that is to be used for the request
- * @returns {Promise} The Promise to be fulfilled
- */
-module.exports = function dispatchRequest(config) {
-  throwIfCancellationRequested(config);
-
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
-
-  // Ensure headers exist
-  config.headers = config.headers || {};
-
-  // Transform request data
-  config.data = transformData(
-    config.data,
-    config.headers,
-    config.transformRequest
-  );
-
-  // Flatten headers
-  config.headers = utils.merge(
-    config.headers.common || {},
-    config.headers[config.method] || {},
-    config.headers || {}
-  );
-
-  utils.forEach(
-    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-    function cleanHeaderConfig(method) {
-      delete config.headers[method];
-    }
-  );
-
-  var adapter = config.adapter || defaults.adapter;
-
-  return adapter(config).then(function onAdapterResolution(response) {
-    throwIfCancellationRequested(config);
-
-    // Transform response data
-    response.data = transformData(
-      response.data,
-      response.headers,
-      config.transformResponse
-    );
-
-    return response;
-  }, function onAdapterRejection(reason) {
-    if (!isCancel(reason)) {
-      throwIfCancellationRequested(config);
-
-      // Transform response data
-      if (reason && reason.response) {
-        reason.response.data = transformData(
-          reason.response.data,
-          reason.response.headers,
-          config.transformResponse
-        );
-      }
-    }
-
-    return Promise.reject(reason);
-  });
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/enhanceError.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Update an Error with the specified config, error code, and response.
- *
- * @param {Error} error The error to update.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The error.
- */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-  error.request = request;
-  error.response = response;
-  return error;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/settle.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var createError = __webpack_require__("./node_modules/axios/lib/core/createError.js");
-
-/**
- * Resolve or reject a Promise based on response status.
- *
- * @param {Function} resolve A function that resolves the promise.
- * @param {Function} reject A function that rejects the promise.
- * @param {object} response The response.
- */
-module.exports = function settle(resolve, reject, response) {
-  var validateStatus = response.config.validateStatus;
-  // Note: status is not exposed by XDomainRequest
-  if (!response.status || !validateStatus || validateStatus(response.status)) {
-    resolve(response);
-  } else {
-    reject(createError(
-      'Request failed with status code ' + response.status,
-      response.config,
-      null,
-      response.request,
-      response
-    ));
-  }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/core/transformData.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-/**
- * Transform the data for a request or a response
- *
- * @param {Object|String} data The data to be transformed
- * @param {Array} headers The headers for the request or response
- * @param {Array|Function} fns A single function or Array of functions
- * @returns {*} The resulting transformed data
- */
-module.exports = function transformData(data, headers, fns) {
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
-  });
-
-  return data;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/defaults.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __webpack_require__("./node_modules/axios/lib/helpers/normalizeHeaderName.js");
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__("./node_modules/axios/lib/adapters/xhr.js");
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/bind.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/buildURL.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-function encode(val) {
-  return encodeURIComponent(val).
-    replace(/%40/gi, '@').
-    replace(/%3A/gi, ':').
-    replace(/%24/g, '$').
-    replace(/%2C/gi, ',').
-    replace(/%20/g, '+').
-    replace(/%5B/gi, '[').
-    replace(/%5D/gi, ']');
-}
-
-/**
- * Build a URL by appending params to the end
- *
- * @param {string} url The base of the url (e.g., http://www.google.com)
- * @param {object} [params] The params to be appended
- * @returns {string} The formatted url
- */
-module.exports = function buildURL(url, params, paramsSerializer) {
-  /*eslint no-param-reassign:0*/
-  if (!params) {
-    return url;
-  }
-
-  var serializedParams;
-  if (paramsSerializer) {
-    serializedParams = paramsSerializer(params);
-  } else if (utils.isURLSearchParams(params)) {
-    serializedParams = params.toString();
-  } else {
-    var parts = [];
-
-    utils.forEach(params, function serialize(val, key) {
-      if (val === null || typeof val === 'undefined') {
-        return;
-      }
-
-      if (utils.isArray(val)) {
-        key = key + '[]';
-      } else {
-        val = [val];
-      }
-
-      utils.forEach(val, function parseValue(v) {
-        if (utils.isDate(v)) {
-          v = v.toISOString();
-        } else if (utils.isObject(v)) {
-          v = JSON.stringify(v);
+        if (info.done) {
+          resolve(value);
+        } else {
+          return Promise.resolve(value).then(function (value) {
+            step("next", value);
+          }, function (err) {
+            step("throw", err);
+          });
         }
-        parts.push(encode(key) + '=' + encode(v));
-      });
+      }
+
+      return step("next");
     });
-
-    serializedParams = parts.join('&');
-  }
-
-  if (serializedParams) {
-    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
-  }
-
-  return url;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/combineURLs.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Creates a new URL by combining the specified URLs
- *
- * @param {string} baseURL The base URL
- * @param {string} relativeURL The relative URL
- * @returns {string} The combined URL
- */
-module.exports = function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/cookies.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-module.exports = (
-  utils.isStandardBrowserEnv() ?
-
-  // Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        var cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
-
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
-
-        if (utils.isString(path)) {
-          cookie.push('path=' + path);
-        }
-
-        if (utils.isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
-
-        if (secure === true) {
-          cookie.push('secure');
-        }
-
-        document.cookie = cookie.join('; ');
-      },
-
-      read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
-
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
-
-  // Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })()
-);
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Determines whether the specified URL is absolute
- *
- * @param {string} url The URL to test
- * @returns {boolean} True if the specified URL is absolute, otherwise false
- */
-module.exports = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-module.exports = (
-  utils.isStandardBrowserEnv() ?
-
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
-
-    /**
-    * Parse a URL to discover it's components
-    *
-    * @param {String} url The URL to be parsed
-    * @returns {Object}
-    */
-    function resolveURL(url) {
-      var href = url;
-
-      if (msie) {
-        // IE needs attribute set twice to normalize properties
-        urlParsingNode.setAttribute('href', href);
-        href = urlParsingNode.href;
-      }
-
-      urlParsingNode.setAttribute('href', href);
-
-      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-      return {
-        href: urlParsingNode.href,
-        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-        host: urlParsingNode.host,
-        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-        hostname: urlParsingNode.hostname,
-        port: urlParsingNode.port,
-        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-                  urlParsingNode.pathname :
-                  '/' + urlParsingNode.pathname
-      };
-    }
-
-    originURL = resolveURL(window.location.href);
-
-    /**
-    * Determine if a URL shares the same origin as the current location
-    *
-    * @param {String} requestURL The URL to test
-    * @returns {boolean} True if URL shares the same origin, otherwise false
-    */
-    return function isURLSameOrigin(requestURL) {
-      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-      return (parsed.protocol === originURL.protocol &&
-            parsed.host === originURL.host);
-    };
-  })() :
-
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return function isURLSameOrigin() {
-      return true;
-    };
-  })()
-);
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-module.exports = function normalizeHeaderName(headers, normalizedName) {
-  utils.forEach(headers, function processHeader(value, name) {
-    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-      headers[normalizedName] = value;
-      delete headers[name];
-    }
-  });
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/parseHeaders.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__("./node_modules/axios/lib/utils.js");
-
-// Headers whose duplicates are ignored by node
-// c.f. https://nodejs.org/api/http.html#http_message_headers
-var ignoreDuplicateOf = [
-  'age', 'authorization', 'content-length', 'content-type', 'etag',
-  'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since',
-  'last-modified', 'location', 'max-forwards', 'proxy-authorization',
-  'referer', 'retry-after', 'user-agent'
-];
-
-/**
- * Parse headers into an object
- *
- * ```
- * Date: Wed, 27 Aug 2014 08:58:49 GMT
- * Content-Type: application/json
- * Connection: keep-alive
- * Transfer-Encoding: chunked
- * ```
- *
- * @param {String} headers Headers needing to be parsed
- * @returns {Object} Headers parsed into an object
- */
-module.exports = function parseHeaders(headers) {
-  var parsed = {};
-  var key;
-  var val;
-  var i;
-
-  if (!headers) { return parsed; }
-
-  utils.forEach(headers.split('\n'), function parser(line) {
-    i = line.indexOf(':');
-    key = utils.trim(line.substr(0, i)).toLowerCase();
-    val = utils.trim(line.substr(i + 1));
-
-    if (key) {
-      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
-        return;
-      }
-      if (key === 'set-cookie') {
-        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
-      } else {
-        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-      }
-    }
-  });
-
-  return parsed;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/spread.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Syntactic sugar for invoking a function and expanding an array for arguments.
- *
- * Common use case would be to use `Function.prototype.apply`.
- *
- *  ```js
- *  function f(x, y, z) {}
- *  var args = [1, 2, 3];
- *  f.apply(null, args);
- *  ```
- *
- * With `spread` this example can be re-written.
- *
- *  ```js
- *  spread(function(x, y, z) {})([1, 2, 3]);
- *  ```
- *
- * @param {Function} callback
- * @returns {Function}
- */
-module.exports = function spread(callback) {
-  return function wrap(arr) {
-    return callback.apply(null, arr);
   };
 };
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
 
-/***/ }),
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
 
-/***/ "./node_modules/axios/lib/utils.js":
-/***/ (function(module, exports, __webpack_require__) {
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
 
-"use strict";
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
 
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
 
-var bind = __webpack_require__("./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__("./node_modules/axios/node_modules/is-buffer/index.js");
+  return target;
+};
 
-/*global toString:true*/
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
 
-// utils is a library of generic helper functions non-specific to axios
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
 
-var toString = Object.prototype.toString;
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
 
-/**
- * Determine if a value is an Array
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Array, otherwise false
- */
-function isArray(val) {
-  return toString.call(val) === '[object Array]';
-}
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
 
-/**
- * Determine if a value is an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an ArrayBuffer, otherwise false
- */
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
 
-/**
- * Determine if a value is a FormData
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an FormData, otherwise false
- */
-function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
-}
-
-/**
- * Determine if a value is a view on an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
- */
-function isArrayBufferView(val) {
-  var result;
-  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
-    result = ArrayBuffer.isView(val);
+    return arr2;
   } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+    return Array.from(arr);
   }
-  return result;
+};
+
+var anyMap = new WeakMap();
+var eventsMap = new WeakMap();
+var resolvedPromise = Promise.resolve();
+
+function assertEventName(eventName) {
+	if (typeof eventName !== 'string') {
+		throw new TypeError('eventName must be a string');
+	}
 }
 
-/**
- * Determine if a value is a String
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a String, otherwise false
- */
-function isString(val) {
-  return typeof val === 'string';
+function assertListener(listener) {
+	if (typeof listener !== 'function') {
+		throw new TypeError('listener must be a function');
+	}
 }
 
-/**
- * Determine if a value is a Number
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Number, otherwise false
- */
-function isNumber(val) {
-  return typeof val === 'number';
+function getListeners(instance, eventName) {
+	var events = eventsMap.get(instance);
+	if (!events.has(eventName)) {
+		events.set(eventName, new Set());
+	}
+
+	return events.get(eventName);
 }
 
-/**
- * Determine if a value is undefined
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if the value is undefined, otherwise false
- */
-function isUndefined(val) {
-  return typeof val === 'undefined';
+var Emittery = function () {
+	function Emittery() {
+		classCallCheck(this, Emittery);
+
+		anyMap.set(this, new Set());
+		eventsMap.set(this, new Map());
+	}
+
+	createClass(Emittery, [{
+		key: 'on',
+		value: function on(eventName, listener) {
+			assertEventName(eventName);
+			assertListener(listener);
+			getListeners(this, eventName).add(listener);
+			return this.off.bind(this, eventName, listener);
+		}
+	}, {
+		key: 'off',
+		value: function off(eventName, listener) {
+			assertEventName(eventName);
+			assertListener(listener);
+			getListeners(this, eventName).delete(listener);
+		}
+	}, {
+		key: 'once',
+		value: function once(eventName) {
+			var _this = this;
+
+			return new Promise(function (resolve) {
+				assertEventName(eventName);
+				var off = _this.on(eventName, function (data) {
+					off();
+					resolve(data);
+				});
+			});
+		}
+	}, {
+		key: 'emit',
+		value: function () {
+			var _ref = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(eventName, eventData) {
+				var _this2 = this;
+
+				var listeners, anyListeners, staticListeners, staticAnyListeners;
+				return regeneratorRuntime.wrap(function _callee3$(_context3) {
+					while (1) {
+						switch (_context3.prev = _context3.next) {
+							case 0:
+								assertEventName(eventName);
+
+								listeners = getListeners(this, eventName);
+								anyListeners = anyMap.get(this);
+								staticListeners = [].concat(toConsumableArray(listeners));
+								staticAnyListeners = [].concat(toConsumableArray(anyListeners));
+								_context3.next = 7;
+								return resolvedPromise;
+
+							case 7:
+								return _context3.abrupt('return', Promise.all([].concat(toConsumableArray(staticListeners.map(function () {
+									var _ref2 = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(listener) {
+										return regeneratorRuntime.wrap(function _callee$(_context) {
+											while (1) {
+												switch (_context.prev = _context.next) {
+													case 0:
+														if (!listeners.has(listener)) {
+															_context.next = 2;
+															break;
+														}
+
+														return _context.abrupt('return', listener(eventData));
+
+													case 2:
+													case 'end':
+														return _context.stop();
+												}
+											}
+										}, _callee, _this2);
+									}));
+
+									return function (_x3) {
+										return _ref2.apply(this, arguments);
+									};
+								}())), toConsumableArray(staticAnyListeners.map(function () {
+									var _ref3 = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(listener) {
+										return regeneratorRuntime.wrap(function _callee2$(_context2) {
+											while (1) {
+												switch (_context2.prev = _context2.next) {
+													case 0:
+														if (!anyListeners.has(listener)) {
+															_context2.next = 2;
+															break;
+														}
+
+														return _context2.abrupt('return', listener(eventName, eventData));
+
+													case 2:
+													case 'end':
+														return _context2.stop();
+												}
+											}
+										}, _callee2, _this2);
+									}));
+
+									return function (_x4) {
+										return _ref3.apply(this, arguments);
+									};
+								}())))));
+
+							case 8:
+							case 'end':
+								return _context3.stop();
+						}
+					}
+				}, _callee3, this);
+			}));
+
+			function emit(_x, _x2) {
+				return _ref.apply(this, arguments);
+			}
+
+			return emit;
+		}()
+	}, {
+		key: 'emitSerial',
+		value: function () {
+			var _ref4 = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(eventName, eventData) {
+				var listeners, anyListeners, staticListeners, staticAnyListeners, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, listener, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, _listener;
+
+				return regeneratorRuntime.wrap(function _callee4$(_context4) {
+					while (1) {
+						switch (_context4.prev = _context4.next) {
+							case 0:
+								assertEventName(eventName);
+
+								listeners = getListeners(this, eventName);
+								anyListeners = anyMap.get(this);
+								staticListeners = [].concat(toConsumableArray(listeners));
+								staticAnyListeners = [].concat(toConsumableArray(anyListeners));
+								_context4.next = 7;
+								return resolvedPromise;
+
+							case 7:
+								/* eslint-disable no-await-in-loop */
+								_iteratorNormalCompletion = true;
+								_didIteratorError = false;
+								_iteratorError = undefined;
+								_context4.prev = 10;
+								_iterator = staticListeners[Symbol.iterator]();
+
+							case 12:
+								if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+									_context4.next = 20;
+									break;
+								}
+
+								listener = _step.value;
+
+								if (!listeners.has(listener)) {
+									_context4.next = 17;
+									break;
+								}
+
+								_context4.next = 17;
+								return listener(eventData);
+
+							case 17:
+								_iteratorNormalCompletion = true;
+								_context4.next = 12;
+								break;
+
+							case 20:
+								_context4.next = 26;
+								break;
+
+							case 22:
+								_context4.prev = 22;
+								_context4.t0 = _context4['catch'](10);
+								_didIteratorError = true;
+								_iteratorError = _context4.t0;
+
+							case 26:
+								_context4.prev = 26;
+								_context4.prev = 27;
+
+								if (!_iteratorNormalCompletion && _iterator.return) {
+									_iterator.return();
+								}
+
+							case 29:
+								_context4.prev = 29;
+
+								if (!_didIteratorError) {
+									_context4.next = 32;
+									break;
+								}
+
+								throw _iteratorError;
+
+							case 32:
+								return _context4.finish(29);
+
+							case 33:
+								return _context4.finish(26);
+
+							case 34:
+								_iteratorNormalCompletion2 = true;
+								_didIteratorError2 = false;
+								_iteratorError2 = undefined;
+								_context4.prev = 37;
+								_iterator2 = staticAnyListeners[Symbol.iterator]();
+
+							case 39:
+								if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
+									_context4.next = 47;
+									break;
+								}
+
+								_listener = _step2.value;
+
+								if (!anyListeners.has(_listener)) {
+									_context4.next = 44;
+									break;
+								}
+
+								_context4.next = 44;
+								return _listener(eventName, eventData);
+
+							case 44:
+								_iteratorNormalCompletion2 = true;
+								_context4.next = 39;
+								break;
+
+							case 47:
+								_context4.next = 53;
+								break;
+
+							case 49:
+								_context4.prev = 49;
+								_context4.t1 = _context4['catch'](37);
+								_didIteratorError2 = true;
+								_iteratorError2 = _context4.t1;
+
+							case 53:
+								_context4.prev = 53;
+								_context4.prev = 54;
+
+								if (!_iteratorNormalCompletion2 && _iterator2.return) {
+									_iterator2.return();
+								}
+
+							case 56:
+								_context4.prev = 56;
+
+								if (!_didIteratorError2) {
+									_context4.next = 59;
+									break;
+								}
+
+								throw _iteratorError2;
+
+							case 59:
+								return _context4.finish(56);
+
+							case 60:
+								return _context4.finish(53);
+
+							case 61:
+							case 'end':
+								return _context4.stop();
+						}
+					}
+				}, _callee4, this, [[10, 22, 26, 34], [27,, 29, 33], [37, 49, 53, 61], [54,, 56, 60]]);
+			}));
+
+			function emitSerial(_x5, _x6) {
+				return _ref4.apply(this, arguments);
+			}
+
+			return emitSerial;
+		}()
+	}, {
+		key: 'onAny',
+		value: function onAny(listener) {
+			assertListener(listener);
+			anyMap.get(this).add(listener);
+			return this.offAny.bind(this, listener);
+		}
+	}, {
+		key: 'offAny',
+		value: function offAny(listener) {
+			assertListener(listener);
+			anyMap.get(this).delete(listener);
+		}
+	}, {
+		key: 'clearListeners',
+		value: function clearListeners(eventName) {
+			if (typeof eventName === 'string') {
+				getListeners(this, eventName).clear();
+			} else {
+				anyMap.get(this).clear();
+				var _iteratorNormalCompletion3 = true;
+				var _didIteratorError3 = false;
+				var _iteratorError3 = undefined;
+
+				try {
+					for (var _iterator3 = eventsMap.get(this).values()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+						var listeners = _step3.value;
+
+						listeners.clear();
+					}
+				} catch (err) {
+					_didIteratorError3 = true;
+					_iteratorError3 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion3 && _iterator3.return) {
+							_iterator3.return();
+						}
+					} finally {
+						if (_didIteratorError3) {
+							throw _iteratorError3;
+						}
+					}
+				}
+			}
+		}
+	}, {
+		key: 'listenerCount',
+		value: function listenerCount(eventName) {
+			if (typeof eventName === 'string') {
+				return anyMap.get(this).size + getListeners(this, eventName).size;
+			}
+
+			if (typeof eventName !== 'undefined') {
+				assertEventName(eventName);
+			}
+
+			var count = anyMap.get(this).size;
+
+			var _iteratorNormalCompletion4 = true;
+			var _didIteratorError4 = false;
+			var _iteratorError4 = undefined;
+
+			try {
+				for (var _iterator4 = eventsMap.get(this).values()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+					var value = _step4.value;
+
+					count += value.size;
+				}
+			} catch (err) {
+				_didIteratorError4 = true;
+				_iteratorError4 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion4 && _iterator4.return) {
+						_iterator4.return();
+					}
+				} finally {
+					if (_didIteratorError4) {
+						throw _iteratorError4;
+					}
+				}
+			}
+
+			return count;
+		}
+	}]);
+	return Emittery;
+}();
+
+// Subclass used to encourage TS users to type their events.
+
+
+Emittery.Typed = function (_Emittery) {
+	inherits(_class, _Emittery);
+
+	function _class() {
+		classCallCheck(this, _class);
+		return possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	}
+
+	return _class;
+}(Emittery);
+Object.defineProperty(Emittery.Typed, 'Typed', {
+	enumerable: false,
+	value: undefined
+});
+
+var emittery = Emittery;
+
+var strictUriEncode = function strictUriEncode(str) {
+  return encodeURIComponent(str).replace(/[!'()*]/g, function (x) {
+    return '%' + x.charCodeAt(0).toString(16).toUpperCase();
+  });
+};
+
+function encoderForArrayFormat(options) {
+	switch (options.arrayFormat) {
+		case 'index':
+			return function (key, value, index) {
+				return value === null ? [encode(key, options), '[', index, ']'].join('') : [encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('');
+			};
+		case 'bracket':
+			return function (key, value) {
+				return value === null ? encode(key, options) : [encode(key, options), '[]=', encode(value, options)].join('');
+			};
+		default:
+			return function (key, value) {
+				return value === null ? encode(key, options) : [encode(key, options), '=', encode(value, options)].join('');
+			};
+	}
 }
 
-/**
- * Determine if a value is an Object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Object, otherwise false
- */
-function isObject(val) {
-  return val !== null && typeof val === 'object';
+function encode(value, options) {
+	if (options.encode) {
+		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
 }
 
-/**
- * Determine if a value is a Date
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Date, otherwise false
- */
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
+var stringify = function stringify(obj, options) {
+	var defaults$$1 = {
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	};
+
+	options = _extends(defaults$$1, options);
+
+	if (options.sort === false) {
+		options.sort = function () {};
+	}
+
+	var formatter = encoderForArrayFormat(options);
+
+	return obj ? Object.keys(obj).sort(options.sort).map(function (key) {
+		var value = obj[key];
+
+		if (value === undefined) {
+			return '';
+		}
+
+		if (value === null) {
+			return encode(key, options);
+		}
+
+		if (Array.isArray(value)) {
+			var result = [];
+
+			var _iteratorNormalCompletion2 = true;
+			var _didIteratorError2 = false;
+			var _iteratorError2 = undefined;
+
+			try {
+				for (var _iterator2 = value.slice()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+					var value2 = _step2.value;
+
+					if (value2 === undefined) {
+						continue;
+					}
+
+					result.push(formatter(key, value2, result.length));
+				}
+			} catch (err) {
+				_didIteratorError2 = true;
+				_iteratorError2 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion2 && _iterator2.return) {
+						_iterator2.return();
+					}
+				} finally {
+					if (_didIteratorError2) {
+						throw _iteratorError2;
+					}
+				}
+			}
+
+			return result.join('&');
+		}
+
+		return encode(key, options) + '=' + encode(value, options);
+	}).filter(function (x) {
+		return x.length > 0;
+	}).join('&') : '';
+};
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/**
- * Determine if a value is a File
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a File, otherwise false
- */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
+var wsp_browser = createCommonjsModule(function (module, exports) {
+  !function (t, e) {
+    module.exports = e();
+  }(commonjsGlobal, function () {
+    var t = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (t) {
+      return typeof t === 'undefined' ? 'undefined' : _typeof(t);
+    } : function (t) {
+      return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === 'undefined' ? 'undefined' : _typeof(t);
+    },
+        e = { OPEN: 0, JOIN: 1, LEAVE: 2, JOIN_ACK: 3, JOIN_ERROR: 4, LEAVE_ACK: 5, LEAVE_ERROR: 6, EVENT: 7, PING: 8, PONG: 9 };function o(t, e, o) {
+      return o.forEach(function (t) {
+        !function (t, e) {
+          if (!t || "string" != typeof t) throw new Error(e);
+        }(e[t], "expected " + t + " to be a valid string");
+      }), { t: t, d: e };
+    }var n = {};return Object.keys(e).forEach(function (o) {
+      var i = o.toLowerCase().replace(/^\w|_(\w)/g, function (t, e) {
+        return e ? e.toUpperCase() : t.toUpperCase();
+      });n["is" + i + "Packet"] = function (n) {
+        return !(!n || "object" !== (void 0 === n ? "undefined" : t(n)) || n.t !== e[o]);
+      };
+    }), n.hasTopic = function (t) {
+      return !!(t && t.d && t.d.topic);
+    }, n.isValidJoinPacket = n.hasTopic, n.isValidLeavePacket = n.hasTopic, n.isValidEventPacket = n.hasTopic, n.joinPacket = function (t) {
+      return o(e.JOIN, { topic: t }, ["topic"]);
+    }, n.leavePacket = function (t) {
+      return o(e.LEAVE, { topic: t }, ["topic"]);
+    }, n.joinAckPacket = function (t) {
+      return o(e.JOIN_ACK, { topic: t }, ["topic"]);
+    }, n.joinErrorPacket = function (t, n) {
+      return o(e.JOIN_ERROR, { topic: t, message: n }, ["topic", "message"]);
+    }, n.leaveAckPacket = function (t) {
+      return o(e.LEAVE_ACK, { topic: t }, ["topic"]);
+    }, n.leaveErrorPacket = function (t, n) {
+      return o(e.LEAVE_ERROR, { topic: t, message: n }, ["topic", "message"]);
+    }, n.eventPacket = function (t, n, i) {
+      return o(e.EVENT, { topic: t, event: n, data: i = i || "" }, ["topic", "event"]);
+    }, n.pingPacket = function () {
+      return { t: e.PING };
+    }, n.pongPacket = function () {
+      return { t: e.PONG };
+    }, _extends({ codes: e }, n);
+  });
+});
 
 /**
- * Determine if a value is a Blob
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Blob, otherwise false
+ * Helpers.
  */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
 
 /**
- * Determine if a value is a Function
+ * Parse or format the given `val`.
  *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Function, otherwise false
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
  */
-function isFunction(val) {
-  return toString.call(val) === '[object Function]';
-}
 
-/**
- * Determine if a value is a Stream
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Stream, otherwise false
- */
-function isStream(val) {
-  return isObject(val) && isFunction(val.pipe);
-}
-
-/**
- * Determine if a value is a URLSearchParams object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a URLSearchParams object, otherwise false
- */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-}
-
-/**
- * Trim excess whitespace off the beginning and end of a string
- *
- * @param {String} str The String to trim
- * @returns {String} The String freed of excess whitespace
- */
-function trim(str) {
-  return str.replace(/^\s*/, '').replace(/\s*$/, '');
-}
-
-/**
- * Determine if we're running in a standard browser environment
- *
- * This allows axios to run in a web worker, and react-native.
- * Both environments support XMLHttpRequest, but not fully standard globals.
- *
- * web workers:
- *  typeof window -> undefined
- *  typeof document -> undefined
- *
- * react-native:
- *  navigator.product -> 'ReactNative'
- */
-function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
-    return false;
+var ms = function ms(val, options) {
+  options = options || {};
+  var type = typeof val === 'undefined' ? 'undefined' : _typeof(val);
+  if (type === 'string' && val.length > 0) {
+    return parse$1(val);
+  } else if (type === 'number' && isNaN(val) === false) {
+    return options.long ? fmtLong(val) : fmtShort(val);
   }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined'
-  );
-}
+  throw new Error('val is not a non-empty string or a valid number. val=' + JSON.stringify(val));
+};
 
 /**
- * Iterate over an Array or an Object invoking a function for each item.
+ * Parse the given `str` and return milliseconds.
  *
- * If `obj` is an Array callback will be called passing
- * the value, index, and complete array for each item.
- *
- * If 'obj' is an Object callback will be called passing
- * the value, key, and complete object for each property.
- *
- * @param {Object|Array} obj The object to iterate
- * @param {Function} fn The callback to invoke for each item
+ * @param {String} str
+ * @return {Number}
+ * @api private
  */
-function forEach(obj, fn) {
-  // Don't bother if no value provided
-  if (obj === null || typeof obj === 'undefined') {
+
+function parse$1(str) {
+  str = String(str);
+  if (str.length > 100) {
     return;
   }
+  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
+  if (!match) {
+    return;
+  }
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
+  }
+}
 
-  // Force an array if not already something iterable
-  if (typeof obj !== 'object') {
-    /*eslint no-param-reassign:0*/
-    obj = [obj];
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtShort(ms) {
+  if (ms >= d) {
+    return Math.round(ms / d) + 'd';
+  }
+  if (ms >= h) {
+    return Math.round(ms / h) + 'h';
+  }
+  if (ms >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (ms >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtLong(ms) {
+  return plural(ms, d, 'day') || plural(ms, h, 'hour') || plural(ms, m, 'minute') || plural(ms, s, 'second') || ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) {
+    return;
+  }
+  if (ms < n * 1.5) {
+    return Math.floor(ms / n) + ' ' + name;
+  }
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+var debug = createCommonjsModule(function (module, exports) {
+  /**
+   * This is the common logic for both the Node.js and web browser
+   * implementations of `debug()`.
+   *
+   * Expose `debug()` as the module.
+   */
+
+  exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
+  exports.coerce = coerce;
+  exports.disable = disable;
+  exports.enable = enable;
+  exports.enabled = enabled;
+  exports.humanize = ms;
+
+  /**
+   * The currently active debug mode names, and names to skip.
+   */
+
+  exports.names = [];
+  exports.skips = [];
+
+  /**
+   * Map of special "%n" handling functions, for the debug "format" argument.
+   *
+   * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+   */
+
+  exports.formatters = {};
+
+  /**
+   * Previous log timestamp.
+   */
+
+  var prevTime;
+
+  /**
+   * Select a color.
+   * @param {String} namespace
+   * @return {Number}
+   * @api private
+   */
+
+  function selectColor(namespace) {
+    var hash = 0,
+        i;
+
+    for (i in namespace) {
+      hash = (hash << 5) - hash + namespace.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+
+    return exports.colors[Math.abs(hash) % exports.colors.length];
   }
 
-  if (isArray(obj)) {
-    // Iterate over array values
-    for (var i = 0, l = obj.length; i < l; i++) {
-      fn.call(null, obj[i], i, obj);
+  /**
+   * Create a debugger with the given `namespace`.
+   *
+   * @param {String} namespace
+   * @return {Function}
+   * @api public
+   */
+
+  function createDebug(namespace) {
+
+    function debug() {
+      // disabled?
+      if (!debug.enabled) return;
+
+      var self = debug;
+
+      // set `diff` timestamp
+      var curr = +new Date();
+      var ms$$1 = curr - (prevTime || curr);
+      self.diff = ms$$1;
+      self.prev = prevTime;
+      self.curr = curr;
+      prevTime = curr;
+
+      // turn the `arguments` into a proper Array
+      var args = new Array(arguments.length);
+      for (var i = 0; i < args.length; i++) {
+        args[i] = arguments[i];
+      }
+
+      args[0] = exports.coerce(args[0]);
+
+      if ('string' !== typeof args[0]) {
+        // anything else let's inspect with %O
+        args.unshift('%O');
+      }
+
+      // apply any `formatters` transformations
+      var index = 0;
+      args[0] = args[0].replace(/%([a-zA-Z%])/g, function (match, format) {
+        // if we encounter an escaped % then don't increase the array index
+        if (match === '%%') return match;
+        index++;
+        var formatter = exports.formatters[format];
+        if ('function' === typeof formatter) {
+          var val = args[index];
+          match = formatter.call(self, val);
+
+          // now we need to remove `args[index]` since it's inlined in the `format`
+          args.splice(index, 1);
+          index--;
+        }
+        return match;
+      });
+
+      // apply env-specific formatting (colors, etc.)
+      exports.formatArgs.call(self, args);
+
+      var logFn = debug.log || exports.log || console.log.bind(console);
+      logFn.apply(self, args);
     }
-  } else {
-    // Iterate over object keys
-    for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        fn.call(null, obj[key], key, obj);
+
+    debug.namespace = namespace;
+    debug.enabled = exports.enabled(namespace);
+    debug.useColors = exports.useColors();
+    debug.color = selectColor(namespace);
+
+    // env-specific initialization logic for debug instances
+    if ('function' === typeof exports.init) {
+      exports.init(debug);
+    }
+
+    return debug;
+  }
+
+  /**
+   * Enables a debug mode by namespaces. This can include modes
+   * separated by a colon and wildcards.
+   *
+   * @param {String} namespaces
+   * @api public
+   */
+
+  function enable(namespaces) {
+    exports.save(namespaces);
+
+    exports.names = [];
+    exports.skips = [];
+
+    var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+    var len = split.length;
+
+    for (var i = 0; i < len; i++) {
+      if (!split[i]) continue; // ignore empty strings
+      namespaces = split[i].replace(/\*/g, '.*?');
+      if (namespaces[0] === '-') {
+        exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+      } else {
+        exports.names.push(new RegExp('^' + namespaces + '$'));
       }
     }
   }
-}
 
-/**
- * Accepts varargs expecting each argument to be an object, then
- * immutably merges the properties of each object and returns result.
- *
- * When multiple objects contain the same key the later object in
- * the arguments list will take precedence.
- *
- * Example:
- *
- * ```js
- * var result = merge({foo: 123}, {foo: 456});
- * console.log(result.foo); // outputs 456
- * ```
- *
- * @param {Object} obj1 Object to merge
- * @returns {Object} Result of all merge properties
- */
-function merge(/* obj1, obj2, obj3, ... */) {
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
+  /**
+   * Disable debug output.
+   *
+   * @api public
+   */
+
+  function disable() {
+    exports.enable('');
   }
 
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
+  /**
+   * Returns true if the given mode name is enabled, false otherwise.
+   *
+   * @param {String} name
+   * @return {Boolean}
+   * @api public
+   */
+
+  function enabled(name) {
+    var i, len;
+    for (i = 0, len = exports.skips.length; i < len; i++) {
+      if (exports.skips[i].test(name)) {
+        return false;
+      }
+    }
+    for (i = 0, len = exports.names.length; i < len; i++) {
+      if (exports.names[i].test(name)) {
+        return true;
+      }
+    }
+    return false;
   }
-  return result;
-}
+
+  /**
+   * Coerce `val`.
+   *
+   * @param {Mixed} val
+   * @return {Mixed}
+   * @api private
+   */
+
+  function coerce(val) {
+    if (val instanceof Error) return val.stack || val.message;
+    return val;
+  }
+});
+var debug_1 = debug.coerce;
+var debug_2 = debug.disable;
+var debug_3 = debug.enable;
+var debug_4 = debug.enabled;
+var debug_5 = debug.humanize;
+var debug_6 = debug.names;
+var debug_7 = debug.skips;
+var debug_8 = debug.formatters;
+
+var browser = createCommonjsModule(function (module, exports) {
+  /**
+   * This is the web browser implementation of `debug()`.
+   *
+   * Expose `debug()` as the module.
+   */
+
+  exports = module.exports = debug;
+  exports.log = log;
+  exports.formatArgs = formatArgs;
+  exports.save = save;
+  exports.load = load;
+  exports.useColors = useColors;
+  exports.storage = 'undefined' != typeof chrome && 'undefined' != typeof chrome.storage ? chrome.storage.local : localstorage();
+
+  /**
+   * Colors.
+   */
+
+  exports.colors = ['lightseagreen', 'forestgreen', 'goldenrod', 'dodgerblue', 'darkorchid', 'crimson'];
+
+  /**
+   * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+   * and the Firebug extension (any Firefox version) are known
+   * to support "%c" CSS customizations.
+   *
+   * TODO: add a `localStorage` variable to explicitly enable/disable colors
+   */
+
+  function useColors() {
+    // NB: In an Electron preload script, document will be defined but not fully
+    // initialized. Since we know we're in Chrome, we'll just detect this case
+    // explicitly
+    if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+      return true;
+    }
+
+    // is webkit? http://stackoverflow.com/a/16459606/376773
+    // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+    return typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    typeof window !== 'undefined' && window.console && (window.console.firebug || window.console.exception && window.console.table) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 ||
+    // double check webkit in userAgent just in case we are in a worker
+    typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
+  }
+
+  /**
+   * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+   */
+
+  exports.formatters.j = function (v) {
+    try {
+      return JSON.stringify(v);
+    } catch (err) {
+      return '[UnexpectedJSONParseError]: ' + err.message;
+    }
+  };
+
+  /**
+   * Colorize log arguments if enabled.
+   *
+   * @api public
+   */
+
+  function formatArgs(args) {
+    var useColors = this.useColors;
+
+    args[0] = (useColors ? '%c' : '') + this.namespace + (useColors ? ' %c' : ' ') + args[0] + (useColors ? '%c ' : ' ') + '+' + exports.humanize(this.diff);
+
+    if (!useColors) return;
+
+    var c = 'color: ' + this.color;
+    args.splice(1, 0, c, 'color: inherit');
+
+    // the final "%c" is somewhat tricky, because there could be other
+    // arguments passed either before or after the %c, so we need to
+    // figure out the correct index to insert the CSS into
+    var index = 0;
+    var lastC = 0;
+    args[0].replace(/%[a-zA-Z%]/g, function (match) {
+      if ('%%' === match) return;
+      index++;
+      if ('%c' === match) {
+        // we only are interested in the *last* %c
+        // (the user may have provided their own)
+        lastC = index;
+      }
+    });
+
+    args.splice(lastC, 0, c);
+  }
+
+  /**
+   * Invokes `console.log()` when available.
+   * No-op when `console.log` is not a "function".
+   *
+   * @api public
+   */
+
+  function log() {
+    // this hackery is required for IE8/9, where
+    // the `console.log` function doesn't have 'apply'
+    return 'object' === (typeof console === 'undefined' ? 'undefined' : _typeof(console)) && console.log && Function.prototype.apply.call(console.log, console, arguments);
+  }
+
+  /**
+   * Save `namespaces`.
+   *
+   * @param {String} namespaces
+   * @api private
+   */
+
+  function save(namespaces) {
+    try {
+      if (null == namespaces) {
+        exports.storage.removeItem('debug');
+      } else {
+        exports.storage.debug = namespaces;
+      }
+    } catch (e) {}
+  }
+
+  /**
+   * Load `namespaces`.
+   *
+   * @return {String} returns the previously persisted debug modes
+   * @api private
+   */
+
+  function load() {
+    var r;
+    try {
+      r = exports.storage.debug;
+    } catch (e) {}
+
+    // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+    if (!r && typeof process !== 'undefined' && 'env' in process) {
+      r = Object({"NODE_ENV":"development"}).DEBUG;
+    }
+
+    return r;
+  }
+
+  /**
+   * Enable namespaces listed in `localStorage.debug` initially.
+   */
+
+  exports.enable(load());
+
+  /**
+   * Localstorage attempts to return the localstorage.
+   *
+   * This is necessary because safari throws
+   * when a user disables cookies/localstorage
+   * and you attempt to access it.
+   *
+   * @return {LocalStorage}
+   * @api private
+   */
+
+  function localstorage() {
+    try {
+      return window.localStorage;
+    } catch (e) {}
+  }
+});
+var browser_1 = browser.log;
+var browser_2 = browser.formatArgs;
+var browser_3 = browser.save;
+var browser_4 = browser.load;
+var browser_5 = browser.useColors;
+var browser_6 = browser.storage;
+var browser_7 = browser.colors;
+
+var Debug = createCommonjsModule(function (module) {
+
+  /*
+   * adonis-websocket-client
+   *
+   * (c) Harminder Virk <virk@adonisjs.com>
+   *
+   * For the full copyright and license information, please view the LICENSE
+   * file that was distributed with this source code.
+  */
+
+  {
+    var _Debug = browser;
+    _Debug.enable('adonis:*');
+    module.exports = _Debug('adonis:websocket');
+  }
+});
 
 /**
- * Extends object a by mutably adding to it the properties of object b.
+ * Socket class holds details for a single subscription. The instance
+ * of this class can be used to exchange messages with the server
+ * on a given topic.
  *
- * @param {Object} a The object to be extended
- * @param {Object} b The object to copy properties from
- * @param {Object} thisArg The object to bind function to
- * @return {Object} The resulting value of object a
+ * @class Socket
  */
-function extend(a, b, thisArg) {
-  forEach(b, function assignValue(val, key) {
-    if (thisArg && typeof val === 'function') {
-      a[key] = bind(val, thisArg);
-    } else {
-      a[key] = val;
-    }
-  });
-  return a;
-}
 
-module.exports = {
-  isArray: isArray,
-  isArrayBuffer: isArrayBuffer,
-  isBuffer: isBuffer,
-  isFormData: isFormData,
-  isArrayBufferView: isArrayBufferView,
-  isString: isString,
-  isNumber: isNumber,
-  isObject: isObject,
-  isUndefined: isUndefined,
-  isDate: isDate,
-  isFile: isFile,
-  isBlob: isBlob,
-  isFunction: isFunction,
-  isStream: isStream,
-  isURLSearchParams: isURLSearchParams,
-  isStandardBrowserEnv: isStandardBrowserEnv,
-  forEach: forEach,
-  merge: merge,
-  extend: extend,
-  trim: trim
+var Socket = function () {
+  function Socket(topic, connection) {
+    classCallCheck(this, Socket);
+
+    this.topic = topic;
+    this.connection = connection;
+    this.emitter = new emittery();
+    this._state = 'pending';
+    this._emitBuffer = [];
+  }
+
+  /**
+   * Socket state
+   *
+   * @attribute state
+   *
+   * @return {String}
+   */
+
+
+  createClass(Socket, [{
+    key: 'joinAck',
+
+
+    /**
+     * Called when subscription is confirmed by the
+     * server
+     *
+     * @method joinAck
+     *
+     * @return {void}
+     */
+    value: function joinAck() {
+      var _this = this;
+
+      this.state = 'open';
+      this.emitter.emit('ready', this);
+
+      {
+        Debug('clearing emit buffer for %s topic after subscription ack', this.topic);
+      }
+
+      /**
+       * Process queued events
+       */
+      this._emitBuffer.forEach(function (buf) {
+        return _this.emit(buf.event, buf.data);
+      });
+      this._emitBuffer = [];
+    }
+
+    /**
+     * Called when subscription is rejected by the server
+     *
+     * @method joinError
+     *
+     * @param  {Object}  packet
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'joinError',
+    value: function joinError(packet) {
+      this.state = 'error';
+      this.emitter.emit('error', packet);
+      this.serverClose();
+    }
+
+    /**
+     * Called when subscription close is acknowledged
+     * by the server
+     *
+     * @method leaveAck
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'leaveAck',
+    value: function leaveAck() {
+      this.state = 'closed';
+      this.serverClose();
+    }
+
+    /**
+     * This method is invoked, when server rejects to close
+     * the subscription. The state of the socket should not
+     * change here
+     *
+     * @method leaveError
+     *
+     * @param  {Object}   packet
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'leaveError',
+    value: function leaveError(packet) {
+      this.emitter.emit('leaveError', packet);
+    }
+
+    /* istanbul-ignore */
+    /**
+     * Add an event listener
+     *
+     * @method on
+     */
+
+  }, {
+    key: 'on',
+    value: function on() {
+      var _emitter;
+
+      (_emitter = this.emitter).on.apply(_emitter, arguments);
+    }
+
+    /* istanbul-ignore */
+    /**
+     * Add an event listener for once only
+     *
+     * @method once
+     */
+
+  }, {
+    key: 'once',
+    value: function once() {
+      var _emitter2;
+
+      (_emitter2 = this.emitter).once.apply(_emitter2, arguments);
+    }
+
+    /* istanbul-ignore */
+    /**
+     * Remove event listener(s)
+     *
+     * @method off
+     */
+
+  }, {
+    key: 'off',
+    value: function off() {
+      var _emitter3;
+
+      (_emitter3 = this.emitter).off.apply(_emitter3, arguments);
+    }
+
+    /**
+     * Emit message on the subscription
+     *
+     * @method emit
+     *
+     * @param  {String} event
+     * @param  {Mixed} data
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'emit',
+    value: function emit(event, data) {
+      if (this.state === 'pending') {
+        this._emitBuffer.push({ event: event, data: data });
+        return;
+      }
+
+      this.connection.sendEvent(this.topic, event, data);
+    }
+
+    /**
+     * Closes the connection and removes all existing
+     * listeners
+     *
+     * @method serverClose
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'serverClose',
+    value: function serverClose() {
+      var _this2 = this;
+
+      return this.emitter.emit('close', this).then(function () {
+        _this2._emitBuffer = [];
+        _this2.emitter.clearListeners();
+      }).catch(function () {
+        _this2._emitBuffer = [];
+        _this2.emitter.clearListeners();
+      });
+    }
+
+    /**
+     * Invoked when a new event is received from the server
+     *
+     * @method serverEvent
+     *
+     * @param  {String}    options.event
+     * @param  {Mixed}    options.data
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'serverEvent',
+    value: function serverEvent(_ref) {
+      var event = _ref.event,
+          data = _ref.data;
+
+      this.emitter.emit(event, data);
+    }
+
+    /**
+     * Received error on connection
+     *
+     * @method serverError
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'serverError',
+    value: function serverError() {
+      this.state = 'error';
+    }
+
+    /**
+     * Sends the request on server to close the subscription, we
+     * have to wait for acknowledgment too
+     *
+     * @method close
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'close',
+    value: function close() {
+      this.state = 'closing';
+      {
+        Debug('closing subscription for %s topic with server', this.topic);
+      }
+      this.connection.sendPacket(wsp_browser.leavePacket(this.topic));
+    }
+
+    /**
+     * Forcefully terminating the subscription
+     *
+     * @method terminate
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'terminate',
+    value: function terminate() {
+      this.leaveAck();
+    }
+  }, {
+    key: 'state',
+    get: function get$$1() {
+      return this._state;
+    }
+
+    /**
+     * Update socket state
+     */
+    ,
+    set: function set$$1(state) {
+      if (!this.constructor.states.indexOf(state) === -1) {
+        throw new Error(state + ' is not a valid socket state');
+      }
+      this._state = state;
+    }
+
+    /**
+     * A static array of internal states
+     *
+     * @method states
+     *
+     * @return {Array}
+     */
+
+  }], [{
+    key: 'states',
+    get: function get$$1() {
+      return ['pending', 'open', 'closed', 'closing', 'error'];
+    }
+  }]);
+  return Socket;
+}();
+
+/**
+ * adonis-websocket-client
+ *
+ * (c) Harminder Virk <virk@adonisjs.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+*/
+
+/**
+ * The default encoder to encode packets.
+ */
+
+var JsonEncoder = {
+  name: 'json',
+  /**
+   * Encode a value by stringifying it
+   *
+   * @method encode
+   *
+   * @param  {Object}   payload
+   * @param  {Function} callback
+   *
+   * @return {void}
+   */
+  encode: function encode(payload, callback) {
+    var encoded = null;
+
+    try {
+      encoded = JSON.stringify(payload);
+    } catch (error) {
+      return callback(error);
+    }
+    callback(null, encoded);
+  },
+
+
+  /**
+   * Decode value by parsing it
+   *
+   * @method decode
+   *
+   * @param  {String}   payload
+   * @param  {Function} callback
+   *
+   * @return {void}
+   */
+  decode: function decode(payload, callback) {
+    var decoded = null;
+
+    try {
+      decoded = JSON.parse(payload);
+    } catch (error) {
+      return callback(error);
+    }
+    callback(null, decoded);
+  }
 };
 
+/**
+ * Returns the ws protocol based upon HTTP or HTTPS
+ *
+ * @returns {String}
+ *
+ */
+var wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+
+/**
+ * Connection class is used to make a TCP/Socket connection
+ * with the server. It relies on Native Websocket browser
+ * support.
+ *
+ * @class Connection
+ *
+ * @param {String} url
+ * @param {Object} options
+ */
+
+var Connection = function (_Emitter) {
+  inherits(Connection, _Emitter);
+
+  function Connection(url, options) {
+    classCallCheck(this, Connection);
+
+    var _this = possibleConstructorReturn(this, (Connection.__proto__ || Object.getPrototypeOf(Connection)).call(this));
+
+    url = url || wsProtocol + '://' + window.location.host;
+
+    /**
+     * Connection options
+     *
+     * @type {Object}
+     */
+    _this.options = _extends({
+      path: 'adonis-ws',
+      reconnection: true,
+      reconnectionAttempts: 10,
+      reconnectionDelay: 1000,
+      query: null,
+      encoder: JsonEncoder
+    }, options);
+
+    {
+      Debug('connection options %o', _this.options);
+    }
+
+    /**
+     * The state connection is in
+     *
+     * @type {String}
+     */
+    _this._connectionState = 'idle';
+
+    /**
+     * Number of reconnection attempts being made
+     *
+     * @type {Number}
+     */
+    _this._reconnectionAttempts = 0;
+
+    /**
+     * All packets are sent in sequence to the server. So we need to
+     * maintain a queue and process one at a time
+     *
+     * @type {Array}
+     */
+    _this._packetsQueue = [];
+
+    /**
+     * Whether or not the queue is in process
+     *
+     * @type {Boolean}
+     */
+    _this._processingQueue = false;
+
+    /**
+     * As per Adonis protocol, the client must ping
+     * the server after x interval
+     *
+     * @type {Timer}
+     */
+    _this._pingTimer = null;
+
+    /**
+     * Extended query is merged with the query params
+     * user pass
+     *
+     * @type {Object}
+     */
+    _this._extendedQuery = {};
+
+    /**
+     * Base URL for the websocket connection
+     *
+     * @type {String}
+     */
+    _this._url = url.replace(/\/$/, '') + '/' + _this.options.path;
+
+    /**
+     * Subscriptions for a single connection
+     *
+     * @type {Object}
+     */
+    _this.subscriptions = {};
+
+    /**
+     * Handler called when `close` is emitted from the
+     * subscription
+     */
+    _this.removeSubscription = function (_ref) {
+      var topic = _ref.topic;
+
+      delete _this.subscriptions[topic];
+    };
+    return _this;
+  }
+
+  /**
+   * Computed value to decide, whether or not to reconnect
+   *
+   * @method shouldReconnect
+   *
+   * @return {Boolean}
+   */
+
+
+  createClass(Connection, [{
+    key: '_cleanup',
+
+
+    /**
+     * Clean references
+     *
+     * @method _cleanup
+     *
+     * @return {void}
+     *
+     * @private
+     */
+    value: function _cleanup() {
+      clearInterval(this._pingTimer);
+      this.ws = null;
+      this._pingTimer = null;
+    }
+
+    /**
+     * Calls a callback passing subscription to it
+     *
+     * @method _subscriptionsIterator
+     *
+     * @param  {Function}             callback
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_subscriptionsIterator',
+    value: function _subscriptionsIterator(callback) {
+      var _this2 = this;
+
+      Object.keys(this.subscriptions).forEach(function (sub) {
+        return callback(_this2.subscriptions[sub], sub);
+      });
+    }
+
+    /**
+     * Calls the callback when there is a subscription for
+     * the topic mentioned in the packet
+     *
+     * @method _ensureSubscription
+     *
+     * @param  {Object}            packet
+     * @param  {Function}          cb
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_ensureSubscription',
+    value: function _ensureSubscription(packet, cb) {
+      var socket = this.getSubscription(packet.d.topic);
+
+      if (!socket) {
+        {
+          Debug('cannot consume packet since %s topic has no active subscription %j', packet.d.topic, packet);
+        }
+        return;
+      }
+
+      cb(socket, packet);
+    }
+
+    /**
+     * Process the packets queue by sending one packet at a time
+     *
+     * @method _processQueue
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_processQueue',
+    value: function _processQueue() {
+      var _this3 = this;
+
+      if (this._processingQueue || !this._packetsQueue.length) {
+        return;
+      }
+
+      /**
+       * Turn on the processing flag
+       *
+       * @type {Boolean}
+       */
+      this._processingQueue = true;
+
+      this.options.encoder.encode(this._packetsQueue.shift(), function (error, payload) {
+        if (error) {
+          {
+            Debug('encode error %j', error);
+          }
+          return;
+        }
+        _this3.write(payload);
+
+        /**
+         * Turn off the processing flag and re call the processQueue to send
+         * the next message
+         *
+         * @type {Boolean}
+         */
+        _this3._processingQueue = false;
+        _this3._processQueue();
+      });
+    }
+
+    /**
+     * As soon as connection is ready, we start listening
+     * for new message
+     *
+     * @method _onOpen
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_onOpen',
+    value: function _onOpen() {
+      {
+        Debug('opened');
+      }
+    }
+
+    /**
+     * When received connection error
+     *
+     * @method _onError
+     *
+     * @param  {Event} event
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_onError',
+    value: function _onError(event) {
+      {
+        Debug('error %O', event);
+      }
+
+      this._subscriptionsIterator(function (subscription) {
+        return subscription.serverError();
+      });
+      this.emit('error', event);
+    }
+
+    /**
+     * Initiates reconnect with the server by moving
+     * all subscriptions to pending state
+     *
+     * @method _reconnect
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_reconnect',
+    value: function _reconnect() {
+      var _this4 = this;
+
+      this._reconnectionAttempts++;
+
+      this.emit('reconnect', this._reconnectionAttempts);
+
+      setTimeout(function () {
+        _this4._connectionState = 'reconnect';
+        _this4.connect();
+      }, this.options.reconnectionDelay * this._reconnectionAttempts);
+    }
+
+    /**
+     * When connection closes
+     *
+     * @method _onClose
+     *
+     * @param  {Event} event
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_onClose',
+    value: function _onClose(event) {
+      var _this5 = this;
+
+      {
+        Debug('closing from %s state', this._connectionState);
+      }
+
+      this._cleanup();
+
+      /**
+       * Force subscriptions to terminate
+       */
+      this._subscriptionsIterator(function (subscription) {
+        return subscription.terminate();
+      });
+
+      this.emit('close', this).then(function () {
+        _this5.shouldReconnect ? _this5._reconnect() : _this5.clearListeners();
+      }).catch(function () {
+        _this5.shouldReconnect ? _this5._reconnect() : _this5.clearListeners();
+      });
+    }
+
+    /**
+     * When a new message was received
+     *
+     * @method _onMessage
+     *
+     * @param  {Event}   event
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_onMessage',
+    value: function _onMessage(event) {
+      var _this6 = this;
+
+      this.options.encoder.decode(event.data, function (decodeError, packet) {
+        if (decodeError) {
+          {
+            Debug('packet dropped, decode error %o', decodeError);
+          }
+          return;
+        }
+        _this6._handleMessage(packet);
+      });
+    }
+
+    /**
+     * Handles the message packet based upon it's type
+     *
+     * @method _handleMessage
+     *
+     * @param  {Object}       packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleMessage',
+    value: function _handleMessage(packet) {
+      if (wsp_browser.isOpenPacket(packet)) {
+        {
+          Debug('open packet');
+        }
+        this._handleOpen(packet);
+        return;
+      }
+
+      if (wsp_browser.isJoinAckPacket(packet)) {
+        {
+          Debug('join ack packet');
+        }
+        this._handleJoinAck(packet);
+        return;
+      }
+
+      if (wsp_browser.isJoinErrorPacket(packet)) {
+        {
+          Debug('join error packet');
+        }
+        this._handleJoinError(packet);
+        return;
+      }
+
+      if (wsp_browser.isLeaveAckPacket(packet)) {
+        {
+          Debug('leave ack packet');
+        }
+        this._handleLeaveAck(packet);
+        return;
+      }
+
+      if (wsp_browser.isLeaveErrorPacket(packet)) {
+        {
+          Debug('leave error packet');
+        }
+        this._handleLeaveError(packet);
+        return;
+      }
+
+      if (wsp_browser.isLeavePacket(packet)) {
+        {
+          Debug('leave packet');
+        }
+        this._handleServerLeave(packet);
+        return;
+      }
+
+      if (wsp_browser.isEventPacket(packet)) {
+        {
+          Debug('event packet');
+        }
+        this._handleEvent(packet);
+        return;
+      }
+
+      if (wsp_browser.isPongPacket(packet)) {
+        {
+          Debug('pong packet');
+        }
+        return;
+      }
+
+      {
+        Debug('invalid packet type %d', packet.t);
+      }
+    }
+
+    /**
+     * Emits the open emit and send subscription packets
+     * for pre-existing subscriptions
+     *
+     * @method _handleOpen
+     *
+     * @param  {Object}    packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleOpen',
+    value: function _handleOpen(packet) {
+      var _this7 = this;
+
+      this._connectionState = 'open';
+      this.emit('open', packet.d);
+
+      /**
+       * Setup a timer to ping the server, telling
+       * client is awake
+       */
+      this._pingTimer = setInterval(function () {
+        _this7.sendPacket(wsp_browser.pingPacket());
+      }, packet.d.clientInterval);
+
+      /**
+       * Sending packets to make pending subscriptions
+       */
+      {
+        Debug('processing pre connection subscriptions %o', Object.keys(this.subscriptions));
+      }
+
+      this._subscriptionsIterator(function (subscription) {
+        _this7._sendSubscriptionPacket(subscription.topic);
+      });
+    }
+
+    /**
+     * Handles the join acknowledgement for a subscription
+     *
+     * @method _handleJoinAck
+     *
+     * @param  {Object}       packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleJoinAck',
+    value: function _handleJoinAck(packet) {
+      this._ensureSubscription(packet, function (socket) {
+        return socket.joinAck();
+      });
+    }
+
+    /**
+     * Handles the join error for a subscription
+     *
+     * @method _handleJoinError
+     *
+     * @param  {Object}         packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleJoinError',
+    value: function _handleJoinError(packet) {
+      this._ensureSubscription(packet, function (socket, packet) {
+        return socket.joinError(packet.d);
+      });
+    }
+
+    /**
+     * Acknowledges the subscription leave
+     *
+     * @method _handleLeaveAck
+     *
+     * @param  {Object}        packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleLeaveAck',
+    value: function _handleLeaveAck(packet) {
+      this._ensureSubscription(packet, function (socket) {
+        return socket.leaveAck();
+      });
+    }
+
+    /**
+     * Handles leave error for a subscription
+     *
+     * @method _handleLeaveError
+     *
+     * @param  {Object}          packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleLeaveError',
+    value: function _handleLeaveError(packet) {
+      this._ensureSubscription(packet, function (socket, packet) {
+        return socket.leaveError(packet.d);
+      });
+    }
+
+    /**
+     * Handles when server initiates the subscription leave
+     *
+     * @method _handleServerLeave
+     *
+     * @param  {Object}           packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleServerLeave',
+    value: function _handleServerLeave(packet) {
+      this._ensureSubscription(packet, function (socket, packet) {
+        return socket.leaveAck();
+      });
+    }
+
+    /**
+     * Handles the event packet for a subscription
+     *
+     * @method _handleEvent
+     *
+     * @param  {Object}     packet
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_handleEvent',
+    value: function _handleEvent(packet) {
+      this._ensureSubscription(packet, function (socket, packet) {
+        return socket.serverEvent(packet.d);
+      });
+    }
+
+    /**
+     * Sends the subscription packet for a given topic
+     *
+     * @method sendSubscriptionPacket
+     *
+     * @param  {String}               topic
+     *
+     * @return {void}
+     *
+     * @private
+     */
+
+  }, {
+    key: '_sendSubscriptionPacket',
+    value: function _sendSubscriptionPacket(topic) {
+      {
+        Debug('initiating subscription for %s topic with server', topic);
+      }
+      this.sendPacket(wsp_browser.joinPacket(topic));
+    }
+
+    /**
+     * Instantiate the websocket connection
+     *
+     * @method connect
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'connect',
+    value: function connect() {
+      var _this8 = this;
+
+      var query = stringify(_extends({}, this.options.query, this._extendedQuery));
+      var url = query ? this._url + '?' + query : this._url;
+
+      {
+        Debug('creating socket connection on %s url', url);
+      }
+
+      this.ws = new window.WebSocket(url);
+      this.ws.onclose = function (event) {
+        return _this8._onClose(event);
+      };
+      this.ws.onerror = function (event) {
+        return _this8._onError(event);
+      };
+      this.ws.onopen = function (event) {
+        return _this8._onOpen(event);
+      };
+      this.ws.onmessage = function (event) {
+        return _this8._onMessage(event);
+      };
+
+      return this;
+    }
+
+    /**
+     * Writes the payload on the open connection
+     *
+     * @method write
+     *
+     * @param  {String} payload
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'write',
+    value: function write(payload) {
+      if (this.ws.readyState !== window.WebSocket.OPEN) {
+        {
+          Debug('connection is not in open state, current state %s', this.ws.readyState);
+        }
+        return;
+      }
+
+      this.ws.send(payload);
+    }
+
+    /**
+     * Sends a packet by encoding it first
+     *
+     * @method _sendPacket
+     *
+     * @param  {Object}    packet
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'sendPacket',
+    value: function sendPacket(packet) {
+      this._packetsQueue.push(packet);
+      this._processQueue();
+    }
+
+    /**
+     * Returns the subscription instance for a given topic
+     *
+     * @method getSubscription
+     *
+     * @param  {String}        topic
+     *
+     * @return {Socket}
+     */
+
+  }, {
+    key: 'getSubscription',
+    value: function getSubscription(topic) {
+      return this.subscriptions[topic];
+    }
+
+    /**
+     * Returns a boolean telling, whether connection has
+     * a subscription for a given topic or not
+     *
+     * @method hasSubcription
+     *
+     * @param  {String}       topic
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: 'hasSubcription',
+    value: function hasSubcription(topic) {
+      return !!this.getSubscription(topic);
+    }
+
+    /**
+     * Create a new subscription with the server
+     *
+     * @method subscribe
+     *
+     * @param  {String}  topic
+     *
+     * @return {Socket}
+     */
+
+  }, {
+    key: 'subscribe',
+    value: function subscribe(topic) {
+      if (!topic || typeof topic !== 'string') {
+        throw new Error('subscribe method expects topic to be a valid string');
+      }
+
+      if (this.subscriptions[topic]) {
+        throw new Error('Cannot subscribe to same topic twice. Instead use getSubscription');
+      }
+
+      var socket = new Socket(topic, this);
+      socket.on('close', this.removeSubscription);
+
+      /**
+       * Storing reference to the socket
+       */
+      this.subscriptions[topic] = socket;
+
+      /**
+       * Sending join request to the server, the subscription will
+       * be considered ready, once server acknowledges it
+       */
+      if (this._connectionState === 'open') {
+        this._sendSubscriptionPacket(topic);
+      }
+
+      return socket;
+    }
+
+    /**
+     * Sends event for a given topic
+     *
+     * @method sendEvent
+     *
+     * @param  {String}  topic
+     * @param  {String}  event
+     * @param  {Mixed}  data
+     *
+     * @return {void}
+     *
+     * @throws {Error} If topic or event are not passed
+     * @throws {Error} If there is no active subscription for the given topic
+     */
+
+  }, {
+    key: 'sendEvent',
+    value: function sendEvent(topic, event, data) {
+      if (!topic || !event) {
+        throw new Error('topic and event name is required to call sendEvent method');
+      }
+
+      /**
+       * Make sure there is an active subscription for the topic. Though server will
+       * bounce the message, there is no point in hammering it
+       */
+      var subscription = this.getSubscription(topic);
+      if (!subscription) {
+        throw new Error('There is no active subscription for ' + topic + ' topic');
+      }
+
+      /**
+       * If subscription state is not open, then we should not publish
+       * messages.
+       *
+       * The reason we have this check on connection and not socket,
+       * is coz we don't want anyone to use the connection object
+       * and send packets, even when subscription is closed.
+       */
+      if (subscription.state !== 'open') {
+        throw new Error('Cannot emit since subscription socket is in ' + this.state + ' state');
+      }
+
+      {
+        Debug('sending event on %s topic', topic);
+      }
+
+      this.sendPacket(wsp_browser.eventPacket(topic, event, data));
+    }
+
+    /**
+     * Use JWT token to authenticate the user
+     *
+     * @method withJwtToken
+     *
+     * @param {String} token
+     *
+     * @chainable
+     */
+
+  }, {
+    key: 'withJwtToken',
+    value: function withJwtToken(token) {
+      this._extendedQuery.token = token;
+      return this;
+    }
+
+    /**
+     * Use basic auth credentials to login the user
+     *
+     * @method withBasicAuth
+     *
+     * @param  {String}  username
+     * @param  {String}  password
+     *
+     * @chainable
+     */
+
+  }, {
+    key: 'withBasicAuth',
+    value: function withBasicAuth(username, password) {
+      this._extendedQuery.basic = window.btoa(username + ':' + password);
+      return this;
+    }
+
+    /**
+     * Use personal API token to authenticate the user
+     *
+     * @method withApiToken
+     *
+     * @param {String} token
+     *
+     * @return {String}
+     */
+
+  }, {
+    key: 'withApiToken',
+    value: function withApiToken(token) {
+      this._extendedQuery.token = token;
+      return this;
+    }
+
+    /**
+     * Forcefully close the connection
+     *
+     * @method close
+     *
+     * @return {void}
+     */
+
+  }, {
+    key: 'close',
+    value: function close() {
+      this._connectionState = 'terminated';
+      this.ws.close();
+    }
+  }, {
+    key: 'shouldReconnect',
+    get: function get$$1() {
+      return this._connectionState !== 'terminated' && this.options.reconnection && this.options.reconnectionAttempts > this._reconnectionAttempts;
+    }
+  }]);
+  return Connection;
+}(emittery);
+
+function index (url, options) {
+  return new Connection(url, options);
+}
+
+return index;
+
+})));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
-/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
-/***/ (function(module, exports) {
+/***/ "./node_modules/adonis-vue-websocket/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+
+function anyListenerHelper () {
+    this.anyListener(topic, ...arguments)
 }
+
+class WsPlugin extends __WEBPACK_IMPORTED_MODULE_0_vue___default.a{
+    constructor({adonisWS = null} = {}) {
+        super()
+        this.adonisWS = adonisWS
+        this.connected = false
+        this.socket = null
+        this.onOpen = () => { }
+    }
+    anyListener (topic, event, data) {
+        // console.log('WS_EVENTS', ...arguments)
+        this.$emitToFront(`${topic}|${event}`, data)
+        this.$emitToFront(`${event}`, data)
+    }
+    // Register a custom callback as meddler that gets called upon each event emission.
+    // It can be bound to $on as well. 
+    $onAny(callback) {
+        this.meddler = callback
+    }
+
+    // Override Vue's $emit to call the custom meddler callback upon each event emission.
+    $emitToFront(event, ...args) {
+        if (this.meddler && typeof this.meddler.call === 'function') {
+            this.meddler(event, ...args)
+        }
+
+        return super.$emit(event, ...args)
+    }
+    $emitToServer(subscriptionTopic, eventName, data = {}) {
+        if(!this.socket){
+            throw new Error('Socket is not connected')
+        }
+        if(!this.socket.ws){
+            throw new Error('Socket is not ready, please check your internet connection')
+        }
+        // console.log('emitToServer subscriptionTopic:', subscriptionTopic)
+        let subscription = this.socket.getSubscription(subscriptionTopic)
+        if (!subscription) {
+            subscription = this.socket.subscribe(subscriptionTopic);
+        }
+        subscription.emit(eventName, data)
+    }
+    connect({ wsDomain, jwtToken = null } = {}, options = {}) {
+        if (!this.adonisWS || this.adonisWS === undefined) {
+            throw new Error('Please define adonisWs in Vue.use(WsPlugin, { adonisWS: window.adonis.Ws })')
+        }
+        if (this.connected) {
+            throw new Error('Socket is already connected')
+        }
+        const ws = new this.adonisWS(wsDomain, options)
+        if (jwtToken) {
+            ws.withJwtToken(jwtToken)
+        }
+        this.socket = ws.connect()
+        this.socket.on('open', () => {
+            // console.log('opened ws plugin')
+            this.connected = true
+            this.onOpen()
+        })
+
+        this.socket.on('close', async () => {
+            // console.log('closed WS plugin')
+            this.connected = false
+        })
+
+        this.socket.on('error', () => {
+            // console.log('error WS plugin')
+            this.connected = false
+        })
+        return this
+    }
+    subscribe(topic) {
+        const subscription = this.socket.subscribe(topic)
+        subscription.emitter.onAny((event, data) => {
+            this.anyListener(topic, event, data)
+        })
+        subscription.on("close", () => {
+            if (subscription.emitter){
+                subscription.emitter.offAny(() => {
+                    this.anyListener(topic)
+                });
+            }
+        });
+        return subscription
+    }
+    disconnect() {
+        try {
+            if (this.socket){
+                this.socket.offAny(this.anyListener)
+                this.socket.close()
+                this.socket = null
+            }
+            this.connected = false
+
+        } catch (e) {
+            console.error('AdonisVueWs', e.message);
+        }
+    }
+    onOpen(cb = () => { }) {
+        this.onOpen = cb
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    install(Vue, opt) {
+        Vue.ws = new WsPlugin(opt)
+        Vue.prototype.$ws = Vue.ws
+    }
+});
 
 
 /***/ }),
@@ -1614,6 +2735,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 //
 //
 //
@@ -1623,9 +2751,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Index"
+  name: "Index",
+  data: function data() {
+    return {
+      loading: true
+    };
+  },
+  created: function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+      var connect_ws, subscribe_to_channel, emit_message;
+      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__["a" /* default */].connect();
+
+            case 2:
+              connect_ws = _context.sent;
+              _context.next = 5;
+              return __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+
+            case 5:
+              subscribe_to_channel = _context.sent;
+              emit_message = subscribe_to_channel.emit("message", { user: 'Alex', name: name });
+
+              console.log(connect_ws, emit_message);
+              this.loading = false;
+
+            case 9:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function created() {
+      return _ref.apply(this, arguments);
+    }
+
+    return created;
+  }()
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-runtime/regenerator/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./node_modules/regenerator-runtime/runtime-module.js");
+
 
 /***/ }),
 
@@ -36344,6 +37522,782 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime-module.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() { return this })() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__("./node_modules/regenerator-runtime/runtime.js");
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/***/ (function(module, exports) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration. If the Promise is rejected, however, the
+          // result for this iteration will be rejected with the same
+          // reason. Note that rejections of yielded Promises are not
+          // thrown back into the generator function, as is the case
+          // when an awaited Promise is rejected. This difference in
+          // behavior between yield and await is important, because it
+          // allows the consumer to decide what to do with the yielded
+          // rejection (swallow it and continue, manually .throw it back
+          // into the generator, abandon iteration, whatever). With
+          // await, by contrast, there is no opportunity to examine the
+          // rejection reason outside the generator function, so the
+          // only option is to throw it from the await expression, and
+          // let the generator function handle the exception.
+          result.value = unwrapped;
+          resolve(result);
+        }, reject);
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() { return this })() || Function("return this")()
+);
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -54165,7 +56119,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_layout_App___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_layout_App__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_browser_cookies__ = __webpack_require__("./node_modules/browser-cookies/src/browser-cookies.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_browser_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_browser_cookies__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_bootstrap_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_adonis_vue_websocket__ = __webpack_require__("./node_modules/adonis-vue-websocket/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_bootstrap_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/index.js");
 
 
 
@@ -54173,7 +56128,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_bootstrap_vue__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_adonis_vue_websocket__["a" /* default */], { adonisWS: window.adonis.Ws });
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_7_bootstrap_vue__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vuelidate___default.a);
 
@@ -54311,189 +56269,81 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 /***/ }),
 
-/***/ "./resources/assets/js/services/Auth.js":
+/***/ "./resources/assets/js/services/web-socket-intgration.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* unused harmony export SocketConnection */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client__ = __webpack_require__("./node_modules/@adonisjs/websocket-client/dist/Ws.browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_data__ = __webpack_require__("./resources/assets/js/utils/data.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
-// const baseUrl = "http://127.0.0.1:3333/api/v1/";
 
-/* harmony default export */ __webpack_exports__["a"] = ({
-  login: function login(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("api/login", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  refresh: function refresh(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(baseUrl + "auth/token/refresh", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  register: function register(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("api/register", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  recovery: function recovery(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(baseUrl + "auth/recovery", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  reset: function reset(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(baseUrl + "auth/reset", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  logout: function logout(data) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("api/logout", data).then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
-  },
-  authenticate: function authenticate() {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("api/authenticate").then(function (response) {
-      return response.data;
-    }).catch(function (error) {
-      return Promise.reject(error.response);
-    });
+
+
+var SocketConnection = function () {
+  function SocketConnection() {
+    _classCallCheck(this, SocketConnection);
   }
-});
 
-/***/ }),
+  _createClass(SocketConnection, [{
+    key: 'connect',
+    value: function connect() {
+      this.ws = __WEBPACK_IMPORTED_MODULE_0__adonisjs_websocket_client___default()(Object(__WEBPACK_IMPORTED_MODULE_1__utils_data__["a" /* getSocketProtocol */])() + '0.0.0.0:3333')
+      // .withApiToken(token)
+      .connect();
 
-/***/ "./resources/assets/js/store/modules/auth.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+      this.ws.on('open', function () {
+        console.log('Connection initialized');
+      });
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_Auth__ = __webpack_require__("./resources/assets/js/services/Auth.js");
+      this.ws.on('close', function () {
+        console.log('Connection closed');
+      });
 
+      this.ws.on('error', function (error) {
+        console.log('Error Loaded', error);
+      });
 
-var state = {
-  loggedin: false,
-  user: false,
-  tokens: {
-    access: null,
-    refresh: null
-  }
-};
+      this.ws.on('leaveError', function (response) {
+        console.log('leave', response);
+      });
 
-var getters = {
-  user: function user() {
-    return state.user;
-  },
-  isAdmin: function isAdmin() {
-    // return typeof state.user.isAdmin !== undefined && state.user.isAdmin;
-    return true;
-  },
-  loggedin: function loggedin() {
-    return state.loggedin;
-  },
-  accesstoken: function accesstoken() {
-    return state.tokens.access;
-  },
-  refreshtoken: function refreshtoken() {
-    return state.tokens.refresh;
-  },
-  auth: function auth() {
-    return state;
-  }
-};
+      return this;
+    }
+  }, {
+    key: 'subscribe',
+    value: function subscribe(channel, handler) {
+      var _this = this;
 
-var actions = {
-  register: function register(_ref, credentials) {
-    var commit = _ref.commit;
+      if (!this.ws) {
+        setTimeout(function () {
+          return _this.subscribe(channel);
+        }, 1000);
+      } else {
+        var result = this.ws.subscribe(channel);
+        result.on('message', function (message) {
+          console.log('Incoming', message);
+          return message;
+        });
 
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].register(credentials);
-  },
-  login: function login(_ref2, credentials) {
-    var commit = _ref2.commit;
+        result.on('error', function (error) {
+          console.error(error);
+        });
 
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].login(credentials).then(function (response) {
-      commit("setLoggedIn", true);
-      commit("setUser", response.data);
-      // commit("setAccessToken", data.token.token);
-      // commit("setRefreshToken", data.token.refreshToken);
-    });
-  },
-  authenticate: function authenticate(_ref3) {
-    var commit = _ref3.commit;
+        return result;
+      }
+    }
+  }]);
 
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].authenticate().then(function (response) {
-      commit("setLoggedIn", true);
-      commit("setUser", response.data);
-    });
-  },
-  logout: function logout(_ref4) {
-    var commit = _ref4.commit;
+  return SocketConnection;
+}();
 
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].logout(state.tokens).then(function (data) {
-      commit("setLoggedIn", false);
-      commit("setUser", false);
-      // commit("clearAccessToken", false);
-      // commit("clearRefreshToken", false);
-    });
-  },
-  forgotPassword: function forgotPassword(_ref5, credentials) {
-    var commit = _ref5.commit;
-
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].recovery(credentials);
-  },
-  resetPassword: function resetPassword(_ref6, credentials) {
-    var commit = _ref6.commit;
-
-    return __WEBPACK_IMPORTED_MODULE_0__services_Auth__["a" /* default */].reset(credentials);
-  }
-};
-
-var mutations = {
-  setUser: function setUser(state, user) {
-    state.user = user;
-  },
-  clearUser: function clearUser(state, user) {
-    state.user = false;
-  },
-  setAccessToken: function setAccessToken(state, token) {
-    localStorage.setItem("accessToken", token);
-    state.tokens.access = token;
-  },
-  clearAccessToken: function clearAccessToken(state) {
-    localStorage.removeItem("accessToken");
-    state.tokens.access = false;
-  },
-  setRefreshToken: function setRefreshToken(state, token) {
-    localStorage.setItem("refreshToken", token);
-    state.tokens.refresh = token;
-  },
-  clearRefreshToken: function clearRefreshToken(state) {
-    localStorage.removeItem("refreshToken");
-    state.tokens.refresh = false;
-  },
-  setLoggedIn: function setLoggedIn(state, status) {
-    state.loggedin = status;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
+/* harmony default export */ __webpack_exports__["a"] = (new SocketConnection());
 
 /***/ }),
 
@@ -54608,6 +56458,126 @@ var mutations = {
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/modules/web-socket.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
+
+
+var state = {
+  loggedin: false,
+  user: false,
+  tokens: {
+    access: null,
+    refresh: null
+  }
+};
+
+var getters = {
+  user: function user() {
+    return state.user;
+  },
+  isAdmin: function isAdmin() {
+    // return typeof state.user.isAdmin !== undefined && state.user.isAdmin;
+    return true;
+  },
+  loggedin: function loggedin() {
+    return state.loggedin;
+  },
+  accesstoken: function accesstoken() {
+    return state.tokens.access;
+  },
+  refreshtoken: function refreshtoken() {
+    return state.tokens.refresh;
+  },
+  auth: function auth() {
+    return state;
+  }
+};
+
+var actions = {
+  register: function register(_ref, credentials) {
+    var commit = _ref.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].register(credentials);
+  },
+  login: function login(_ref2, credentials) {
+    var commit = _ref2.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].login(credentials).then(function (response) {
+      commit("setLoggedIn", true);
+      commit("setUser", response.data);
+      // commit("setAccessToken", data.token.token);
+      // commit("setRefreshToken", data.token.refreshToken);
+    });
+  },
+  authenticate: function authenticate(_ref3) {
+    var commit = _ref3.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].authenticate().then(function (response) {
+      commit("setLoggedIn", true);
+      commit("setUser", response.data);
+    });
+  },
+  logout: function logout(_ref4) {
+    var commit = _ref4.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].logout(state.tokens).then(function (data) {
+      commit("setLoggedIn", false);
+      commit("setUser", false);
+      // commit("clearAccessToken", false);
+      // commit("clearRefreshToken", false);
+    });
+  },
+  forgotPassword: function forgotPassword(_ref5, credentials) {
+    var commit = _ref5.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].recovery(credentials);
+  },
+  resetPassword: function resetPassword(_ref6, credentials) {
+    var commit = _ref6.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].reset(credentials);
+  }
+};
+
+var mutations = {
+  SOCKET_ONOPEN: function SOCKET_ONOPEN(state, event) {
+    Vue.prototype.$socket = event.currentTarget;
+    state.socket.isConnected = true;
+  },
+  SOCKET_ONCLOSE: function SOCKET_ONCLOSE(state, event) {
+    state.socket.isConnected = false;
+  },
+  SOCKET_ONERROR: function SOCKET_ONERROR(state, event) {
+    console.error(state, event);
+  },
+
+  // default handler called for all methods
+  SOCKET_ONMESSAGE: function SOCKET_ONMESSAGE(state, message) {
+    state.socket.message = message;
+  },
+
+  // mutations for reconnect methods
+  SOCKET_RECONNECT: function SOCKET_RECONNECT(state, count) {
+    console.info(state, count);
+  },
+  SOCKET_RECONNECT_ERROR: function SOCKET_RECONNECT_ERROR(state) {
+    state.socket.reconnectError = true;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/store.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54617,7 +56587,7 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_feedback__ = __webpack_require__("./resources/assets/js/store/modules/feedback.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_loading__ = __webpack_require__("./resources/assets/js/store/modules/loading.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_auth__ = __webpack_require__("./resources/assets/js/store/modules/auth.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_web_socket__ = __webpack_require__("./resources/assets/js/store/modules/web-socket.js");
 
 
 
@@ -54648,9 +56618,25 @@ var mutations = {};
     loading: __WEBPACK_IMPORTED_MODULE_3__modules_loading__["a" /* default */],
     // posts,
     // users,
-    auth: __WEBPACK_IMPORTED_MODULE_4__modules_auth__["a" /* default */]
+    auth: __WEBPACK_IMPORTED_MODULE_4__modules_web_socket__["a" /* default */]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/assets/js/utils/data.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export getHostname */
+/* harmony export (immutable) */ __webpack_exports__["a"] = getSocketProtocol;
+function getHostname() {
+  return window.location.hostname === 'localhost' ? 'http://' : 'https://';
+}
+
+function getSocketProtocol() {
+  return window.location.hostname === 'localhost' ? 'ws://' : 'wss://';
+}
 
 /***/ }),
 
