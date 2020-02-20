@@ -4269,7 +4269,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_main_bar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store__ = __webpack_require__("./resources/assets/js/store/store.js");
 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4290,7 +4289,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Index",
   data: function data() {
@@ -4301,13 +4299,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
     };
   },
+  mounted: function mounted() {
+    this.privateChat({
+      receiver_id: 1,
+      message: 'hello'
+    });
+  },
 
   components: {
     LeftSideBar: __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar___default.a,
     RightSideBar: __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default.a,
     Main: __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default.a
   },
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate"]), {
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate", "privateChat"]), {
     onSubmit: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -24615,6 +24619,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     channels: {
       channel_list: false,
       joined_list: false
+    },
+
+    chat: {
+      sending_message: false,
+      receiving_message: false,
+      messages: []
     }
   },
   mutations: {
@@ -24644,6 +24654,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     SOCKET_JOINED_CHANNEL_LIST: function SOCKET_JOINED_CHANNEL_LIST(state, data) {
       state.channels.joined_list = data;
+    },
+
+
+    // Chat Mutation
+    SOCKET_SET_SENDING_MESSAGE: function SOCKET_SET_SENDING_MESSAGE(state, data) {
+      state.chat.sending_message = !state.chat.sending_message;
+      state.chat.message.push(data.message);
+    },
+    SOCKET_SET_RECEIVING_MESSAGE: function SOCKET_SET_RECEIVING_MESSAGE(state, data) {
+      state.chat.receiving_message = !state.chat.receiving_message;
+      state.chat.message.push(data.message);
     }
   },
   actions: {
@@ -24699,9 +24720,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               case 4:
                 subscribe = _context2.sent;
 
+                commit('SOCKET_SET_SENDING_MESSAGE', data);
                 subscribe.emit("chatMessage", data);
 
-              case 6:
+              case 7:
               case 'end':
                 return _context2.stop();
             }

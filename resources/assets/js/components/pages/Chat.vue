@@ -12,7 +12,6 @@
   import LeftSideBar from "../utils/left_sidebar";
   import RightSideBar from "../utils/right_sidebar";
   import Main from "../utils/main_bar";
-  import store from '../../store/store';
   export default {
     name: "Index",
     data() {
@@ -23,13 +22,21 @@
         }
       }
     },
+    mounted() {
+      this.privateChat(
+        {
+          receiver_id: 1, 
+          message: 'hello', 
+        }
+      )
+    },
     components: {
       LeftSideBar,
       RightSideBar,
       Main
     },
     methods: {
-      ...mapActions(["authenticate"]),
+      ...mapActions(["authenticate", "privateChat"]),
       async onSubmit() {
         await this.authenticate(this.user)
           .then(() => console.log('Authenticated'))

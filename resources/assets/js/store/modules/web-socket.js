@@ -12,6 +12,12 @@ export default {
       channel_list:false,
       joined_list:false
     },
+
+    chat: {
+      sending_message: false,
+      receiving_message: false,
+      messages: [],
+    }
   },
   mutations: {
     // Sockets connection Mutations
@@ -42,6 +48,16 @@ export default {
       state.channels.joined_list = data;
     },
 
+
+    // Chat Mutation
+    SOCKET_SET_SENDING_MESSAGE(state, data) {
+      state.chat.sending_message = !state.chat.sending_message;
+      state.chat.message.push(data.message)
+    },
+    SOCKET_SET_RECEIVING_MESSAGE(state, data) {
+        state.chat.receiving_message = !state.chat.receiving_message;
+        state.chat.message.push(data.message)
+    }
   },
   actions: {
     async connectWs({commit}, data) {
@@ -52,6 +68,7 @@ export default {
     async privateChat({commit}, data) {
       await WS.connect();
      let subscribe = await WS.subscribe('chat');
+     commit('SOCKET_SET_SENDING_MESSAGE', data)
      subscribe.emit("chatMessage", data);
     },
   },

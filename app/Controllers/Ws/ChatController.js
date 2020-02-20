@@ -20,9 +20,12 @@ class ChatController {
   async onChatMessage (data) {
     // same as: socket.on('chatMessage')
     try{
-      const new_message = await Message.create(data);
-      const receiver = await User.query().where('id', new_message.receiver_id).fetch();
-      this.socket.broadcast('chatMessage', receiver);
+      const { receiver_id } = data;
+      const user = User.query().where('id', receiver_id).fetch();
+      if (!user) {
+        throw new Error('User not found');
+      }
+      await Message.create(data);
     }catch(error) {
       console.error(error)
     }
