@@ -36,13 +36,17 @@ export class SocketConnection {
 
   subscribe(channel, handler) {
     if (!this.ws) {
-      setTimeout(() => this.subscribe(channel), 1000)
+      setTimeout(() => {
+        this.subscribe(channel);
+      }, 1000)
     } else {
       const result = this.ws.subscribe(channel);
       result.on('message', message => {
         return (message)
       });
-
+      result.on('chatMessage', message => {
+        return (message)
+      })
       result.on('getChannels', data => {
         store.commit("SOCKET_SET_CHANNEL_LIST", data.data);
         return (data)

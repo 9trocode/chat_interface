@@ -11,7 +11,7 @@ export default {
     channels:{
       channel_list:false,
       joined_list:false
-    }
+    },
   },
   mutations: {
     // Sockets connection Mutations
@@ -41,12 +41,18 @@ export default {
     SOCKET_JOINED_CHANNEL_LIST(state, data) {
       state.channels.joined_list = data;
     },
+
   },
   actions: {
     async connectWs({commit}, data) {
       await WS.connect();
      let subscribe = await WS.subscribe('channels');
      subscribe.emit("get", data);
+    },
+    async privateChat({commit}, data) {
+      await WS.connect();
+     let subscribe = await WS.subscribe('chat');
+     subscribe.emit("chatMessage", data);
     },
   },
   getters: {

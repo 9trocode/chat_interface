@@ -50,7 +50,7 @@ module.exports = {
   mysql: {
     client: 'mysql',
     connection: {
-      host: Env.get('DB_HOST', 'localhost'),
+      host: process.env.NODE_ENV === 'production' ? Env.get('DB_HOST', 'localhost') : Env.get('DEV_DB_HOST', 'localhost'),
       port: Env.get('DB_PORT', ''),
       user: Env.get('DB_USER', 'root'),
       password: Env.get('DB_PASSWORD', ''),
@@ -71,11 +71,11 @@ module.exports = {
   pg: {
     client: 'pg',
     connection: {
-      host: Env.get('DB_HOST', 'localhost'),
+      host: Env.get('NODE_ENV') === 'production' ? Env.get('DB_HOST', 'localhost') : Env.get('DEV_DB_HOST', 'localhost') ,
       port: Env.get('DB_PORT', ''),
-      user: Env.get('DB_USER', 'root'),
-      password: Env.get('DB_PASSWORD', ''),
-      database: Env.get('DB_DATABASE', 'adonis'),
+      user: Env.get('NODE_ENV') === 'production' ? Env.get('DB_USER', 'root') : Env.get('DEV_DB_USER', 'root'),
+      password: Env.get('NODE_ENV') === 'production' ? Env.get('DB_PASSWORD', '') : Env.get('DEV_DB_PASSWORD', ''),
+      database: Env.get('NODE_ENV') === 'production' ? Env.get('DB_DATABASE', 'adonis') : Env.get('DEV_DB_DATABASE', 'adonis'),
       ssl: false,
       rejectUnauthorized: true
     }

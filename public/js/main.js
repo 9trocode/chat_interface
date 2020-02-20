@@ -4269,6 +4269,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_main_bar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store__ = __webpack_require__("./resources/assets/js/store/store.js");
 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4283,6 +4284,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+
 
 
 
@@ -4701,7 +4703,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100%;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .direct__message .profiles[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      justify-content: space-evenly;\n      margin-top: 20px;\n      opacity: 1;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profiles .profile[data-v-63f88519] {\n        margin: 6px 0px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 5px 0px;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
+exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100%;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n    margin-left: .4rem !important;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .direct__message .profiles[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      justify-content: space-evenly;\n      margin-top: 20px;\n      opacity: 1;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profiles .profile[data-v-63f88519] {\n        margin: 6px 0px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 5px 0px;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
 
 // exports
 
@@ -6295,7 +6297,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "title" }, [
       _vm._v("CHAT"),
-      _c("span", { staticClass: "title_sub" }, [_vm._v("YARD")])
+      _c("span", { staticClass: "title_sub" }, [_vm._v(" YARD")])
     ])
   },
   function() {
@@ -24470,14 +24472,16 @@ var SocketConnection = function () {
 
       if (!this.ws) {
         setTimeout(function () {
-          return _this2.subscribe(channel);
+          _this2.subscribe(channel);
         }, 1000);
       } else {
         var result = this.ws.subscribe(channel);
         result.on('message', function (message) {
           return message;
         });
-
+        result.on('chatMessage', function (message) {
+          return message;
+        });
         result.on('getChannels', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
           return data;
@@ -24676,6 +24680,40 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
 
       return connectWs;
+    }(),
+    privateChat: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(_ref3, data) {
+        var commit = _ref3.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context2.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+
+              case 4:
+                subscribe = _context2.sent;
+
+                subscribe.emit("chatMessage", data);
+
+              case 6:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function privateChat(_x3, _x4) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return privateChat;
     }()
   },
   getters: {
@@ -24731,11 +24769,11 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /* harmony export (immutable) */ __webpack_exports__["a"] = getHostname;
 /* harmony export (immutable) */ __webpack_exports__["b"] = getSocketProtocol;
 function getHostname() {
-  return window.location.hostname === 'localhost' ? 'localhost:3333' : window.location.hostname;
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'localhost:3333' : window.location.hostname;
 }
 
 function getSocketProtocol() {
-  return window.location.hostname === 'localhost' ? 'ws://' : 'wss://';
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'ws://' : 'wss://';
 }
 
 /***/ }),

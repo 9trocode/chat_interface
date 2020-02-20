@@ -1,6 +1,6 @@
 <template>
   <section class="leftbar">
-    <span class="title">CHAT<span class="title_sub">YARD</span></span>
+    <span class="title">CHAT<span class="title_sub"> YARD</span></span>
 
     <section class="profile">
       <div class="user">
