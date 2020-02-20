@@ -35,9 +35,6 @@
           .catch(error => console.log(error));
       }
     },
-    async created() {
-      this.onSubmit();
-    }
   }
 </script>
 

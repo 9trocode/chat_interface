@@ -4333,29 +4333,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return onSubmit;
     }()
-  }),
-  created: function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              this.onSubmit();
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, this);
-    }));
-
-    function created() {
-      return _ref2.apply(this, arguments);
-    }
-
-    return created;
-  }()
+  })
 });
 
 /***/ }),
@@ -4389,6 +4367,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+
 
 
 
@@ -4398,22 +4378,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return {
       loading: true,
       user: {
-        username: "Alex"
+        username: ""
       }
     };
   },
 
-  components: {},
   methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate"]), {
     onSubmit: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        var _this = this;
+
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
                 return this.authenticate(this.user).then(function () {
-                  return console.log('Authenticated');
+                  return _this.$router.push({ path: "/chat" });
                 }).catch(function (error) {
                   return console.log(error);
                 });
@@ -4432,29 +4413,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return onSubmit;
     }()
-  }),
-  created: function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
-      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              this.onSubmit();
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, this);
-    }));
-
-    function created() {
-      return _ref2.apply(this, arguments);
-    }
-
-    return created;
-  }()
+  })
 });
 
 /***/ }),
@@ -6452,24 +6411,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "main" }, [
+    _c("div", { staticClass: "form-box" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.user.username,
+            expression: "user.username"
+          }
+        ],
+        attrs: { placeholder: "Enter Username", required: "" },
+        domProps: { value: _vm.user.username },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.user, "username", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              return _vm.onSubmit()
+            }
+          }
+        },
+        [_vm._v("\n      CHAT NOW\n    ")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "main" }, [
-      _c("div", { staticClass: "form-box" }, [
-        _c("p", { staticClass: "title" }, [
-          _vm._v("\n        CHAT"),
-          _c("bdi", [_vm._v("YARD")])
-        ]),
-        _vm._v(" "),
-        _c("input", { attrs: { placeholder: "Enter Username" } }),
-        _vm._v(" "),
-        _c("button", [_vm._v("\n        CHAT NOW\n      ")])
-      ])
+    return _c("p", { staticClass: "title" }, [
+      _vm._v("\n      CHAT\n      "),
+      _c("bdi", [_vm._v("YARD")])
     ])
   }
 ]
@@ -9499,7 +9488,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("09e3bbd2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6257ea84", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9526,7 +9515,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("4d4cb998", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("2c9d4bb2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9553,7 +9542,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("13937f9f", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("32808512", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9580,7 +9569,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("4d713b80", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("731e8ab3", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9607,7 +9596,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("56314610", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1181a806", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -9634,7 +9623,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("11df96d8", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5ed98076", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -24308,42 +24297,16 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
 /***/ }),
 
-/***/ "./resources/assets/js/router/guards/AppInit.js":
+/***/ "./resources/assets/js/router/guards/AuthInit.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_store__ = __webpack_require__("./resources/assets/js/store/store.js");
-
-
 /* harmony default export */ __webpack_exports__["a"] = (function (to, from, next) {
-  // if (!store.state.loading.appLoading) {
-  //   return next();
-  // }
-
   var accessToken = localStorage.getItem("accessToken");
-
-  if (accessToken || !accessToken) {
-    __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].dispatch("connectWs", false);
-    return next();
+  if (accessToken) {
+    return next("/chat");
   }
-
-  //   store.commit("auth/setAccessToken", accessToken);
-  //   store.commit("auth/setRefreshToken", refreshToken);
-
-  // store.dispatch("loading/setLoading", true);
-  // store
-  //   .dispatch("auth/authenticate")
-  //   .then(() => {
-  //     store.dispatch("loading/setAppLoading", false);
-  //     store.dispatch("loading/setLoading", false);
-  //     next();
-  //   })
-  //   .catch(error => {
-  //     store.dispatch("loading/setAppLoading", false);
-  //     store.dispatch("loading/setLoading", false);
-  //     //   store.dispatch("auth/logout");
-  //     next("/login");
-  //   });
+  return next();
 });
 
 /***/ }),
@@ -24352,29 +24315,11 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_store__ = __webpack_require__("./resources/assets/js/store/store.js");
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = (function (to, from, next) {
-  if (!__WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].getters["auth/loggedin"]) {
-    __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].dispatch("auth/logout");
-    return next("/login");
-  }
-
-  if (to.meta.isAdmin === undefined || !to.meta.isAdmin) {
-    return next();
-  }
-
-  if (!__WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].getters["auth/isAdmin"]) {
-    __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].dispatch("feedback/setDelayedFeedback", {
-      feedback: {
-        message: "You are not authorized to access this restricted area",
-        type: "danger"
-      }
-    });
+/* harmony default export */ __webpack_exports__["a"] = (function (to, from, next) {
+  var accessToken = localStorage.getItem("accessToken");
+  if (accessToken === null) {
     return next("/");
   }
-
   return next();
 });
 
@@ -24391,8 +24336,8 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_pages_Index__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_Chat__ = __webpack_require__("./resources/assets/js/components/pages/Chat.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_Chat___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_pages_Chat__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__guards_AppInit__ = __webpack_require__("./resources/assets/js/router/guards/AppInit.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__guards_IsLoggedIn__ = __webpack_require__("./resources/assets/js/router/guards/IsLoggedIn.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__guards_IsLoggedIn__ = __webpack_require__("./resources/assets/js/router/guards/IsLoggedIn.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__guards_AuthInit__ = __webpack_require__("./resources/assets/js/router/guards/AuthInit.js");
 
 
 
@@ -24408,15 +24353,15 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     routes: [{
         path: "/",
         name: "Index",
+        beforeEnter: __WEBPACK_IMPORTED_MODULE_5__guards_AuthInit__["a" /* default */],
         component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Index___default.a
     }, {
         path: "/chat",
         name: "Chat",
+        beforeEnter: __WEBPACK_IMPORTED_MODULE_4__guards_IsLoggedIn__["a" /* default */],
         component: __WEBPACK_IMPORTED_MODULE_3__components_pages_Chat___default.a
     }]
 });
-
-router.beforeEach(__WEBPACK_IMPORTED_MODULE_4__guards_AppInit__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
 

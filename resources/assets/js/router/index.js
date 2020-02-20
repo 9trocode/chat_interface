@@ -3,8 +3,8 @@ import Router from "vue-router";
 import Index from "@/components/pages/Index";
 import Chat from "@/components/pages/Chat";
 
-import AppInit from "./guards/AppInit";
 import IsLoggedIn from "./guards/IsLoggedIn";
+import AuthInit from "./guards/AuthInit";
 
 Vue.use(Router);
 
@@ -13,11 +13,13 @@ const router = new Router({
     routes: [{
             path: "/",
             name: "Index",
+            beforeEnter: AuthInit,
             component: Index
         },
         {
             path: "/chat",
             name: "Chat",
+            beforeEnter: IsLoggedIn,
             component: Chat
         },
         // {
@@ -31,6 +33,5 @@ const router = new Router({
     ]
 });
 
-router.beforeEach(AppInit);
 
 export default router;

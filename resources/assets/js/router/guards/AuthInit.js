@@ -1,7 +1,7 @@
 export default (to, from, next) => {
   const accessToken = localStorage.getItem("accessToken");
-  if (accessToken === null) {
-    return next("/");
+  if (accessToken) {
+    return next("/chat");
   }
   return next();
 };
