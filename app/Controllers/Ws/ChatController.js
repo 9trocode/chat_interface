@@ -18,29 +18,29 @@ class ChatController {
 
   async onChatMessage (data) {
     // same as: socket.on('chatMessage')
-      const { receiver_id } = data;
+      const { receiver_id, sender_id, message } = data;
       const user = User.query().where('id', receiver_id).fetch();
       if (!user) {
         this.socket.broadcastToAll('error', 'User not found')
       }
       await Message.create(data);
-      this.socket.broadcast('chatMessage', user)
+      this.socket.broadcastToAll(`chat:private:${receiver_id}:${sender_id}`, message)
   }
 
   async onGetChatMessage (data) {
-    const user = await User.query().where('id', data.receiver_id);
-    this.socket.broadcast('message', user)
+    const { message } = data;
+    this.socket.broadcastToAll(`chat:private:${receiver_id}:${sender_id}`, message)
   }
 
   async onSendChannelMessage (data) {
-    const { channel_id } = data;
+    const { channel_id, message } = data;
     const channel = await Channel.query().where('id', channel_id);
     if (!channel) {
       this.socket.broadcastToAll('error', 'No such channel exists');
     }
     const channel_users = channel.users().fetch();
     await Message.create(data);
-    this.socket.broadcastToAll('message', channel_users);
+    this.socket.broadcastToAll(`chat:channel:${channel_id}`, message);
   }
 
   async onGetChannelMessage(data) {
@@ -50,7 +50,7 @@ class ChatController {
       this.socket.broadcastToAll('error', 'No such channel exists');
     }
     const channel_users = channel.users().fetch();
-    this.socket.broadcastToAll('message', channel_users);
+    this.socket.broadcastToAll(`chat:channel:${channel_id}`, message);
   }
 
 //   async onClose (error) {
