@@ -5,10 +5,12 @@
         CHAT
         <bdi>YARD</bdi>
       </p>
+      <form @submit.prevent="onSubmit">
       <input placeholder="Enter Username" required v-model="user.username"/>
-      <button type="submit" @click="onSubmit()">
+      <button type="submit">
         CHAT NOW
       </button>
+      </form>
     </div>
   </section>
 </template>

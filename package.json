@@ -16,7 +16,7 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "",
+  "author": "nitrocode",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {

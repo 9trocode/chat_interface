@@ -4376,6 +4376,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -6863,38 +6865,42 @@ var render = function() {
     _c("div", { staticClass: "form-box" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.user.username,
-            expression: "user.username"
-          }
-        ],
-        attrs: { placeholder: "Enter Username", required: "" },
-        domProps: { value: _vm.user.username },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.user, "username", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
       _c(
-        "button",
+        "form",
         {
-          attrs: { type: "submit" },
           on: {
-            click: function($event) {
-              return _vm.onSubmit()
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.onSubmit($event)
             }
           }
         },
-        [_vm._v("\n      CHAT NOW\n    ")]
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.username,
+                expression: "user.username"
+              }
+            ],
+            attrs: { placeholder: "Enter Username", required: "" },
+            domProps: { value: _vm.user.username },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "username", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("button", { attrs: { type: "submit" } }, [
+            _vm._v("\n      CHAT NOW\n    ")
+          ])
+        ]
       )
     ])
   ])
