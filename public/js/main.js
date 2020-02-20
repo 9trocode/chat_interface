@@ -24791,11 +24791,11 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /* harmony export (immutable) */ __webpack_exports__["a"] = getHostname;
 /* harmony export (immutable) */ __webpack_exports__["b"] = getSocketProtocol;
 function getHostname() {
-  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'localhost:3333' : window.location.hostname;
+  return window.location.hostname === 'localhost' ? 'localhost:3333' : window.location.hostname;
 }
 
 function getSocketProtocol() {
-  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'ws://' : 'wss://';
+  return window.location.hostname === 'localhost' ? 'ws://' : 'wss://';
 }
 
 /***/ }),

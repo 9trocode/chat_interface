@@ -19,17 +19,12 @@ class ChatController {
   }
   async onChatMessage (data) {
     // same as: socket.on('chatMessage')
-    try{
       const { receiver_id } = data;
       const user = User.query().where('id', receiver_id).fetch();
       if (!user) {
         throw new Error('User not found');
       }
       await Message.create(data);
-    }catch(error) {
-      console.error(error)
-    }
-
   }
 
  async onClose (error) {
