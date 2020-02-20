@@ -1,6 +1,6 @@
-# Adonis Vue Boilerplate
+# Chat Yard
 
-The fullstack application boilerplate for Adonis & Vue
+A fullstack application Adonis & Vue
 
 ### Migrations
 
@@ -22,4 +22,9 @@ npm run assets-watch
 
 ```bash
 adonis serve --dev
+```
+
+### Design Link
+```
+https://xd.adobe.com/view/57920a8d-ec47-49ed-5f81-f97cdf862a79-21a3/
 ```
