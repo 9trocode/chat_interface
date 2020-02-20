@@ -24961,17 +24961,21 @@ var SocketConnection = function () {
         }, 1000);
       } else {
         var result = this.ws.subscribe(channel);
+
         result.on('message', function (message) {
           return message;
         });
+
         result.on('chatMessage', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
           return data;
         });
+
         result.on('getChatMessage', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_RECEIVING_MESSAGE', data);
           return data;
         });
+
         result.on('getChannels', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
           return data;
