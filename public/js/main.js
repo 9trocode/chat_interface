@@ -25084,6 +25084,77 @@ var SocketConnection = function () {
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/modules/uploads.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_uploadSdk__ = __webpack_require__("./resources/assets/js/utils/uploadSdk.js");
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  state: {
+    isUploading: false,
+    imgSource: ''
+  },
+  mutations: {
+    IMAGE_UPLOAD: function IMAGE_UPLOAD(state, data) {
+      state.imgSource = data;
+    },
+    IS_UPLOADING_IMAGE: function IS_UPLOADING_IMAGE(state) {
+      state.isUploading = !state.isUploading;
+    }
+  },
+  actions: {
+    uploadSingleImage: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref, data) {
+        var commit = _ref.commit;
+        var image;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit('IS_UPLOADING_IMAGE');
+                _context.next = 3;
+                return __WEBPACK_IMPORTED_MODULE_2__utils_uploadSdk__["a" /* default */].upload(data);
+
+              case 3:
+                image = _context.sent;
+
+                commit('IMAGE_UPLOAD', image);
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function uploadSingleImage(_x, _x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return uploadSingleImage;
+    }()
+  },
+  getters: {
+    getImage: function getImage(state) {
+      return state.imgSource;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/modules/web-socket.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -25358,6 +25429,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_http__ = __webpack_require__("./resources/assets/js/store/modules/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__ = __webpack_require__("./resources/assets/js/store/modules/web-socket.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_uploads__ = __webpack_require__("./resources/assets/js/store/modules/uploads.js");
 
 
 
@@ -25369,12 +25441,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   modules: {
     auth: __WEBPACK_IMPORTED_MODULE_2__modules_http__["a" /* default */],
-    WS: __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__["a" /* default */]
+    WS: __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__["a" /* default */],
+    uploads: __WEBPACK_IMPORTED_MODULE_4__modules_uploads__["a" /* default */]
   }
 }));
 
@@ -25393,6 +25467,126 @@ function getHostname() {
 function getSocketProtocol() {
   return window.location.hostname === 'localhost' ? 'ws://' : 'wss://';
 }
+
+/***/ }),
+
+/***/ "./resources/assets/js/utils/random.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = generateRandomCharacters;
+function generateRandomCharacters() {
+  var random = '';
+  var characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_123467890#';
+  for (var i = 0; i < 16; i++) {
+    random += characters[Math.floor(Math.random() * characters.length)];
+  }
+  return random;
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/utils/uploadSdk.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Env = use('Env');
+var Helpers = use('Helpers');
+var Media = use('App/Model/Media');
+var generateRandomCharacters = __webpack_require__("./resources/assets/js/utils/random.js");
+
+var FileUploadSDK = function () {
+  function FileUploadSDK() {
+    _classCallCheck(this, FileUploadSDK);
+  }
+
+  _createClass(FileUploadSDK, [{
+    key: 'upload',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref) {
+        var request = _ref.request;
+        var image, RANDOM, subtype;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                image = request.file('message_image', {
+                  types: ['image'],
+                  size: '2mb',
+                  extnames: ['png', 'gif', 'mp4', 'mp3']
+                });
+
+                console.log(image);
+
+                RANDOM = generateRandomCharacters();
+                subtype = '';
+                _context.next = 6;
+                return image.move(Helpers.tmpPath('public/uploads'), function (file) {
+                  subtype = file.subtype;
+                  return {
+                    name: 'IMG_' + RANDOM + '.' + subtype
+                  };
+                });
+
+              case 6:
+                if (image.moved()) {
+                  _context.next = 8;
+                  break;
+                }
+
+                return _context.abrupt('return', image.error());
+
+              case 8:
+                return _context.abrupt('return', 'IMG_' + RANDOM + '.' + subtype);
+
+              case 9:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function upload(_x) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return upload;
+    }()
+  }]);
+
+  return FileUploadSDK;
+}();
+
+var uploadSDK = function () {
+  function uploadSDK() {
+    _classCallCheck(this, uploadSDK);
+  }
+
+  _createClass(uploadSDK, [{
+    key: 'upload',
+    value: function upload(data) {
+      if (true) {
+        return new FileUploadSDK().upload(data);
+      }
+    }
+  }]);
+
+  return uploadSDK;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (new uploadSDK());
 
 /***/ }),
 
