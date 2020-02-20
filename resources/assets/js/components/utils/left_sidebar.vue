@@ -14,14 +14,6 @@
           <div class="dd-button">
             <i class="fa fa-angle-down ml-4"></i>
           </div>
-
-          <input type="checkbox" class="dd-input" id="test">
-
-          <ul class="dd-menu">
-            <li>Action</li>
-            <li>Another action</li>
-            <li>Something else here</li>
-          </ul>
         </label>
 
       </div>

@@ -1,7 +1,7 @@
 'use strict'
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class MessagesSchema extends Schema {
   up () {
@@ -21,4 +21,4 @@ class MessagesSchema extends Schema {
   }
 }
 
-module.exports = MessagesSchema
+module.exports = MessagesSchema;

@@ -29,7 +29,7 @@
           message: 'hello', 
           sender_id: 5,
         }
-      )
+      );
     },
     components: {
       LeftSideBar,
@@ -37,12 +37,12 @@
       Main
     },
     methods: {
-      ...mapActions(["authenticate", "privateChat", "getPrivateChat"]),
-      async onSubmit() {
-        await this.authenticate(this.user)
-          .then(() => console.log('Authenticated'))
-          .catch(error => console.log(error));
-      }
+      ...mapActions(["privateChat", "getPrivateChat","connectWs"]),
+      // async onSubmit() {
+      //   await this.authenticate(this.user)
+      //     .then(() => console.log('Authenticated'))
+      //     .catch(error => console.log(error));
+      // }
     },
   }
 </script>

@@ -1,6 +1,7 @@
+@import '../mixins'
 #mainContainer
   height: 100vh
-  //overflow-y: scroll
+  overflow-y: scroll
   font-family: 'Open Sans', sans-serif
 
   .top-bar
@@ -8,6 +9,22 @@
     display: flex
     flex-direction: row
     justify-content: space-between
+    align-items: center
+    .top-left-text
+      +fonts(Open Sans,18px,bold,left,24px,0px, #ffffffb3)
+      opacity: 0.9
+
+    .light-text
+      +fonts(Open Sans,16px,400,left,22px,0px, #ffffff80)
+      opacity: 0.5
+
+    .fa-user
+      color: #ffffff80
+      opacity: 0.5
+
+    .top-left-subtext
+      +fonts(Open Sans,14px,400,left,19px,0px, #ffffffb3)
+      opacity: 1
 
   .channel-name p
     color: #FFFFFFB3
@@ -73,11 +90,19 @@
 
     .chat-container
       width: auto
-      height: 32px
+      height: auto
+      min-height: 35px
+      max-width: 1000px
       transform: matrix(-1, 0, 0, -1, 0, 0)
       background: #FFFFFF46
       border-radius: 15px 0px 15px 15px
       margin-left: 12px
+      align-self: center
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      flex-wrap: wrap
+      flex: 1 1 auto
 
       .content
         letter-spacing: 0
@@ -87,6 +112,8 @@
         padding-bottom: 8px
         padding-left: 10px
         padding-right: 20px
+        display: flex
+        justify-content: flex-start
 
   .replied-content .name-time
     color: #585656
@@ -164,7 +191,7 @@
 
   .big-search
     position: absolute
-    bottom: 0px
+    bottom: 10px
     width: 62%
     left: 19%
     height: 50px
@@ -197,3 +224,5 @@
         height: 20px
         object-fit: contain
         margin-right: 20px
+::-webkit-scrollbar
+  display: none
