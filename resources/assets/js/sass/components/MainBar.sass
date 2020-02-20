@@ -1,0 +1,199 @@
+#mainContainer
+  height: 100vh
+  //overflow-y: scroll
+  font-family: 'Open Sans', sans-serif
+
+  .top-bar
+    padding: 20px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+  .channel-name p
+    color: #FFFFFFB3
+    font-size: 12px
+
+  .channel-title
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+    h5
+      color: #FFFFFFB3
+      font-size: 25px
+
+  .icon
+    color: #FFFFFFB3
+
+  .icon-container
+    display: flex
+    margin-top: 10px
+
+    p
+      margin-left: 10px
+      color: #FFFFFF80
+
+  .search
+    position: relative
+    margin-top: 10px
+
+    input
+      background: #FFFFFF0F 0% 0% no-repeat padding-box
+      border-radius: 50px
+      opacity: 1
+      letter-spacing: 0.9px
+      color: #FFFFFF4D
+      border: 0
+      padding-left: 30px
+      width: 278px
+      height: 40px
+
+      &:active, &:focus
+        box-shadow: none !important
+        outline: none !important
+
+    img
+      width: 12px
+      height: 12px
+      object-fit: contain
+      position: absolute
+      left: 10px
+      top: 15px
+
+  .content-container
+    padding: 50px 20px
+
+    h6
+      color: #FFFFFF80
+      font-size: 12px
+      text-align: center
+
+    .chat-content
+      padding-top: 40px
+
+    .chat-container
+      width: auto
+      height: 32px
+      transform: matrix(-1, 0, 0, -1, 0, 0)
+      background: #FFFFFF46
+      border-radius: 15px 0px 15px 15px
+      margin-left: 12px
+
+      .content
+        letter-spacing: 0
+        color: #FFFFFF
+        font-size: 12px
+        transform: rotate(180deg)
+        padding-bottom: 8px
+        padding-left: 10px
+        padding-right: 20px
+
+  .replied-content .name-time
+    color: #585656
+    font-size: 12px
+    padding-left: 47px
+    padding-top: 4px
+    margin-right: 47px
+
+  .content-container
+    .chat-content .name-time
+      color: #585656
+      font-size: 12px
+      padding-left: 47px
+      padding-top: 2px
+
+    .image-container
+      display: flex
+      flex-direction: row
+      flex-wrap: wrap
+
+  .replied-content
+    padding-top: 40px
+    display: flex
+    justify-content: flex-end
+
+  .content-container .replied-content .chat-container
+    letter-spacing: 0
+    color: #FFFFFF
+    font-size: 12px
+    padding-bottom: 8px
+    margin-right: 10px
+
+  .replied-content .image-container
+    display: flex
+    flex-direction: row-reverse
+
+  .content-container .image-container img
+    width: 35px
+    height: 35px
+
+  .more
+    margin-top: 20px
+
+  .chat-content .smiley
+    margin-left: 45px
+    background: #FFFFFF1A
+    width: 5%
+    display: flex
+    padding: 3px
+    border-radius: 4px
+
+  .replied-content .smiley
+    background: #FFFFFF1A
+    width: 100%
+    display: flex
+    align-self: flex-end
+    padding: 3px
+    border-radius: 4px
+
+  .smiley
+    img
+      width: 10px
+      height: 10px
+      margin-top: 2px
+      margin-left: 3px
+
+    p
+      color: #FFFFFFB3
+      font-size: 10px
+      padding-left: 4px
+
+  .left
+    display: flex
+    justify-content: flex-end
+
+  .big-search
+    position: absolute
+    bottom: 0px
+    width: 62%
+    left: 19%
+    height: 50px
+    background: #343434
+
+    input
+      background: #272727
+      width: 95%
+      border: none
+      height: 40px
+      border-radius: 30px
+      margin-left: 20px
+      margin-top: 6px
+      padding-left: 40px
+      font-size: 14px
+      color: #909090
+
+      &:active, &:focus
+        box-shadow: none
+        outline: none
+
+    .icon-img
+      position: absolute
+      display: flex
+      bottom: 25%
+      right: 5%
+
+      img
+        width: 20px
+        height: 20px
+        object-fit: contain
+        margin-right: 20px

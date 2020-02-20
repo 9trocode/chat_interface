@@ -4514,6 +4514,139 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4692,7 +4825,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.rightbar[data-v-4805b082] {\n  padding: 25px 20px 10px 10px;\n}\n.rightbar .nav[data-v-4805b082] {\n    width: 100%;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    padding: 0px;\n}\n.rightbar .nav .nav-list[data-v-4805b082]:nth-child(3) {\n      position: relative;\n}\n.rightbar .nav .nav-list[data-v-4805b082]:nth-child(3)::after {\n      content: '.';\n      display: inline-block;\n      color: #47CE66;\n      top: -65px;\n      left: 6px;\n      font-size: 80px;\n      position: absolute;\n}\n.rightbar .nav .nav-list[data-v-4805b082]:last-child {\n      transform: rotate(-38deg);\n}\n.rightbar .nav .nav-list[data-v-4805b082] {\n      list-style: none;\n      cursor: pointer;\n}\n.rightbar .nav .nav-list .nav-link[data-v-4805b082] {\n        color: #FFFFFF80;\n        font-size: 18px;\n}\n.rightbar .profile[data-v-4805b082] {\n    cursor: pointer;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #fff !important;\n}\n.rightbar .profile .has__joined[data-v-4805b082] {\n      opacity: 0.5;\n}\n", ""]);
+exports.push([module.i, "\n#mainContainer[data-v-4805b082] {\n  height: 100vh;\n  font-family: 'Open Sans', sans-serif;\n}\n#mainContainer .top-bar[data-v-4805b082] {\n    padding: 20px;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-name p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 12px;\n}\n#mainContainer .channel-title[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-title h5[data-v-4805b082] {\n      color: #FFFFFFB3;\n      font-size: 25px;\n}\n#mainContainer .icon[data-v-4805b082] {\n    color: #FFFFFFB3;\n}\n#mainContainer .icon-container[data-v-4805b082] {\n    display: flex;\n    margin-top: 10px;\n}\n#mainContainer .icon-container p[data-v-4805b082] {\n      margin-left: 10px;\n      color: #FFFFFF80;\n}\n#mainContainer .search[data-v-4805b082] {\n    position: relative;\n    margin-top: 10px;\n}\n#mainContainer .search input[data-v-4805b082] {\n      background: #FFFFFF0F 0% 0% no-repeat padding-box;\n      border-radius: 50px;\n      opacity: 1;\n      letter-spacing: 0.9px;\n      color: #FFFFFF4D;\n      border: 0;\n      padding-left: 30px;\n      width: 278px;\n      height: 40px;\n}\n#mainContainer .search input[data-v-4805b082]:active, #mainContainer .search input[data-v-4805b082]:focus {\n        box-shadow: none !important;\n        outline: none !important;\n}\n#mainContainer .search img[data-v-4805b082] {\n      width: 12px;\n      height: 12px;\n      object-fit: contain;\n      position: absolute;\n      left: 10px;\n      top: 15px;\n}\n#mainContainer .content-container[data-v-4805b082] {\n    padding: 50px 20px;\n}\n#mainContainer .content-container h6[data-v-4805b082] {\n      color: #FFFFFF80;\n      font-size: 12px;\n      text-align: center;\n}\n#mainContainer .content-container .chat-content[data-v-4805b082] {\n      padding-top: 40px;\n}\n#mainContainer .content-container .chat-container[data-v-4805b082] {\n      width: auto;\n      height: 32px;\n      transform: matrix(-1, 0, 0, -1, 0, 0);\n      background: #FFFFFF46;\n      border-radius: 15px 0px 15px 15px;\n      margin-left: 12px;\n}\n#mainContainer .content-container .chat-container .content[data-v-4805b082] {\n        letter-spacing: 0;\n        color: #FFFFFF;\n        font-size: 12px;\n        transform: rotate(180deg);\n        padding-bottom: 8px;\n        padding-left: 10px;\n        padding-right: 20px;\n}\n#mainContainer .replied-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 4px;\n    margin-right: 47px;\n}\n#mainContainer .content-container .chat-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 2px;\n}\n#mainContainer .content-container .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n#mainContainer .replied-content[data-v-4805b082] {\n    padding-top: 40px;\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .content-container .replied-content .chat-container[data-v-4805b082] {\n    letter-spacing: 0;\n    color: #FFFFFF;\n    font-size: 12px;\n    padding-bottom: 8px;\n    margin-right: 10px;\n}\n#mainContainer .replied-content .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row-reverse;\n}\n#mainContainer .content-container .image-container img[data-v-4805b082] {\n    width: 35px;\n    height: 35px;\n}\n#mainContainer .more[data-v-4805b082] {\n    margin-top: 20px;\n}\n#mainContainer .chat-content .smiley[data-v-4805b082] {\n    margin-left: 45px;\n    background: #FFFFFF1A;\n    width: 5%;\n    display: flex;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .replied-content .smiley[data-v-4805b082] {\n    background: #FFFFFF1A;\n    width: 100%;\n    display: flex;\n    align-self: flex-end;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .smiley img[data-v-4805b082] {\n    width: 10px;\n    height: 10px;\n    margin-top: 2px;\n    margin-left: 3px;\n}\n#mainContainer .smiley p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 10px;\n    padding-left: 4px;\n}\n#mainContainer .left[data-v-4805b082] {\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .big-search[data-v-4805b082] {\n    position: absolute;\n    bottom: 0px;\n    width: 62%;\n    left: 19%;\n    height: 50px;\n    background: #343434;\n}\n#mainContainer .big-search input[data-v-4805b082] {\n      background: #272727;\n      width: 95%;\n      border: none;\n      height: 40px;\n      border-radius: 30px;\n      margin-left: 20px;\n      margin-top: 6px;\n      padding-left: 40px;\n      font-size: 14px;\n      color: #909090;\n}\n#mainContainer .big-search input[data-v-4805b082]:active, #mainContainer .big-search input[data-v-4805b082]:focus {\n        box-shadow: none;\n        outline: none;\n}\n#mainContainer .big-search .icon-img[data-v-4805b082] {\n      position: absolute;\n      display: flex;\n      bottom: 25%;\n      right: 5%;\n}\n#mainContainer .big-search .icon-img img[data-v-4805b082] {\n        width: 20px;\n        height: 20px;\n        object-fit: contain;\n        margin-right: 20px;\n}\n", ""]);
 
 // exports
 
@@ -6212,9 +6345,286 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "main-bar" })
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("main", { attrs: { id: "mainContainer" } }, [
+      _c("section", { staticClass: "top-bar" }, [
+        _c("div", { staticClass: "channel-name" }, [
+          _c("div", { staticClass: "channel-title" }, [
+            _c("h5", [_vm._v("#   Relationships")]),
+            _vm._v(" "),
+            _c("span"),
+            _vm._v(" "),
+            _c("div", { staticClass: "icon-container" }, [
+              _c("i", { staticClass: "far fa-user icon" }),
+              _vm._v(" "),
+              _c("p", [_vm._v("55")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [_vm._v("Lets talk about love and other things maybe.")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "search" }, [
+          _c("input", {
+            attrs: { type: "text", placeholder: "Search for friend or chat" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            attrs: { src: __webpack_require__("./resources/assets/js/sass/search.png"), alt: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "content-container" }, [
+        _c("div", { staticClass: "time" }, [
+          _c("h6", [_vm._v("Today, 11:40am")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "chat-content" }, [
+            _c("div", { staticClass: "image-container" }, [
+              _c("img", {
+                attrs: {
+                  src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                  alt: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "chat-container" }, [
+                  _c("p", { staticClass: "content" }, [
+                    _vm._v(
+                      "My name is Anne , I think your playlist slaps alot!"
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "name-time" }, [
+              _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "chat-content" }, [
+            _c("div", { staticClass: "image-container" }, [
+              _c("img", {
+                attrs: {
+                  src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                  alt: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "chat-container" }, [
+                  _c("p", { staticClass: "content" }, [
+                    _vm._v(
+                      "My name is Anne , I think your playlist slaps alot! My name is Anne , I think your pl"
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "name-time" }, [
+              _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "chat-content" }, [
+            _c("div", { staticClass: "image-container" }, [
+              _c("img", {
+                attrs: {
+                  src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar.png"),
+                  alt: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "chat-container" }, [
+                  _c("p", { staticClass: "content" }, [
+                    _vm._v(
+                      "My name is Anne , I think your playlist slaps alot!"
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "more" }, [
+                  _c("div", { staticClass: "chat-container" }, [
+                    _c("p", { staticClass: "content" }, [
+                      _vm._v(
+                        "My name is Anne , I think your playlist slaps alot!"
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "name-time" }, [
+              _vm._v("Lanrenuisance Aug 8, 2019, 7:01 PM")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "chat-content" }, [
+            _c("div", { staticClass: "image-container" }, [
+              _c("img", {
+                attrs: {
+                  src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                  alt: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "chat-container" }, [
+                  _c("p", { staticClass: "content" }, [
+                    _vm._v(
+                      "My name is Anne , I think your playlist slaps alot!"
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "smiley" }, [
+              _c("img", {
+                attrs: { src: __webpack_require__("./resources/assets/js/sass/smile.png"), alt: "" }
+              }),
+              _vm._v(" "),
+              _c("p", [_vm._v("10")])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "name-time" }, [
+              _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "replied-content" }, [
+            _c("div", [
+              _c("div", { staticClass: "image-container" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                    alt: ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c("div", { staticClass: "chat-container" }, [
+                    _c("p", { staticClass: "content" }, [
+                      _vm._v(
+                        "My name is Anne , I think your playlist slaps alot!"
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "left" }, [
+                _c("div", [
+                  _c("p", { staticClass: "name-time" }, [
+                    _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "replied-content" }, [
+            _c("div", [
+              _c("div", { staticClass: "image-container" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                    alt: ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c("div", { staticClass: "chat-container" }, [
+                    _c("p", { staticClass: "content" }, [
+                      _vm._v(
+                        "My name is Anne , I think your playlist slaps alot!"
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "left" }, [
+                _c("div", [
+                  _c("p", { staticClass: "name-time" }, [
+                    _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "replied-content" }, [
+            _c("div", [
+              _c("div", { staticClass: "image-container" }, [
+                _c("img", {
+                  attrs: {
+                    src: __webpack_require__("./resources/assets/js/sass/avatars/Avatar1.png"),
+                    alt: ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c("div", { staticClass: "chat-container" }, [
+                    _c("p", { staticClass: "content" }, [
+                      _vm._v(
+                        "My name is Anne , I think your playlist slaps alot!"
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "left" }, [
+                _c("div", [
+                  _c("p", { staticClass: "name-time" }, [
+                    _vm._v("Tosin F Aug 8, 2019, 7:01 PM")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "big-search" }, [
+          _c("input", {
+            attrs: {
+              type: "text",
+              name: "",
+              id: "",
+              placeholder: "Enter a message to #relationship"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "icon-img" }, [
+            _c("img", {
+              attrs: { src: __webpack_require__("./resources/assets/js/sass/attach.png"), alt: "" }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              attrs: { src: __webpack_require__("./resources/assets/js/sass/upload.png"), alt: "" }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              attrs: { src: __webpack_require__("./resources/assets/js/sass/smile-input.png"), alt: "" }
+            })
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -24373,6 +24783,13 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 /***/ }),
 
+/***/ "./resources/assets/js/sass/attach.png":
+/***/ (function(module, exports) {
+
+module.exports = "/images/attach.png?5f5f7f264192fc7935bb8b8a91819323";
+
+/***/ }),
+
 /***/ "./resources/assets/js/sass/avatars/Avatar.png":
 /***/ (function(module, exports) {
 
@@ -24384,6 +24801,34 @@ module.exports = "/images/Avatar.png?96853cc50e360e923ea980b9d640347f";
 /***/ (function(module, exports) {
 
 module.exports = "/images/Avatar1.png?70f81401ea710beb3b09043bfac6f509";
+
+/***/ }),
+
+/***/ "./resources/assets/js/sass/search.png":
+/***/ (function(module, exports) {
+
+module.exports = "/images/search.png?772c6f4e425ae33a99c8241c0d25a84d";
+
+/***/ }),
+
+/***/ "./resources/assets/js/sass/smile-input.png":
+/***/ (function(module, exports) {
+
+module.exports = "/images/smile-input.png?57ff99037c9231c077352b17256a6667";
+
+/***/ }),
+
+/***/ "./resources/assets/js/sass/smile.png":
+/***/ (function(module, exports) {
+
+module.exports = "/images/smile.png?ab8233664561ef825ef1d81766654948";
+
+/***/ }),
+
+/***/ "./resources/assets/js/sass/upload.png":
+/***/ (function(module, exports) {
+
+module.exports = "/images/upload.png?bff7e9c5bd95d61f9033e4c42f512509";
 
 /***/ }),
 
