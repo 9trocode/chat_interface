@@ -1,6 +1,5 @@
-const Env = use('Env');
-const Helpers = use('Helpers');
-const Media = use('App/Model/Media');
+
+import path from 'path';
 const generateRandomCharacters = require('./random.js');
 
 class FileUploadSDK {
@@ -14,7 +13,7 @@ class FileUploadSDK {
 
     const RANDOM = generateRandomCharacters();
     let subtype = ''
-    await image.move(Helpers.tmpPath('public/uploads'), (file) => {
+    await image.move(path.join(__dirname,'public/uploads'), (file) => {
       subtype = file.subtype;
       return {
         name: `IMG_${RANDOM}.${subtype}`
