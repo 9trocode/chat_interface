@@ -4311,7 +4311,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     RightSideBar: __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default.a,
     Main: __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default.a
   },
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate", "privateChat"]), {
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate", "privateChat", "getPrivateChat"]), {
     onSubmit: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -24483,8 +24483,13 @@ var SocketConnection = function () {
         result.on('message', function (message) {
           return message;
         });
-        result.on('chatMessage', function (message) {
-          return message;
+        result.on('chatMessage', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
+          return data;
+        });
+        result.on('getChatMessage', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_RECEIVING_MESSAGE', data);
+          return data;
         });
         result.on('getChannels', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
@@ -24720,10 +24725,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               case 4:
                 subscribe = _context2.sent;
 
-                commit('SOCKET_SET_SENDING_MESSAGE', data);
                 subscribe.emit("chatMessage", data);
 
-              case 7:
+              case 6:
               case 'end':
                 return _context2.stop();
             }
@@ -24736,6 +24740,40 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
 
       return privateChat;
+    }(),
+    getPrivateChat: function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(_ref5, data) {
+        var commit = _ref5.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context3.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+
+              case 4:
+                subscribe = _context3.sent;
+
+                subscribe.emit("getChatMessage", data);
+
+              case 6:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getPrivateChat(_x5, _x6) {
+        return _ref6.apply(this, arguments);
+      }
+
+      return getPrivateChat;
     }()
   },
   getters: {

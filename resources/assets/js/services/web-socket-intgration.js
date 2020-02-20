@@ -44,8 +44,13 @@ export class SocketConnection {
       result.on('message', message => {
         return (message)
       });
-      result.on('chatMessage', message => {
-        return (message)
+      result.on('chatMessage', data => {
+        store.commit('SOCKET_SET_SENDING_MESSAGE', data)
+        return (data)
+      })
+      result.on('getChatMessage', data => {
+        store.commit('SOCKET_SET_RECEIVING_MESSAGE', data)
+        return (data)
       })
       result.on('getChannels', data => {
         store.commit("SOCKET_SET_CHANNEL_LIST", data.data);

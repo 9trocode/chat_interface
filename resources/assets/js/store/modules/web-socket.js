@@ -68,9 +68,13 @@ export default {
     async privateChat({commit}, data) {
       await WS.connect();
      let subscribe = await WS.subscribe('chat');
-     commit('SOCKET_SET_SENDING_MESSAGE', data)
      subscribe.emit("chatMessage", data);
     },
+    async getPrivateChat({commit}, data) {
+      await WS.connect();
+      let subscribe = await WS.subscribe('chat');
+      subscribe.emit("getChatMessage", data);
+    }
   },
   getters: {
     getChannel: state => state.channels.channel_list,

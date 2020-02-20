@@ -22,9 +22,15 @@ class ChatController {
       const { receiver_id } = data;
       const user = User.query().where('id', receiver_id).fetch();
       if (!user) {
-        throw new Error('User not found');
+        this.socket.broadcastToAll('error', 'User not found')
       }
       await Message.create(data);
+      this.socket.broadcast('message', user)
+  }
+
+  async onGetChatMessage (data) {
+    console.log(data);
+    this.socket.broadcast('message', data.receiver_id)
   }
 
  async onClose (error) {
