@@ -25,7 +25,7 @@
       </div>
 
       <div class="profiles">
-        <div v-for="i in 7" class="profile" :key="i">
+        <div v-for="i in 10" class="profile" :key="i">
           <div class="user">
             <img
               class="user__avatar"
