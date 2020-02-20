@@ -17,15 +17,14 @@ class ChatController {
     this.socket.broadcastToAll('message', users)
   }
 
- async onClose () {
+ async onClose (error) {
     // same as: socket.on('close')
-    console.log('Closing subscription for room topic', this.socket.topic);
+   this.socket.broadcastToAll('error',error)
   }
 
-  async onError (me) {
+  async onError (error) {
     // same as: socket.on('error')
-    console.log(me);
-
+    this.socket.broadcastToAll('error',error)
   }
 }
 
