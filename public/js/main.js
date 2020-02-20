@@ -24971,6 +24971,10 @@ var SocketConnection = function () {
           return data;
         });
 
+        result.on('sendChannelMessage', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
+          return data;
+        });
         result.on('getChatMessage', function (data) {
           __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_RECEIVING_MESSAGE', data);
           return data;

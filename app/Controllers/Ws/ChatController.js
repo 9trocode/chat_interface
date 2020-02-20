@@ -1,6 +1,7 @@
 'use strict';
 const User = use("App/Models/User");
-const Message = use('App/Models/Message')
+const Message = use('App/Models/Message');
+const Channel = use('App/Model/Channel');
 
 
 class ChatController {
@@ -30,7 +31,19 @@ class ChatController {
 
   async onGetChatMessage (data) {
     console.log(data);
-    this.socket.broadcast('message', data.receiver_id)
+    const user = await User.query().where('id', data.receiver_id);
+    this.socket.broadcast('message', user)
+  }
+
+  async onSendChannelMessage (data) {
+    const { channel_id } = data;
+    const channel = await Channel.query().where('id', channel_id);
+    if (!channel) {
+      this.socket.broadcastToAll('error', 'No such channel exists');
+    }
+    const channel_users = channel.users().fetch();
+    await Message.create(data);
+    this.socket.broadcastToAll('message', channel_users);
   }
 
  async onClose (error) {
