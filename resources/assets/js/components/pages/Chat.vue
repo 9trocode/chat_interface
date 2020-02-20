@@ -22,13 +22,21 @@
         }
       }
     },
+    mounted() {
+      this.privateChat(
+        {
+          receiver_id: 1, 
+          message: 'hello', 
+        }
+      )
+    },
     components: {
       LeftSideBar,
       RightSideBar,
       Main
     },
     methods: {
-      ...mapActions(["authenticate"]),
+      ...mapActions(["authenticate", "privateChat", "getPrivateChat"]),
       async onSubmit() {
         await this.authenticate(this.user)
           .then(() => console.log('Authenticated'))

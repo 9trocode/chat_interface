@@ -14,6 +14,7 @@
 
   .title_sub
     +fonts(Montserrat,24px,700,center,29px,0px, #47CE66)
+    margin-left: .4rem !important
 
 
   .profile
@@ -125,7 +126,55 @@
 
 
 
+.dd-button
+  display: inline-block
+  border-radius: 4px
+  padding: 10px 30px 10px 20px
+  background-color: transparent
+  cursor: pointer
 
+  &:hover
+    background-color: transparent
+
+.dd-input
+  display: none
+
+.dd-menu
+  position: absolute
+  top: 100%
+  border: 1px solid #ccc
+  border-radius: 4px
+  padding: 0
+  margin: 2px 0 0 0
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1)
+  background-color: #ffffff
+  list-style-type: none
+
+.dd-input
+  + .dd-menu
+    display: none
+
+  &:checked + .dd-menu
+    display: block
+
+.dd-menu li
+  padding: 10px 20px
+  cursor: pointer
+  white-space: nowrap
+  color: #909090
+
+  &:hover
+    background-color: transparent
+
+  a
+    display: block
+    color: #909090
+    margin: -10px -20px
+    padding: 10px 20px
+
+.dropdown
+  display: inline-block
+  position: relative
 
 
 

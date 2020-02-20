@@ -7,7 +7,7 @@ class MessagesSchema extends Schema {
   up () {
     this.create('messages', (table) => {
       table.increments();
-      table.string('message').notNullable().unique();
+      table.string('message').notNullable();
       table.integer('media_id').unsigned().references('id').inTable('media');
       table.integer('channel_id').unsigned().references('id').inTable('channels');
       table.integer('sender_id').unsigned().references('id').inTable('users');

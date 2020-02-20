@@ -1,5 +1,6 @@
 'use strict';
 const User = use("App/Models/User");
+const Message = use('App/Models/Message')
 
 
 class ChatController {
@@ -15,6 +16,21 @@ class ChatController {
     console.log('got message', message);
     let users = await User.query().fetch();
     this.socket.broadcastToAll('message', users)
+  }
+  async onChatMessage (data) {
+    // same as: socket.on('chatMessage')
+      const { receiver_id } = data;
+      const user = User.query().where('id', receiver_id).fetch();
+      if (!user) {
+        this.socket.broadcastToAll('error', 'User not found')
+      }
+      await Message.create(data);
+      this.socket.broadcast('message', user)
+  }
+
+  async onGetChatMessage (data) {
+    console.log(data);
+    this.socket.broadcast('message', data.receiver_id)
   }
 
  async onClose (error) {
