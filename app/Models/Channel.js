@@ -7,6 +7,9 @@ class Channel extends Model {
   static boot () {
     super.boot();
   }
+  users () {
+    return this.hasMany('App/Models/User')
+  }
 }
 
 module.exports = Channel;
