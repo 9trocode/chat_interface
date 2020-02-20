@@ -36,7 +36,7 @@
       Main
     },
     methods: {
-      ...mapActions(["authenticate", "privateChat"]),
+      ...mapActions(["authenticate", "privateChat", "getPrivateChat"]),
       async onSubmit() {
         await this.authenticate(this.user)
           .then(() => console.log('Authenticated'))
