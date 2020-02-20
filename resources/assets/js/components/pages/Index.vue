@@ -1,19 +1,22 @@
 <template>
   <section class="main">
-    <LeftSideBar class="left-side-bar" ></LeftSideBar>
-    <Main class="main-bar" ></Main>
-    <RightSideBar  class="right-side-bar"></RightSideBar>
+      <div class="form-box">
+        <p class='title'>
+          CHAT<bdi>YARD</bdi>
+        </p>
+        <input placeholder="Enter Username"/>
+        <button>
+          CHAT NOW
+        </button>
+      </div>
   </section>
 </template>
 
 <script>
   import SocketConnection from '../../services/web-socket-intgration'
   import {mapState, mapActions, mapMutations, mapGetters} from "vuex";
-  import LeftSideBar from "../utils/left_sidebar";
-  import RightSideBar from "../utils/right_sidebar";
-  import Main from "../utils/main_bar";
   export default {
-    name: "Index",
+    name: "Login",
     data() {
       return {
         loading: true,
@@ -23,9 +26,6 @@
       }
     },
     components: {
-      LeftSideBar,
-      RightSideBar,
-      Main
     },
     methods: {
       ...mapActions(["authenticate"]),
@@ -40,7 +40,6 @@
     }
   }
 </script>
-
-<style lang="sass">
-  @import "../../sass/components/Dashboard"
+<style lang="sass" scoped>
+  @import "../../sass/components/Login"
 </style>
