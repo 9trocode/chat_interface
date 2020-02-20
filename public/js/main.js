@@ -4259,21 +4259,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/left_sidebar.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/right_sidebar.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_main_bar__);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/left_sidebar.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/right_sidebar.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_main_bar__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -4307,39 +4301,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   components: {
-    LeftSideBar: __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar___default.a,
-    RightSideBar: __WEBPACK_IMPORTED_MODULE_4__utils_right_sidebar___default.a,
-    Main: __WEBPACK_IMPORTED_MODULE_5__utils_main_bar___default.a
+    LeftSideBar: __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default.a,
+    RightSideBar: __WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar___default.a,
+    Main: __WEBPACK_IMPORTED_MODULE_4__utils_main_bar___default.a
   },
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])(["authenticate", "privateChat", "getPrivateChat"]), {
-    onSubmit: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return this.authenticate(this.user).then(function () {
-                  return console.log('Authenticated');
-                }).catch(function (error) {
-                  return console.log(error);
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function onSubmit() {
-        return _ref.apply(this, arguments);
-      }
-
-      return onSubmit;
-    }()
-  })
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])(["privateChat", "getPrivateChat", "connectWs"]))
 });
 
 /***/ }),
@@ -25149,8 +25115,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     // Chat Mutation
     SOCKET_SET_SENDING_MESSAGE: function SOCKET_SET_SENDING_MESSAGE(state, data) {
-      state.chat.sending_message = !state.chat.sending_message;
-      state.chat.message.push(data.message);
+      state.chat.sending_message = data;
     },
     SOCKET_SET_RECEIVING_MESSAGE: function SOCKET_SET_RECEIVING_MESSAGE(state, data) {
       state.chat.receiving_message = !state.chat.receiving_message;

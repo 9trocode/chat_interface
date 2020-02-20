@@ -7,8 +7,6 @@ class ChatController {
   constructor ({ socket, request }) {
     this.socket = socket;
     this.request = request;
-
-    console.log('A new subscription for room topic', socket.topic)
   }
 
  async onMessage (message) {
@@ -24,13 +22,13 @@ class ChatController {
       if (!user) {
         this.socket.broadcastToAll('error', 'User not found')
       }
-      await Message.create(data);
-      this.socket.broadcast('message', user)
+      let messages = await Message.create(data);
+      this.socket.broadcastToAll('chatMessage', messages);
   }
 
   async onGetChatMessage (data) {
     console.log(data);
-    this.socket.broadcast('message', data.receiver_id)
+    this.socket.broadcastToAll('message', data.receiver_id)
   }
 
  async onClose (error) {

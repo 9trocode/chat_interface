@@ -51,9 +51,9 @@ export default {
 
     // Chat Mutation
     SOCKET_SET_SENDING_MESSAGE(state, data) {
-      state.chat.sending_message = !state.chat.sending_message;
-      state.chat.message.push(data.message)
+      state.chat.sending_message = data;
     },
+
     SOCKET_SET_RECEIVING_MESSAGE(state, data) {
         state.chat.receiving_message = !state.chat.receiving_message;
         state.chat.message.push(data.message)
