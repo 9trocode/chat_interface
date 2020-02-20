@@ -7,20 +7,17 @@ import cookies from "browser-cookies";
 import WsPlugin from 'adonis-vue-websocket'
 Vue.use(WsPlugin, { adonisWS: window.adonis.Ws });
 
-import BootstrapVue from "bootstrap-vue";
-Vue.use(BootstrapVue);
-
 Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 
 new Vue({
-  el: "#app",
-  validations: {},
-  store,
-  router,
-  components: { App },
-  template: "<App/>"
+    el: "#app",
+    validations: {},
+    store,
+    router,
+    components: { App },
+    template: "<App/>"
 });
 
 // (async () => {

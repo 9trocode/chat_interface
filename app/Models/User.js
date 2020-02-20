@@ -34,6 +34,9 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+  joinedChannels() {
+    return this.hasMany('App/Models/JoinedChannel')
+  }
 }
 
 module.exports = User;

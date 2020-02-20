@@ -22,6 +22,6 @@ Factory.blueprint('users', (faker) => {
 Factory.blueprint('channels', (faker) => {
   return {
     channel_name: 'general',
-    topic: 'general channel'
+    topic: 'general'
   }
 })
