@@ -4262,7 +4262,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/left_sidebar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_left_sidebar__);
@@ -4353,7 +4352,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__services_web_socket_intgration__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 
 
