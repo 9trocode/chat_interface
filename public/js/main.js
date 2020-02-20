@@ -3942,6 +3942,1082 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["b" /* pluginFactory */])({
 
 /***/ }),
 
+/***/ "./node_modules/bootstrap-vue/esm/components/calendar/calendar.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export isLocaleRTL */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BCalendar; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/vue.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/key-codes.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_loose_equal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/loose-equal.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_array__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/array.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_date__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/date.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_dom__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/dom.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_inspect__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/inspect.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_number__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/number.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_string__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/string.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__mixins_normalize_slot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/normalize-slot.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__icons_icons__ = __webpack_require__("./node_modules/bootstrap-vue/esm/icons/icons.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__icons_iconstack__ = __webpack_require__("./node_modules/bootstrap-vue/esm/icons/iconstack.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // --- Constants ---
+
+var NAME = 'BCalendar'; // Key Codes
+
+var UP = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].UP,
+    DOWN = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].DOWN,
+    LEFT = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].LEFT,
+    RIGHT = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].RIGHT,
+    PAGEUP = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].PAGEUP,
+    PAGEDOWN = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].PAGEDOWN,
+    HOME = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].HOME,
+    END = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].END,
+    ENTER = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].ENTER,
+    SPACE = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].SPACE; // Languages that are RTL
+
+var RTL_LANGS = ['ar', 'az', 'ckb', 'fa', 'he', 'ks', 'lrc', 'mzn', 'ps', 'sd', 'te', 'ug', 'ur', 'yi'].map(function (locale) {
+  return locale.toLowerCase();
+}); // --- Helper utilities ---
+
+var isLocaleRTL = function isLocaleRTL(locale) {
+  // Determines if the locale is RTL (only single locale supported)
+  var parts = Object(__WEBPACK_IMPORTED_MODULE_10__utils_string__["f" /* toString */])(locale).toLowerCase().replace(/-u-.+/, '').split('-');
+  var locale1 = parts.slice(0, 2).join('-');
+  var locale2 = parts[0];
+  return Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(RTL_LANGS, locale1) || Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(RTL_LANGS, locale2);
+}; // --- BCalendar component ---
+// @vue/component
+
+var BCalendar = __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
+  name: NAME,
+  mixins: [__WEBPACK_IMPORTED_MODULE_11__mixins_id__["a" /* default */], __WEBPACK_IMPORTED_MODULE_12__mixins_normalize_slot__["a" /* default */]],
+  model: {
+    // Even though this is the default that Vue assumes, we need
+    // to add it for the docs to reflect that this is the model
+    // And also for some validation libraries to work
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    value: {
+      type: [String, Date] // default: null
+
+    },
+    valueAsDate: {
+      // Always return the `v-model` value as a date object
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    min: {
+      type: [String, Date] // default: null
+
+    },
+    max: {
+      type: [String, Date] // default: null
+
+    },
+    dateDisabledFn: {
+      type: Function // default: null
+
+    },
+    startWeekday: {
+      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
+      // Day of week to start calendar on
+      type: [Number, String],
+      default: 0
+    },
+    locale: {
+      // Locale(s) to use
+      // Default is to use page/browser default setting
+      type: [String, Array] // default: null
+
+    },
+    direction: {
+      // 'ltr', 'rtl', or `null` (for auto detect)
+      type: String // default: null
+
+    },
+    selectedVariant: {
+      // Variant color to use for the selected date
+      type: String,
+      default: 'primary'
+    },
+    todayVariant: {
+      // Variant color to use for today's date (defaults to `variant`)
+      type: String // default: null
+
+    },
+    noHighlightToday: {
+      // Disable highlighting today's date
+      type: Boolean,
+      default: false
+    },
+    dateInfoFn: {
+      // Function to set a class of (classes) on the date cell
+      // if passed a string or an array
+      // TODO:
+      //   If the function returns an object, look for class prop for classes,
+      //   and other props for handling events/details/descriptions
+      type: Function // default: null
+
+    },
+    width: {
+      // Has no effect if prop `block` is set
+      type: String,
+      default: '270px'
+    },
+    block: {
+      // Makes calendar the full width of its parent container
+      type: Boolean,
+      default: false
+    },
+    hideHeader: {
+      // When true makes the selected date header `sr-only`
+      type: Boolean,
+      default: false
+    },
+    hidden: {
+      // When `true`, renders a comment node, but keeps the component instance active
+      // Mainly for <b-form-date>, so that we can get the component's value and locale
+      // But we might just use separate date formatters, using the resolved locale
+      // (adjusted for the gregorian calendar)
+      type: Boolean,
+      default: false
+    },
+    ariaControls: {
+      type: String // default: null
+
+    },
+    roleDescription: {
+      type: String // default: null
+
+    },
+    // Labels for buttons and keyboard shortcuts
+    labelPrevYear: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelPrevYear');
+      }
+    },
+    labelPrevMonth: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelPrevMonth');
+      }
+    },
+    labelCurrentMonth: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelCurrentMonth');
+      }
+    },
+    labelNextMonth: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelNextMonth');
+      }
+    },
+    labelNextYear: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelNextYear');
+      }
+    },
+    labelToday: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelToday');
+      }
+    },
+    labelSelected: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelSelected');
+      }
+    },
+    labelNoDateSelected: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelNoDateSelected');
+      }
+    },
+    labelCalendar: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelCalendar');
+      }
+    },
+    labelNav: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelNav');
+      }
+    },
+    labelHelp: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'labelHelp');
+      }
+    }
+  },
+  data: function data() {
+    var selected = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.value) || '';
+    return {
+      // Selected date
+      selectedYMD: selected,
+      // Date in calendar grid that has `tabindex` of `0`
+      activeYMD: selected || Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.getToday()),
+      // Will be true if the calendar grid has/contains focus
+      gridHasFocus: false,
+      // Flag to enable the `aria-live` region(s) after mount
+      // to prevent screen reader "outbursts" when mounting
+      isLive: false
+    };
+  },
+  computed: {
+    // TODO: Use computed props to convert `YYYY-MM-DD` to `Date` object
+    selectedDate: function selectedDate() {
+      // Selected as a `Date` object
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(this.selectedYMD);
+    },
+    activeDate: function activeDate() {
+      // Active as a `Date` object
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(this.activeYMD);
+    },
+    computedMin: function computedMin() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(this.min);
+    },
+    computedMax: function computedMax() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(this.max);
+    },
+    computedWeekStarts: function computedWeekStarts() {
+      // `startWeekday` is a prop (constrained to `0` through `6`)
+      return Math.max(Object(__WEBPACK_IMPORTED_MODULE_9__utils_number__["c" /* toInteger */])(this.startWeekday) || 0, 0) % 7;
+    },
+    computedLocale: function computedLocale() {
+      // Returns the resolved locale used by the calendar
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["l" /* resolveLocale */])(Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])(this.locale).filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]), 'gregory');
+    },
+    calendarLocale: function calendarLocale() {
+      // This locale enforces the gregorian calendar (for use in formatter functions)
+      // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
+      // and IE 11 (and some other browsers) do not support the `calendar` option
+      // And we currently only support the gregorian calendar
+      var fmt = new Intl.DateTimeFormat(this.computedLocale, {
+        calendar: 'gregory'
+      });
+      var calendar = fmt.resolvedOptions().calendar;
+      var locale = fmt.resolvedOptions().locale;
+      /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
+
+      if (calendar !== 'gregory') {
+        // Ensure the locale requests the gregorian calendar
+        // Mainly for IE 11, and currently we can't handle non-gregorian calendars
+        // TODO: Should we always return this value?
+        locale = locale.replace(/-u-.+$/i, '').concat('-u-ca-gregory');
+      }
+
+      return locale;
+    },
+    calendarYear: function calendarYear() {
+      return this.activeDate.getFullYear();
+    },
+    calendarMonth: function calendarMonth() {
+      return this.activeDate.getMonth();
+    },
+    calendarFirstDay: function calendarFirstDay() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(this.calendarYear, this.calendarMonth, 1);
+    },
+    calendarDaysInMonth: function calendarDaysInMonth() {
+      // We create a new date as to not mutate the original
+      var date = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(this.calendarFirstDay);
+      date.setMonth(date.getMonth() + 1, 0);
+      return date.getDate();
+    },
+    computedVariant: function computedVariant() {
+      return "btn-".concat(this.selectedVariant || 'primary');
+    },
+    computedTodayVariant: function computedTodayVariant() {
+      return "btn-outline-".concat(this.todayVariant || this.selectedVariant || 'primary');
+    },
+    isRTL: function isRTL() {
+      // `true` if the language requested is RTL
+      var dir = Object(__WEBPACK_IMPORTED_MODULE_10__utils_string__["f" /* toString */])(this.direction).toLowerCase();
+
+      if (dir === 'rtl') {
+        /* istanbul ignore next */
+        return true;
+      } else if (dir === 'ltr') {
+        /* istanbul ignore next */
+        return false;
+      }
+
+      return isLocaleRTL(this.computedLocale);
+    },
+    context: function context() {
+      var selectedYMD = this.selectedYMD;
+      var selectedDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(selectedYMD);
+      var activeYMD = this.activeYMD;
+      var activeDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(activeYMD);
+      return {
+        // The current value of the `v-model`
+        selectedYMD: selectedYMD,
+        selectedDate: selectedDate,
+        selectedFormatted: selectedDate ? this.formatDateString(selectedDate) : this.labelNoDateSelected,
+        // Which date cell is considered active due to navigation
+        activeYMD: activeYMD,
+        activeDate: activeDate,
+        activeFormatted: activeDate ? this.formatDateString(activeDate) : '',
+        // `true` if the date is disabled (when using keyboard navigation)
+        disabled: this.dateDisabled(activeDate),
+        // Locales used in formatting dates
+        locale: this.computedLocale,
+        calendarLocale: this.calendarLocale,
+        rtl: this.isRTL
+      };
+    },
+    // Computed props that return a function reference
+    dateOutOfRange: function dateOutOfRange() {
+      // Check wether a date is within the min/max range
+      // returns a new function ref if the pops change
+      // We do this as we need to trigger the calendar computed prop
+      // to update when these props update
+      var min = this.computedMin;
+      var max = this.computedMax;
+      return function (date) {
+        // Handle both `YYYY-MM-DD` and `Date` objects
+        date = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(date);
+        return min && date < min || max && date > max;
+      };
+    },
+    dateDisabled: function dateDisabled() {
+      // Returns a function for validating if a date is within range
+      // We grab this variables first to ensure a new function ref
+      // is generated when the props value changes
+      // We do this as we need to trigger the calendar computed prop
+      // to update when these props update
+      var rangeFn = this.dateOutOfRange;
+      var disabledFn = Object(__WEBPACK_IMPORTED_MODULE_8__utils_inspect__["f" /* isFunction */])(this.dateDisabledFn) ? this.dateDisabledFn : function () {
+        return false;
+      }; // Return the function ref
+
+      return function (date) {
+        // Handle both `YYYY-MM-DD` and `Date` objects
+        date = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(date);
+        var ymd = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(date);
+        return !!(rangeFn(date) || disabledFn(ymd, date));
+      };
+    },
+    // Computed props that return date formatter functions
+    formatDateString: function formatDateString() {
+      // Returns a date formatter function
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["b" /* createDateFormatter */])(this.calendarLocale, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        calendar: 'gregory'
+      });
+    },
+    formatYearMonth: function formatYearMonth() {
+      // Returns a date formatter function
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["b" /* createDateFormatter */])(this.calendarLocale, {
+        year: 'numeric',
+        month: 'long',
+        calendar: 'gregory'
+      });
+    },
+    formatWeekdayName: function formatWeekdayName() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["b" /* createDateFormatter */])(this.calendarLocale, {
+        weekday: 'long',
+        calendar: 'gregory'
+      });
+    },
+    formatWeekdayNameShort: function formatWeekdayNameShort() {
+      // Used as the header cells
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["b" /* createDateFormatter */])(this.calendarLocale, {
+        weekday: 'short',
+        calendar: 'gregory'
+      });
+    },
+    formatDay: function formatDay() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["b" /* createDateFormatter */])(this.calendarLocale, {
+        day: 'numeric',
+        calendar: 'gregory'
+      });
+    },
+    // Disabled states for the nav buttons
+    prevYearDisabled: function prevYearDisabled() {
+      var min = this.computedMin;
+      return this.disabled || min && Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["f" /* lastDateOfMonth */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["i" /* oneYearAgo */])(this.activeDate)) < min;
+    },
+    prevMonthDisabled: function prevMonthDisabled() {
+      var min = this.computedMin;
+      return this.disabled || min && Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["f" /* lastDateOfMonth */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["g" /* oneMonthAgo */])(this.activeDate)) < min;
+    },
+    thisMonthDisabled: function thisMonthDisabled() {
+      // TODO: We could/should check if today is out of range
+      return this.disabled;
+    },
+    nextMonthDisabled: function nextMonthDisabled() {
+      var max = this.computedMax;
+      return this.disabled || max && Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["d" /* firstDateOfMonth */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["h" /* oneMonthAhead */])(this.activeDate)) > max;
+    },
+    nextYearDisabled: function nextYearDisabled() {
+      var max = this.computedMax;
+      return this.disabled || max && Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["d" /* firstDateOfMonth */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["j" /* oneYearAhead */])(this.activeDate)) > max;
+    },
+    // Calendar generation
+    calendar: function calendar() {
+      var matrix = [];
+      var firstDay = this.calendarFirstDay;
+      var calendarYear = firstDay.getFullYear();
+      var calendarMonth = firstDay.getMonth();
+      var daysInMonth = this.calendarDaysInMonth;
+      var startIndex = firstDay.getDay(); // `0`..`6`
+
+      var weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts; // TODO: Change `dateInfoFn` to handle events and notes as well as classes
+
+      var dateInfoFn = Object(__WEBPACK_IMPORTED_MODULE_8__utils_inspect__["f" /* isFunction */])(this.dateInfoFn) ? this.dateInfoFn : function () {
+        return {};
+      }; // Build the calendar matrix
+
+      var currentDay = 0 - weekOffset - startIndex;
+
+      for (var week = 0; week < 6 && currentDay < daysInMonth; week++) {
+        // For each week
+        matrix[week] = []; // The following could be a map function
+
+        for (var j = 0; j < 7; j++) {
+          // For each day in week
+          currentDay++;
+          var date = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(calendarYear, calendarMonth, currentDay);
+          var month = date.getMonth();
+          var dayYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(date);
+          var dayDisabled = this.dateDisabled(date); // TODO: This could be a normalizer method
+
+          var dateInfo = dateInfoFn(dayYMD, Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(dayYMD));
+          dateInfo = Object(__WEBPACK_IMPORTED_MODULE_8__utils_inspect__["m" /* isString */])(dateInfo) || Object(__WEBPACK_IMPORTED_MODULE_8__utils_inspect__["a" /* isArray */])(dateInfo) ? {
+            class: dateInfo
+          } : Object(__WEBPACK_IMPORTED_MODULE_8__utils_inspect__["j" /* isPlainObject */])(dateInfo) ? _objectSpread({
+            class: ''
+          }, dateInfo) : {
+            class: ''
+          };
+          matrix[week].push({
+            ymd: dayYMD,
+            // Cell content
+            day: this.formatDay(date),
+            label: this.formatDateString(date),
+            // Flags for styling
+            isThisMonth: month === calendarMonth,
+            isDisabled: dayDisabled,
+            // TODO: Handle other dateInfo properties such as notes/events
+            info: dateInfo
+          });
+        }
+      }
+
+      return matrix;
+    },
+    calendarHeadings: function calendarHeadings() {
+      var _this = this;
+
+      return this.calendar[0].map(function (d) {
+        return {
+          text: _this.formatWeekdayNameShort(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(d.ymd)),
+          label: _this.formatWeekdayName(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(d.ymd))
+        };
+      });
+    }
+  },
+  watch: {
+    value: function value(newVal, oldVal) {
+      var selected = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(newVal) || '';
+      var old = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(oldVal) || '';
+
+      if (!Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["c" /* datesEqual */])(selected, old)) {
+        this.activeYMD = selected || this.activeYMD;
+        this.selectedYMD = selected;
+      }
+    },
+    selectedYMD: function selectedYMD(newYMD, oldYMD) {
+      // TODO:
+      //   Should we compare to `formatYMD(this.value)` and emit
+      //   only if they are different?
+      if (newYMD !== oldYMD) {
+        this.$emit('input', this.valueAsDate ? Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(newYMD) || null : newYMD || '');
+      }
+    },
+    context: function context(newVal, oldVal) {
+      if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_loose_equal__["a" /* default */])(newVal, oldVal)) {
+        this.$emit('context', newVal);
+      }
+    },
+    hidden: function hidden(newVal) {
+      // Reset the active focused day when hidden
+      this.activeYMD = this.selectedYMD || Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.value) || Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.getToday()); // Enable/disable the live regions
+
+      this.setLive(!newVal);
+    }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      _this2.$emit('context', _this2.context);
+    });
+  },
+  mounted: function mounted() {
+    this.setLive(true);
+  },
+  activated: function activated()
+  /* istanbul ignore next */
+  {
+    this.setLive(true);
+  },
+  deactivated: function deactivated()
+  /* istanbul ignore next */
+  {
+    this.setLive(false);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.setLive(false);
+  },
+  methods: {
+    // Public method(s)
+    focus: function focus() {
+      if (!this.disabled) {
+        try {
+          this.$refs.grid.focus();
+        } catch (_unused) {}
+      }
+    },
+    blur: function blur() {
+      try {
+        this.$refs.grid.blur();
+      } catch (_unused2) {}
+    },
+    // Private methods
+    setLive: function setLive(on) {
+      var _this3 = this;
+
+      if (on) {
+        this.$nextTick(function () {
+          Object(__WEBPACK_IMPORTED_MODULE_7__utils_dom__["v" /* requestAF */])(function () {
+            _this3.isLive = true;
+          });
+        });
+      } else {
+        this.isLive = false;
+      }
+    },
+    getToday: function getToday() {
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])());
+    },
+    constrainDate: function constrainDate(date) {
+      // Constrains a date between min and max
+      // returns a new `Date` object instance
+      date = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(date);
+      var min = this.computedMin || date;
+      var max = this.computedMax || date;
+      return Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(date < min ? min : date > max ? max : date);
+    },
+    emitSelected: function emitSelected(date) {
+      var _this4 = this;
+
+      // Performed in a `$nextTick()` to (probably) ensure
+      // the input event has emitted first
+      this.$nextTick(function () {
+        _this4.$emit('selected', Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(date) || '', Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(date) || null);
+      });
+    },
+    // Event handlers
+    setGridFocusFlag: function setGridFocusFlag(evt) {
+      // Sets the gridHasFocus flag to make date "button" look focused
+      this.gridHasFocus = !this.disabled && evt.type === 'focus';
+    },
+    onKeydownWrapper: function onKeydownWrapper(evt) {
+      // Calendar keyboard navigation
+      // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
+      // Focuses grid after updating
+      var keyCode = evt.keyCode;
+      var altKey = evt.altKey;
+
+      if (!Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
+        /* istanbul ignore next */
+        return;
+      }
+
+      evt.preventDefault();
+      evt.stopPropagation();
+      var activeDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(this.activeDate);
+      var checkDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(this.activeDate);
+      var day = activeDate.getDate();
+      var isRTL = this.isRTL;
+
+      if (keyCode === PAGEUP) {
+        // PAGEUP - Previous month/year
+        activeDate = (altKey ? __WEBPACK_IMPORTED_MODULE_6__utils_date__["i" /* oneYearAgo */] : __WEBPACK_IMPORTED_MODULE_6__utils_date__["g" /* oneMonthAgo */])(activeDate); // We check the first day of month to be in rage
+
+        checkDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(activeDate);
+        checkDate.setDate(1);
+      } else if (keyCode === PAGEDOWN) {
+        // PAGEDOWN - Next month/year
+        activeDate = (altKey ? __WEBPACK_IMPORTED_MODULE_6__utils_date__["j" /* oneYearAhead */] : __WEBPACK_IMPORTED_MODULE_6__utils_date__["h" /* oneMonthAhead */])(activeDate); // We check the last day of month to be in rage
+
+        checkDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(activeDate);
+        checkDate.setMonth(checkDate.getMonth() + 1);
+        checkDate.setDate(0);
+      } else if (keyCode === LEFT) {
+        // LEFT - Previous day (or next day for RTL)
+        activeDate.setDate(day + (isRTL ? 1 : -1));
+        checkDate = activeDate;
+      } else if (keyCode === RIGHT) {
+        // RIGHT - Next day (or previous day for RTL)
+        activeDate.setDate(day + (isRTL ? -1 : 1));
+        checkDate = activeDate;
+      } else if (keyCode === UP) {
+        // UP - Previous week
+        activeDate.setDate(day - 7);
+        checkDate = activeDate;
+      } else if (keyCode === DOWN) {
+        // DOWN - Next week
+        activeDate.setDate(day + 7);
+        checkDate = activeDate;
+      } else if (keyCode === HOME) {
+        // HOME - Today
+        activeDate = this.getToday();
+        checkDate = activeDate;
+      } else if (keyCode === END) {
+        // END - Selected date, or today if no selected date
+        activeDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(this.selectedDate) || this.getToday();
+        checkDate = activeDate;
+      }
+
+      if (!this.dateOutOfRange(checkDate) && !Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["c" /* datesEqual */])(activeDate, this.activeDate)) {
+        // We only jump to date if within min/max
+        // We don't check for individual disabled dates though (via user function)
+        this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(activeDate);
+      } // Ensure grid is focused
+
+
+      this.focus();
+    },
+    onKeydownGrid: function onKeydownGrid(evt) {
+      // Pressing enter/space on grid to select active date
+      var keyCode = evt.keyCode;
+      var activeDate = this.activeDate;
+
+      if (keyCode === ENTER || keyCode === SPACE) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
+          this.selectedYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(activeDate);
+          this.emitSelected(activeDate);
+        } // Ensure grid is focused
+
+
+        this.focus();
+      }
+    },
+    onClickDay: function onClickDay(day) {
+      // Clicking on a date "button" to select it
+      // TODO: Change to lookup the `data-data` attribute
+      var selectedDate = this.selectedDate;
+      var activeDate = this.activeDate;
+      var clickedDate = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["k" /* parseYMD */])(day.ymd);
+
+      if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
+        if (!this.readonly) {
+          // If readonly mode, we don't set the selected date, just the active date
+          // If the clicked date is equal to the already selected date, we don't update the model
+          this.selectedYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["c" /* datesEqual */])(clickedDate, selectedDate) ? selectedDate : clickedDate);
+          this.emitSelected(clickedDate);
+        }
+
+        this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["c" /* datesEqual */])(clickedDate, activeDate) ? activeDate : Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["a" /* createDate */])(clickedDate)); // Ensure grid is focused
+
+        this.focus();
+      }
+    },
+    gotoPrevYear: function gotoPrevYear() {
+      this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.constrainDate(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["i" /* oneYearAgo */])(this.activeDate)));
+    },
+    gotoPrevMonth: function gotoPrevMonth() {
+      this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.constrainDate(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["g" /* oneMonthAgo */])(this.activeDate)));
+    },
+    gotoCurrentMonth: function gotoCurrentMonth() {
+      // TODO: Maybe this goto date should be configurable?
+      this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.getToday());
+    },
+    gotoNextMonth: function gotoNextMonth() {
+      this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.constrainDate(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["h" /* oneMonthAhead */])(this.activeDate)));
+    },
+    gotoNextYear: function gotoNextYear() {
+      this.activeYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.constrainDate(Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["j" /* oneYearAhead */])(this.activeDate)));
+    }
+  },
+  render: function render(h) {
+    var _this5 = this;
+
+    // If hidden prop is set, render just a placeholder node
+    if (this.hidden) {
+      return h();
+    }
+
+    var isRTL = this.isRTL;
+    var todayYMD = Object(__WEBPACK_IMPORTED_MODULE_6__utils_date__["e" /* formatYMD */])(this.getToday());
+    var selectedYMD = this.selectedYMD;
+    var activeYMD = this.activeYMD;
+    var highlightToday = !this.noHighlightToday;
+    var safeId = this.safeId; // Flag for making the `aria-live` regions live
+
+    var isLive = this.isLive; // Pre-compute some IDs
+
+    var idWidget = safeId();
+    var idValue = safeId('_calendar-value_');
+    var idNav = safeId('_calendar-nav_');
+    var idGrid = safeId('_calendar-grid_');
+    var idGridCaption = safeId('_calendar-grid-caption_');
+    var idGridHelp = safeId('_calendar-grid-help_');
+    var idActive = activeYMD ? safeId("_cell-".concat(activeYMD, "_")) : null; // Header showing current selected date
+
+    var $header = h('output', {
+      staticClass: 'd-block text-center rounded border small p-1 mb-1',
+      class: {
+        'text-muted': this.disabled,
+        readonly: this.readonly || this.disabled
+      },
+      attrs: {
+        id: idValue,
+        for: idGrid,
+        role: 'status',
+        // Mainly for testing purposes, as we do not know
+        // the exact format `Intl` will format the date string
+        'data-selected': Object(__WEBPACK_IMPORTED_MODULE_10__utils_string__["f" /* toString */])(selectedYMD),
+        // We wait until after mount to enable `aria-live`
+        // to prevent initial announcement on page render
+        'aria-live': isLive ? 'polite' : 'off',
+        'aria-atomic': isLive ? 'true' : null
+      }
+    }, this.selectedDate ? [// We use `bdi` elements here in case the label doesn't match the locale
+    // Although IE 11 does not deal with <BDI> at all (equivalent to a span)
+    h('bdi', {
+      staticClass: 'sr-only'
+    }, " (".concat(Object(__WEBPACK_IMPORTED_MODULE_10__utils_string__["f" /* toString */])(this.labelSelected), ") ")), h('bdi', {}, this.formatDateString(this.selectedDate))] : this.labelNoDateSelected || "\xA0" // '&nbsp;'
+    );
+    $header = h('header', {
+      class: this.hideHeader ? 'sr-only' : 'mb-1',
+      attrs: {
+        title: this.selectedDate ? this.labelSelectedDate || null : null
+      }
+    }, [$header]); // Content for the date navigation buttons
+
+    var $prevYearIcon = h(__WEBPACK_IMPORTED_MODULE_14__icons_iconstack__["a" /* BIconstack */], {
+      props: {
+        shiftV: 0.5,
+        flipH: isRTL
+      }
+    }, [h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftH: -2
+      }
+    }), h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftH: 2
+      }
+    })]);
+    var $prevMonthIcon = h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftV: 0.5,
+        flipH: isRTL
+      }
+    });
+    var $thisMonthIcon = h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_48" /* BIconCircleFill */], {
+      props: {
+        shiftV: 0.5
+      }
+    });
+    var $nextMonthIcon = h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftV: 0.5,
+        flipH: !isRTL
+      }
+    });
+    var $nextYearIcon = h(__WEBPACK_IMPORTED_MODULE_14__icons_iconstack__["a" /* BIconstack */], {
+      props: {
+        shiftV: 0.5,
+        flipH: !isRTL
+      }
+    }, [h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftH: -2
+      }
+    }), h(__WEBPACK_IMPORTED_MODULE_13__icons_icons__["_44" /* BIconChevronLeft */], {
+      props: {
+        shiftH: 2
+      }
+    })]); // Utility to create the date navigation buttons
+
+    var makeNavBtn = function makeNavBtn(content, label, handler, btnDisabled, shortcut) {
+      return h('button', {
+        staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill p-1 mx-1',
+        class: {
+          disabled: btnDisabled
+        },
+        attrs: {
+          title: label || null,
+          type: 'button',
+          'aria-label': label || null,
+          'aria-disabled': btnDisabled ? 'true' : null,
+          'aria-keyshortcuts': shortcut || null
+        },
+        on: btnDisabled ? {} : {
+          click: handler
+        }
+      }, [h('div', {
+        attrs: {
+          'aria-hidden': 'true'
+        }
+      }, [content])]);
+    }; // Generate the date navigation buttons
+
+
+    var $nav = h('div', {
+      staticClass: 'b-calendar-nav d-flex mx-n1 mb-1',
+      attrs: {
+        id: idNav,
+        role: 'group',
+        'aria-hidden': this.disabled ? 'true' : null,
+        'aria-label': this.labelNav || null,
+        'aria-controls': idGrid
+      }
+    }, [makeNavBtn($prevYearIcon, this.labelPrevYear, this.gotoPrevYear, this.prevYearDisabled, 'Alt+PageDown'), makeNavBtn($prevMonthIcon, this.labelPrevMonth, this.gotoPrevMonth, this.prevMonthDisabled, 'PageDown'), makeNavBtn($thisMonthIcon, this.labelCurrentMonth, this.gotoCurrentMonth, this.thisMonthDisabled, 'Home'), makeNavBtn($nextMonthIcon, this.labelNextMonth, this.gotoNextMonth, this.nextMonthDisabled, 'PageUp'), makeNavBtn($nextYearIcon, this.labelNextYear, this.gotoNextYear, this.nextYearDisabled, 'Alt+PageUp')]); // Caption for calendar grid
+
+    var $gridCaption = h('header', {
+      key: 'grid-caption',
+      staticClass: 'text-center font-weight-bold p-1 m-0',
+      class: {
+        'text-muted': this.disabled
+      },
+      attrs: {
+        id: idGridCaption,
+        'aria-live': isLive ? 'polite' : null,
+        'aria-atomic': isLive ? 'true' : null
+      }
+    }, this.formatYearMonth(this.calendarFirstDay)); // Calendar weekday headings
+
+    var $gridWeekDays = h('div', {
+      staticClass: 'row no-gutters border-bottom',
+      attrs: {
+        'aria-hidden': 'true'
+      }
+    }, this.calendarHeadings.map(function (d, idx) {
+      return h('small', {
+        key: idx,
+        staticClass: 'col',
+        class: {
+          'text-muted': _this5.disabled
+        },
+        attrs: {
+          title: d.label === d.text ? null : d.label,
+          'aria-label': d.label
+        }
+      }, d.text);
+    })); // Calendar day grid
+
+    var $gridBody = this.calendar.map(function (week) {
+      var $cells = week.map(function (day, dIndex) {
+        var _class;
+
+        var isSelected = day.ymd === selectedYMD;
+        var isActive = day.ymd === activeYMD;
+        var isToday = day.ymd === todayYMD;
+        var idCell = safeId("_cell-".concat(day.ymd, "_")); // "fake" button
+
+        var $btn = h('span', {
+          staticClass: 'btn border-0 rounded-circle text-nowrap',
+          // Should we add some classes to signify if today/selected/etc?
+          class: (_class = {
+            // Give the fake button a focus ring
+            focus: isActive && _this5.gridHasFocus,
+            // Styling
+            disabled: day.isDisabled || _this5.disabled,
+            active: isSelected
+          }, _defineProperty(_class, _this5.computedVariant, isSelected), _defineProperty(_class, _this5.computedTodayVariant, isToday && highlightToday && !isSelected && day.isThisMonth), _defineProperty(_class, 'btn-outline-light', !(isToday && highlightToday) && !isSelected && !isActive), _defineProperty(_class, 'btn-light', !(isToday && highlightToday) && !isSelected && isActive), _defineProperty(_class, 'text-muted', !day.isThisMonth && !isSelected), _defineProperty(_class, 'text-dark', !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth), _defineProperty(_class, 'font-weight-bold', (isSelected || day.isThisMonth) && !day.isDisabled), _class),
+          on: {
+            click: function click() {
+              return _this5.onClickDay(day);
+            }
+          }
+        }, day.day);
+        return h('div', // Cell with button
+        {
+          key: dIndex,
+          staticClass: 'col p-0',
+          class: day.isDisabled ? 'bg-light' : day.info.class || '',
+          attrs: {
+            id: idCell,
+            role: 'button',
+            'data-date': day.ymd,
+            // Primarily for testing purposes
+            // Only days in the month are presented as buttons to screen readers
+            'aria-hidden': day.isThisMonth ? null : 'true',
+            'aria-disabled': day.isDisabled || _this5.disabled ? 'true' : null,
+            'aria-label': [day.label, isSelected ? "(".concat(_this5.labelSelected, ")") : null, isToday ? "(".concat(_this5.labelToday, ")") : null].filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]).join(' '),
+            // NVDA doesn't convey `aria-selected`, but does `aria-current`,
+            // ChromeVox doesn't convey `aria-current`, but does `aria-selected`,
+            // so we set both attributes for robustness
+            'aria-selected': isSelected ? 'true' : null,
+            'aria-current': isSelected ? 'date' : null
+          }
+        }, [$btn]);
+      }); // Return the week "row"
+      // We use the first day of the weeks YMD value as a
+      // key for efficient DOM patching / element re-use
+
+      return h('div', {
+        key: week[0].ymd,
+        staticClass: 'row no-gutters'
+      }, $cells);
+    });
+    $gridBody = h('div', {
+      // A key is only required on the body if we add in transition support
+      // key: this.activeYMD.slice(0, -3),
+      staticClass: 'b-calendar-grid-body',
+      style: this.disabled ? {
+        pointerEvents: 'none'
+      } : {}
+    }, $gridBody);
+    var $gridHelp = h('footer', {
+      staticClass: 'border-top small text-muted text-center bg-light',
+      attrs: {
+        id: idGridHelp
+      }
+    }, [h('div', {
+      staticClass: 'small'
+    }, this.labelHelp)]);
+    var $grid = h('div', {
+      ref: 'grid',
+      staticClass: 'form-control h-auto text-center p-0 mb-0',
+      attrs: {
+        id: idGrid,
+        role: 'application',
+        tabindex: this.disabled ? null : '0',
+        'data-month': activeYMD.slice(0, -3),
+        // `YYYY-MM`, mainly for testing
+        // tabindex: this.disabled ? null : '0',
+        'aria-roledescription': this.labelCalendar || null,
+        'aria-labelledby': idGridCaption,
+        'aria-describedby': idGridHelp,
+        // `aria-readonly` is not considered valid on `role="application"`
+        // https://www.w3.org/TR/wai-aria-1.1/#aria-readonly
+        // 'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
+        'aria-disabled': this.disabled ? 'true' : null,
+        'aria-activedescendant': idActive
+      },
+      on: {
+        keydown: this.onKeydownGrid,
+        focus: this.setGridFocusFlag,
+        blur: this.setGridFocusFlag
+      }
+    }, [$gridCaption, $gridWeekDays, $gridBody, $gridHelp]); // Optional bottom slot
+
+    var $slot = this.normalizeSlot('default');
+    $slot = $slot ? h('footer', {
+      staticClass: 'mt-2'
+    }, $slot) : h();
+    var $widget = h('div', {
+      class: this.block ? 'd-block' : 'd-inline-block',
+      style: this.block ? {} : {
+        width: this.width
+      },
+      attrs: {
+        id: idWidget,
+        dir: isRTL ? 'rtl' : 'ltr',
+        lang: this.computedLocale || null,
+        role: 'group',
+        'aria-disabled': this.disabled ? 'true' : null,
+        // If datepicker controls an input, this will specify the ID of the input
+        'aria-controls': this.ariaControls || null,
+        // This should be a prop (so it can be changed to Date picker, etc, localized
+        'aria-roledescription': this.roleDescription || null,
+        'aria-describedby': [// Should the attr (if present) go last?
+        // Or should this attr be a prop?
+        this.$attrs['aria-describedby'], idValue, idGridHelp].filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]).join(' ')
+      },
+      on: {
+        keydown: this.onKeydownWrapper
+      }
+    }, [$header, $nav, $grid, $slot]); // Wrap in an outer div that can be styled
+
+    return h('div', {
+      staticClass: 'b-calendar',
+      // We use a style here rather than class `d-inline-block` so that users can
+      // override the display value (`d-*` classes use the `!important` flag)
+      style: this.block ? {} : {
+        display: 'inline-block'
+      }
+    }, [$widget]);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/components/calendar/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CalendarPlugin; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__calendar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/calendar/calendar.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_plugins__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/plugins.js");
+/* unused harmony reexport BCalendar */
+
+
+var CalendarPlugin =
+/*#__PURE__*/
+Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["b" /* pluginFactory */])({
+  components: {
+    BCalendar: __WEBPACK_IMPORTED_MODULE_0__calendar__["a" /* BCalendar */]
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap-vue/esm/components/card/card-body.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6414,12 +7490,14 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 
 var NAME = 'BDropdown';
 var props = {
-  toggleText: {
-    // This really should be toggleLabel
+  text: {
+    // Button label
     type: String,
-    default: function _default() {
-      return Object(__WEBPACK_IMPORTED_MODULE_3__utils_config__["c" /* getComponentConfig */])(NAME, 'toggleText');
-    }
+    default: ''
+  },
+  html: {
+    // Button label
+    type: String
   },
   size: {
     type: String,
@@ -6444,6 +7522,13 @@ var props = {
   toggleTag: {
     type: String,
     default: 'button'
+  },
+  toggleText: {
+    // This really should be toggleLabel
+    type: String,
+    default: function _default() {
+      return Object(__WEBPACK_IMPORTED_MODULE_3__utils_config__["c" /* getComponentConfig */])(NAME, 'toggleText');
+    }
   },
   toggleClass: {
     type: [String, Array, Object],
@@ -6481,6 +7566,11 @@ var props = {
     validator: function validator(value) {
       return Object(__WEBPACK_IMPORTED_MODULE_1__utils_array__["a" /* arrayIncludes */])(['button', 'submit', 'reset'], value);
     }
+  },
+  lazy: {
+    // If true, only render menu contents when open
+    type: Boolean,
+    default: false
   },
   role: {
     type: String,
@@ -6973,6 +8063,665 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["b" /* pluginFactory */])({
     BFormCheckboxGroup: __WEBPACK_IMPORTED_MODULE_1__form_checkbox_group__["a" /* BFormCheckboxGroup */],
     BCheckboxGroup: __WEBPACK_IMPORTED_MODULE_1__form_checkbox_group__["a" /* BFormCheckboxGroup */],
     BCheckGroup: __WEBPACK_IMPORTED_MODULE_1__form_checkbox_group__["a" /* BFormCheckboxGroup */]
+  }
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/components/form-datepicker/form-datepicker.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BFormDatepicker; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/vue.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_date__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/date.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/dropdown.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__button_button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/button.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__calendar_calendar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/calendar/calendar.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__icons_icons__ = __webpack_require__("./node_modules/bootstrap-vue/esm/icons/icons.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__directives_hover_hover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/hover/hover.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+var NAME = 'BFormDatepicker'; // Fallback to BCalendar prop if no value found
+
+var getConfigFallback = function getConfigFallback(prop) {
+  return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, prop) || Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])('BCalendar', prop);
+}; // We create our props as a mixin so that we can control
+// where they appear in the props listing reference section
+
+
+var propsMixin = {
+  props: {
+    value: {
+      type: [String, Date],
+      default: null
+    },
+    valueAsDate: {
+      type: Boolean,
+      default: false
+    },
+    resetValue: {
+      type: [String, Date],
+      default: ''
+    },
+    placeholder: {
+      type: String,
+      // Defaults to `labelNoDateSelected` from calendar context
+      default: null
+    },
+    size: {
+      type: String,
+      default: null
+    },
+    min: {
+      type: [String, Date],
+      default: null
+    },
+    max: {
+      type: [String, Date],
+      default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    required: {
+      // If true adds the `aria-required` attribute
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String,
+      default: null
+    },
+    form: {
+      type: String,
+      default: null
+    },
+    state: {
+      // Tri-state prop: `true`, `false` or `null`
+      type: Boolean,
+      default: null
+    },
+    dateDisabledFn: {
+      type: Function,
+      default: null
+    },
+    noCloseOnSelect: {
+      type: Boolean,
+      default: false
+    },
+    hideHeader: {
+      type: Boolean,
+      default: false
+    },
+    locale: {
+      type: [String, Array],
+      default: null
+    },
+    startWeekday: {
+      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
+      // Day of week to start calendar on
+      type: [Number, String],
+      default: 0
+    },
+    direction: {
+      type: String,
+      default: null
+    },
+    selectedVariant: {
+      // Variant color to use for the selected date
+      type: String,
+      default: 'primary'
+    },
+    todayVariant: {
+      // Variant color to use for today's date (defaults to `variant`)
+      type: String,
+      default: null
+    },
+    noHighlightToday: {
+      // Disable highlighting today's date
+      type: Boolean,
+      default: false
+    },
+    todayButton: {
+      type: Boolean,
+      default: false
+    },
+    labelTodayButton: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'labelTodayButton');
+      }
+    },
+    todayButtonVariant: {
+      type: String,
+      default: 'outline-primary'
+    },
+    resetButton: {
+      type: Boolean,
+      default: false
+    },
+    labelResetButton: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'labelResetButton');
+      }
+    },
+    resetButtonVariant: {
+      type: String,
+      default: 'outline-danger'
+    },
+    closeButton: {
+      type: Boolean,
+      default: false
+    },
+    labelCloseButton: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'labelCloseButton');
+      }
+    },
+    closeButtonVariant: {
+      type: String,
+      default: 'outline-secondary'
+    },
+    // Labels for buttons and keyboard shortcuts
+    // These pick BCalendar global config if no BFormDate global config
+    labelPrevYear: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelPrevYear');
+      }
+    },
+    labelPrevMonth: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelPrevMonth');
+      }
+    },
+    labelCurrentMonth: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelCurrentMonth');
+      }
+    },
+    labelNextMonth: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelNextMonth');
+      }
+    },
+    labelNextYear: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelNextYear');
+      }
+    },
+    labelToday: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelToday');
+      }
+    },
+    labelSelected: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelSelected');
+      }
+    },
+    labelNoDateSelected: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelNoDateSelected');
+      }
+    },
+    labelCalendar: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelCalendar');
+      }
+    },
+    labelNav: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelNav');
+      }
+    },
+    labelHelp: {
+      type: String,
+      default: function _default() {
+        return getConfigFallback('labelHelp');
+      }
+    },
+    // Dark mode
+    dark: {
+      type: Boolean,
+      default: false
+    }
+  }
+}; // --- BFormDate component ---
+// @vue/component
+
+var BFormDatepicker =
+/*#__PURE__*/
+__WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
+  name: NAME,
+  directives: {
+    BHover: __WEBPACK_IMPORTED_MODULE_9__directives_hover_hover__["a" /* VBHover */]
+  },
+  // The mixins order determines the order of appearance in the props reference section
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins_id__["a" /* default */], propsMixin, __WEBPACK_IMPORTED_MODULE_4__mixins_dropdown__["a" /* default */]],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  data: function data() {
+    return {
+      // We always use `YYYY-MM-DD` value internally
+      localYMD: Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["e" /* formatYMD */])(this.value) || '',
+      // Context data from BCalendar
+      localLocale: null,
+      isRTL: false,
+      formatedValue: '',
+      activeYMD: '',
+      // Flag to add focus ring to outer wrapper
+      hasFocus: false,
+      // If the control is hovered
+      isHovered: false
+    };
+  },
+  computed: {
+    calendarYM: function calendarYM() {
+      // Returns the calendar year/month
+      // Returns the `YYYY-MM` portion of the active calendar date
+      return this.activeYMD.slice(0, -3);
+    },
+    calendarProps: function calendarProps() {
+      // TODO: Make the ID's computed props
+      var idLabel = this.safeId('_value_');
+      var idWrapper = this.safeId('_b-form-date_');
+      return {
+        // id: this.safeId('_picker_'),
+        ariaControls: [idLabel, idWrapper].filter(__WEBPACK_IMPORTED_MODULE_1__utils_identity__["a" /* default */]).join(' ') || null,
+        value: this.localYMD,
+        hidden: !this.visible,
+        min: this.min,
+        max: this.max,
+        readonly: this.readonly,
+        disabled: this.disabled,
+        locale: this.locale,
+        startWeekday: this.startWeekday,
+        direction: this.direction,
+        dateDisabledFn: this.dateDisabledFn,
+        selectedVariant: this.selectedVariant,
+        todayVariant: this.todayVariant,
+        hideHeader: this.hideHeader,
+        labelPrevYear: this.labelPrevYear,
+        labelPrevMonth: this.labelPrevMonth,
+        labelCurrentMonth: this.labelCurrentMonth,
+        labelNextMonth: this.labelNextMonth,
+        labelNextYear: this.labelNextYear,
+        labelToday: this.labelToday,
+        labelSelected: this.labelSelected,
+        labelNoDateSelected: this.labelNoDateSelected,
+        labelCalendar: this.labelCalendar,
+        labelNav: this.labelNav,
+        labelHelp: this.labelHelp
+      };
+    },
+    computedResetValue: function computedResetValue() {
+      return Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["k" /* parseYMD */])(this.resetValue) || '';
+    }
+  },
+  watch: {
+    value: function value(newVal) {
+      this.localYMD = Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["e" /* formatYMD */])(newVal) || '';
+    },
+    localYMD: function localYMD(newVal) {
+      this.$emit('input', this.valueAsDate ? Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["k" /* parseYMD */])(newVal) || null : newVal || '');
+    },
+    calendarYM: function calendarYM(newVal, oldVal)
+    /* istanbul ignore next */
+    {
+      // Displayed calendar month has changed
+      // So possibly the calendar height has changed...
+      // We need to update popper computed position
+      if (newVal !== oldVal && oldVal) {
+        this.updatePopper();
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$on('shown', function () {
+      // May want to make an option to focus
+      // the entire calendar (dropdown-menu) or just the date
+      try {
+        _this.$refs.calendar.focus();
+      } catch (_unused) {}
+    });
+  },
+  methods: {
+    // Public methods
+    focus: function focus() {
+      if (!this.disabled) {
+        try {
+          // This assumes the toggle is an element and not a component
+          this.$refs.toggle.focus();
+        } catch (_unused2) {}
+      }
+    },
+    blur: function blur() {
+      if (!this.disabled) {
+        try {
+          // This assumes the toggle is an element and not a component
+          this.$refs.toggle.blur();
+        } catch (_unused3) {}
+      }
+    },
+    // Private methods
+    setAndClose: function setAndClose(ymd) {
+      var _this2 = this;
+
+      this.localYMD = ymd; // Close calendar popup, unless `noCloseOnSelect`
+
+      if (!this.noCloseOnSelect) {
+        this.$nextTick(function () {
+          _this2.hide(true);
+        });
+      }
+    },
+    onSelected: function onSelected(ymd) {
+      var _this3 = this;
+
+      this.$nextTick(function () {
+        _this3.setAndClose(ymd);
+      });
+    },
+    onInput: function onInput(ymd) {
+      if (this.localYMD !== ymd) {
+        this.localYMD = ymd;
+      }
+    },
+    onContext: function onContext(ctx) {
+      var activeYMD = ctx.activeYMD,
+          isRTL = ctx.isRTL,
+          locale = ctx.locale,
+          selectedYMD = ctx.selectedYMD,
+          selectedFormatted = ctx.selectedFormatted;
+      this.isRTL = isRTL;
+      this.localLocale = locale;
+      this.formattedValue = selectedFormatted;
+      this.localYMD = selectedYMD;
+      this.activeYMD = activeYMD; // Re-emit the context event
+
+      this.$emit('context', ctx);
+    },
+    onTodayButton: function onTodayButton() {
+      this.setAndClose(Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["e" /* formatYMD */])(Object(__WEBPACK_IMPORTED_MODULE_3__utils_date__["a" /* createDate */])()));
+    },
+    onResetButton: function onResetButton() {
+      this.setAndClose(this.computedResetValue);
+    },
+    onCloseButton: function onCloseButton() {
+      this.hide(true);
+    },
+    setFocus: function setFocus(evt) {
+      this.hasFocus = evt.type === 'focus';
+    },
+    handleHover: function handleHover(hovered) {
+      this.isHovered = hovered;
+    }
+  },
+  render: function render(h) {
+    var _class2, _ref;
+
+    var size = this.size;
+    var state = this.state;
+    var localYMD = this.localYMD;
+    var disabled = this.disabled;
+    var readonly = this.readonly;
+    var idButton = this.safeId();
+    var idLabel = this.safeId('_value_');
+    var idMenu = this.safeId('_dialog_');
+    var idWrapper = this.safeId('_b-form-date_');
+    var $button = h('div', {
+      attrs: {
+        'aria-hidden': 'true'
+      }
+    }, [this.isHovered || this.hasFocus ? h(__WEBPACK_IMPORTED_MODULE_8__icons_icons__["_28" /* BIconCalendarFill */], {
+      props: {
+        scale: 1.25
+      }
+    }) : h(__WEBPACK_IMPORTED_MODULE_8__icons_icons__["_27" /* BIconCalendar */], {
+      props: {
+        scale: 1.25
+      }
+    })]);
+    $button = h('button', {
+      ref: 'toggle',
+      staticClass: 'btn border-0 h-auto py-0',
+      class: _defineProperty({}, "btn-".concat(size), !!size),
+      attrs: {
+        id: idButton,
+        type: 'button',
+        disabled: disabled,
+        'aria-haspopup': 'dialog',
+        'aria-expanded': this.visible ? 'true' : 'false',
+        'aria-invalid': state === false ? 'true' : null,
+        'aria-required': this.required ? 'true' : null
+      },
+      on: {
+        mousedown: this.onMousedown,
+        click: this.toggle,
+        keydown: this.toggle,
+        // Handle ENTER, SPACE and DOWN
+        '!focus': this.setFocus,
+        '!blur': this.setFocus
+      }
+    }, [$button]); // Label as a "fake" input
+    // This label will be read by screen readers when the button is focused
+
+    var $input = h('label', {
+      staticClass: 'form-control text-break text-wrap border-0 bg-transparent h-auto pl-1 m-0',
+      class: (_class2 = {
+        // Mute the text if showing the placeholder
+        'text-muted': !localYMD
+      }, _defineProperty(_class2, "form-control-".concat(size), !!size), _defineProperty(_class2, 'is-invalid', state === false), _defineProperty(_class2, 'is-valid', state === true), _class2),
+      attrs: {
+        id: idLabel,
+        for: idButton,
+        dir: this.isRTL ? 'rtl' : 'ltr',
+        lang: this.localLocale || null,
+        'aria-invalid': state === false ? 'true' : null,
+        'aria-required': this.required ? 'true' : null
+      },
+      on: {
+        // Disable bubbling of the click event to
+        // prevent menu from closing and re-opening
+        click: function click(evt)
+        /* istanbul ignore next */
+        {
+          evt.stopPropagation();
+        }
+      }
+    }, [// Add the formatted value or placeholder
+    localYMD ? this.formattedValue : this.placeholder || this.labelNoDateSelected, // Add an sr-only 'selected date' label if a date is selected
+    localYMD ? h('span', {
+      staticClass: 'sr-only'
+    }, " (".concat(this.labelSelected, ") ")) : h()]); // Optional footer buttons
+
+    var $controls = [];
+
+    if (this.todayButton) {
+      var label = this.labelTodayButton;
+      $controls.push(h(__WEBPACK_IMPORTED_MODULE_6__button_button__["a" /* BButton */], {
+        props: {
+          size: 'sm',
+          disabled: disabled || readonly,
+          variant: this.todayButtonVariant
+        },
+        attrs: {
+          'aria-label': label || null
+        },
+        on: {
+          click: this.onTodayButton
+        }
+      }, label));
+    }
+
+    if (this.resetButton) {
+      var _label = this.labelResetButton;
+      $controls.push(h(__WEBPACK_IMPORTED_MODULE_6__button_button__["a" /* BButton */], {
+        props: {
+          size: 'sm',
+          disabled: disabled || readonly,
+          variant: this.resetButtonVariant
+        },
+        attrs: {
+          'aria-label': _label || null
+        },
+        on: {
+          click: this.onResetButton
+        }
+      }, _label));
+    }
+
+    if (this.closeButton) {
+      var _label2 = this.labelCloseButton;
+      $controls.push(h(__WEBPACK_IMPORTED_MODULE_6__button_button__["a" /* BButton */], {
+        props: {
+          size: 'sm',
+          disabled: this.disabled,
+          variant: this.closeButtonVariant
+        },
+        attrs: {
+          'aria-label': _label2 || null
+        },
+        on: {
+          click: this.onCloseButton
+        }
+      }, _label2));
+    }
+
+    if ($controls.length > 0) {
+      $controls = [h('div', {
+        staticClass: 'b-form-date-controls d-flex flex-wrap',
+        class: {
+          'justify-content-between': $controls.length > 1,
+          'justify-content-end': $controls.length < 2
+        }
+      }, $controls)];
+    }
+
+    var $calendar = h(__WEBPACK_IMPORTED_MODULE_7__calendar_calendar__["a" /* BCalendar */], {
+      key: 'calendar',
+      ref: 'calendar',
+      staticClass: 'b-form-date-calendar',
+      props: this.calendarProps,
+      on: {
+        selected: this.onSelected,
+        input: this.onInput,
+        context: this.onContext
+      }
+    }, $controls);
+    var $menu = h('div', {
+      ref: 'menu',
+      staticClass: 'dropdown-menu p-2',
+      class: {
+        show: this.visible,
+        'dropdown-menu-right': this.right,
+        'bg-dark': this.dark,
+        'text-light': this.dark
+      },
+      attrs: {
+        id: idMenu,
+        role: 'dialog',
+        'aria-modal': 'false',
+        'aria-labelledby': idLabel
+      },
+      on: {
+        keydown: this.onKeydown // Handle ESC
+
+      }
+    }, [$calendar]);
+    var $hidden = h();
+
+    if (this.name && !disabled) {
+      $hidden = h('input', {
+        attrs: {
+          type: 'hidden',
+          name: this.name,
+          form: this.form,
+          value: localYMD || ''
+        }
+      });
+    }
+
+    return h('div', {
+      staticClass: 'b-form-datepicker form-control dropdown h-auto p-0 d-flex',
+      class: [this.directionClass, (_ref = {
+        show: this.visible,
+        focus: this.hasFocus
+      }, _defineProperty(_ref, "form-control-".concat(size), !!size), _defineProperty(_ref, 'is-invalid', state === false), _defineProperty(_ref, 'is-valid', state === true), _ref)],
+      attrs: {
+        id: idWrapper,
+        role: 'group',
+        'aria-disabled': disabled,
+        'aria-readonly': readonly && !disabled,
+        'aria-labelledby': idLabel,
+        'aria-invalid': state === false ? 'true' : null,
+        'aria-required': this.required ? 'true' : null,
+        // We don't want the flex order to change here
+        // So we always use 'ltr'
+        dir: 'ltr'
+      },
+      directives: [{
+        name: 'b-hover',
+        value: this.handleHover
+      }]
+    }, [$button, $hidden, $menu, $input]);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/components/form-datepicker/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormDatepickerPlugin; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_datepicker__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-datepicker/form-datepicker.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_plugins__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/plugins.js");
+/* unused harmony reexport BFormDatepicker */
+
+
+var FormDatepickerPlugin =
+/*#__PURE__*/
+Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["b" /* pluginFactory */])({
+  components: {
+    BFormDatepicker: __WEBPACK_IMPORTED_MODULE_0__form_datepicker__["a" /* BFormDatepicker */],
+    BDatepicker: __WEBPACK_IMPORTED_MODULE_0__form_datepicker__["a" /* BFormDatepicker */]
   }
 });
 
@@ -8563,17 +10312,664 @@ Object(__WEBPACK_IMPORTED_MODULE_3__utils_plugins__["b" /* pluginFactory */])({
 
 /***/ }),
 
+/***/ "./node_modules/bootstrap-vue/esm/components/form-spinbutton/form-spinbutton.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BFormSpinbutton; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/vue.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_array__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/array.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_events__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_inspect__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/inspect.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_number__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/number.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_string__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/string.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/key-codes.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__icons_icons__ = __webpack_require__("./node_modules/bootstrap-vue/esm/icons/icons.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+ // --- Constants ---
+
+var NAME = 'BFormSpinbutton';
+var UP = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].UP,
+    DOWN = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].DOWN,
+    HOME = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].HOME,
+    END = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].END,
+    PAGEUP = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].PAGEUP,
+    PAGEDOWN = __WEBPACK_IMPORTED_MODULE_8__utils_key_codes__["a" /* default */].PAGEDOWN; // Default for spin button range and step
+
+var DEFAULT_MIN = 1;
+var DEFAULT_MAX = 100;
+var DEFAULT_STEP = 1; // Delay before auto-repeat in ms
+
+var DEFAULT_REPEAT_DELAY = 500; // Repeat interval in ms
+
+var DEFAULT_REPEAT_INTERVAL = 100; // Repeat rate increased after number of repeats
+
+var DEFAULT_REPEAT_THRESHOLD = 10; // Repeat speed multiplier (step multiplier, must be an integer)
+
+var DEFAULT_REPEAT_MULTIPLIER = 4; // --- Helper functions ---
+
+var defaultNumber = function defaultNumber(value) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  value = Object(__WEBPACK_IMPORTED_MODULE_5__utils_number__["b" /* toFloat */])(value);
+  return isNaN(value) ? defaultValue : value;
+};
+
+var defaultInteger = function defaultInteger(value) {
+  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  value = Object(__WEBPACK_IMPORTED_MODULE_5__utils_number__["c" /* toInteger */])(value);
+  return isNaN(value) ? Math.abs(defaultValue) : value;
+}; // --- BFormSpinbutton ---
+// @vue/component
+
+
+var BFormSpinbutton =
+/*#__PURE__*/
+__WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
+  name: NAME,
+  mixins: [__WEBPACK_IMPORTED_MODULE_9__mixins_id__["a" /* default */]],
+  inheritAttrs: false,
+  props: {
+    value: {
+      // Should this really be String, to match native number inputs?
+      type: Number,
+      default: null
+    },
+    min: {
+      type: [Number, String],
+      default: DEFAULT_MIN
+    },
+    max: {
+      type: [Number, String],
+      default: DEFAULT_MAX
+    },
+    step: {
+      type: [Number, String],
+      default: DEFAULT_STEP
+    },
+    wrap: {
+      type: Boolean,
+      default: false
+    },
+    formatterFn: {
+      type: Function // default: null
+
+    },
+    size: {
+      type: String // default: null
+
+    },
+    placeholder: {
+      type: String,
+      default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    required: {
+      // Only affects the `aria-invalid` attribute
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String // default: null
+
+    },
+    form: {
+      type: String // default: null
+
+    },
+    state: {
+      // Tri-state prop: `true`, `false`, or `null`
+      type: Boolean,
+      default: null
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    ariaLabel: {
+      type: String,
+      default: null
+    },
+    ariaControls: {
+      type: String,
+      default: null
+    },
+    labelDecrement: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'labelDecrement');
+      }
+    },
+    labelIncrement: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'labelIncrement');
+      }
+    },
+    locale: {
+      type: [String, Array],
+      default: null
+    },
+    repeatDelay: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_DELAY
+    },
+    repeatInterval: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_INTERVAL
+    },
+    repeatThreshold: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_THRESHOLD
+    },
+    repeatStepMultiplier: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_MULTIPLIER
+    }
+  },
+  data: function data() {
+    return {
+      localValue: defaultNumber(this.value),
+      hasFocus: false
+    };
+  },
+  computed: {
+    computedStep: function computedStep() {
+      return defaultNumber(this.step, DEFAULT_STEP);
+    },
+    computedMin: function computedMin() {
+      return defaultNumber(this.min, DEFAULT_MIN);
+    },
+    computedMax: function computedMax() {
+      return defaultNumber(this.max, DEFAULT_MAX);
+    },
+    computedDelay: function computedDelay() {
+      return defaultInteger(this.repeatDelay, DEFAULT_REPEAT_DELAY) || DEFAULT_REPEAT_DELAY;
+    },
+    computedInterval: function computedInterval() {
+      return defaultInteger(this.repeatInterval, DEFAULT_REPEAT_INTERVAL) || DEFAULT_REPEAT_INTERVAL;
+    },
+    computedThreshold: function computedThreshold() {
+      return defaultInteger(this.repeatThreshold, DEFAULT_REPEAT_THRESHOLD) || 1;
+    },
+    computedStepMultiplier: function computedStepMultiplier() {
+      return defaultInteger(this.repeatStepMultiplier, DEFAULT_REPEAT_MULTIPLIER) || 1;
+    },
+    computedPrecision: function computedPrecision() {
+      // Quick and dirty way to get the number of decimals
+      var step = this.computedStep;
+      return Math.floor(step) === step ? 0 : (step.toString().split('.')[1] || '').length;
+    },
+    computedMultiplier: function computedMultiplier() {
+      return Math.pow(10, this.computedPrecision || 0);
+    },
+    valueAsFixed: function valueAsFixed() {
+      var value = this.localValue;
+      return Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["g" /* isNull */])(value) ? '' : value.toFixed(this.computedPrecision);
+    },
+    computedLocale: function computedLocale() {
+      var locales = Object(__WEBPACK_IMPORTED_MODULE_1__utils_array__["b" /* concat */])(this.locale).filter(__WEBPACK_IMPORTED_MODULE_7__utils_identity__["a" /* default */]);
+      var nf = new Intl.NumberFormat(locales);
+      return nf.resolvedOptions().locale;
+    },
+    defaultFormatter: function defaultFormatter() {
+      // Returns and `Intl.NumberFormat` formatter method reference
+      var precision = this.computedPrecision;
+      var nf = new Intl.NumberFormat(this.computedLocale, {
+        style: 'decimal',
+        useGrouping: false,
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision,
+        notation: 'standard'
+      }); // Return the format method reference
+
+      return nf.format;
+    }
+  },
+  watch: {
+    value: function value(_value) {
+      _value = Object(__WEBPACK_IMPORTED_MODULE_5__utils_number__["b" /* toFloat */])(_value); // Will be `NaN` if `value` is `null`
+
+      this.localValue = isNaN(_value) ? null : _value;
+    },
+    localValue: function localValue(value) {
+      this.$emit('input', value);
+    },
+    disabled: function disabled(_disabled) {
+      if (_disabled) {
+        this.clearRepeat();
+      }
+    },
+    readonly: function readonly(_readonly) {
+      if (_readonly) {
+        this.clearRepeat();
+      }
+    }
+  },
+  created: function created() {
+    // Create non reactive properties
+    this.$_autoDelayTimer = null;
+    this.$_autoRepeatTimer = null;
+    this.$_keyIsDown = false;
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clearRepeat();
+  },
+  deactivated: function deactivated()
+  /* istanbul ignore next */
+  {
+    this.clearRepeat();
+  },
+  methods: {
+    // --- Public methods ---
+    focus: function focus() {
+      if (!this.disabled) {
+        try {
+          this.$refs.spinner.focus();
+        } catch (_unused) {}
+      }
+    },
+    blur: function blur() {
+      if (!this.disabled) {
+        try {
+          this.$refs.spinner.blur();
+        } catch (_unused2) {}
+      }
+    },
+    // --- Private methods ---
+    emitChange: function emitChange() {
+      this.$emit('change', this.localValue);
+    },
+    stepValue: function stepValue(direction) {
+      // Sets a new incremented or decremented value, supporting optional wrapping
+      // Direction is either +1 or -1 (or a multiple thereof)
+      var value = this.localValue;
+
+      if (!this.disabled && !Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["g" /* isNull */])(value)) {
+        var step = this.computedStep * direction;
+        var min = this.computedMin;
+        var max = this.computedMax;
+        var multiplier = this.computedMultiplier;
+        var wrap = this.wrap; // We ensure that the value steps like a native input
+
+        value = Math.round((value - min) / step) * step + min + step; // We ensure that precision is maintained (decimals)
+
+        value = Math.round(value * multiplier) / multiplier; // Handle if wrapping is enabled
+
+        this.localValue = value > max ? wrap ? min : max : value < min ? wrap ? max : min : value;
+      }
+    },
+    onFocusBlur: function onFocusBlur(evt) {
+      if (!this.disabled) {
+        this.hasFocus = evt.type === 'focus';
+      } else {
+        this.hasFocus = false;
+      }
+    },
+    stepUp: function stepUp() {
+      var multiplier = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var value = this.localValue;
+
+      if (Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["g" /* isNull */])(value)) {
+        this.localValue = this.computedMin;
+      } else {
+        this.stepValue(+1 * multiplier);
+      }
+    },
+    stepDown: function stepDown() {
+      var multiplier = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var value = this.localValue;
+
+      if (Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["g" /* isNull */])(value)) {
+        this.localValue = this.wrap ? this.computedMax : this.computedMin;
+      } else {
+        this.stepValue(-1 * multiplier);
+      }
+    },
+    onKeydown: function onKeydown(evt) {
+      var keyCode = evt.keyCode,
+          altKey = evt.altKey,
+          ctrlKey = evt.ctrlKey,
+          metaKey = evt.metaKey;
+      /* istanbul ignore if */
+
+      if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
+        return;
+      }
+
+      if (Object(__WEBPACK_IMPORTED_MODULE_1__utils_array__["a" /* arrayIncludes */])([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
+        // https://w3c.github.io/aria-practices/#spinbutton
+        evt.preventDefault();
+        /* istanbul ignore if */
+
+        if (this.$_keyIsDown) {
+          // Keypress is already in progress
+          return;
+        }
+
+        this.resetTimers();
+
+        if (Object(__WEBPACK_IMPORTED_MODULE_1__utils_array__["a" /* arrayIncludes */])([UP, DOWN], keyCode)) {
+          // The following use the custom auto-repeat handling
+          this.$_keyIsDown = true;
+
+          if (keyCode === UP) {
+            this.handleStepRepeat(evt, this.stepUp);
+          } else if (keyCode === DOWN) {
+            this.handleStepRepeat(evt, this.stepDown);
+          }
+        } else {
+          // These use native OS key repeating
+          if (keyCode === PAGEUP) {
+            this.stepUp(this.computedStepMultiplier);
+          } else if (keyCode === PAGEDOWN) {
+            this.stepDown(this.computedStepMultiplier);
+          } else if (keyCode === HOME) {
+            this.localValue = this.computedMin;
+          } else if (keyCode === END) {
+            this.localValue = this.computedMax;
+          }
+        }
+      }
+    },
+    onKeyup: function onKeyup(evt) {
+      // Emit a change event when the keyup happens
+      var keyCode = evt.keyCode,
+          altKey = evt.altKey,
+          ctrlKey = evt.ctrlKey,
+          metaKey = evt.metaKey;
+      /* istanbul ignore if */
+
+      if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
+        return;
+      }
+
+      if (Object(__WEBPACK_IMPORTED_MODULE_1__utils_array__["a" /* arrayIncludes */])([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
+        this.resetTimers();
+        this.$_keyIsDown = false;
+        evt.preventDefault();
+        this.emitChange();
+      }
+    },
+    handleStepRepeat: function handleStepRepeat(evt, stepper) {
+      var _this = this;
+
+      var _ref = evt || {},
+          type = _ref.type,
+          button = _ref.button;
+
+      if (!this.disabled && !this.readonly) {
+        /* istanbul ignore if */
+        if (type === 'mousedown' && button) {
+          // We only respond to left (main === 0) button clicks
+          return;
+        }
+
+        this.resetTimers(); // Enable body mouseup event handler
+
+        this.setMouseup(true); // Step the counter initially
+
+        stepper(1);
+        var threshold = this.computedThreshold;
+        var multiplier = this.computedStepMultiplier;
+        var delay = this.computedDelay;
+        var interval = this.computedInterval; // Initiate the delay/repeat interval
+
+        this.$_autoDelayTimer = setTimeout(function () {
+          var count = 0;
+          _this.$_autoRepeatTimer = setInterval(function () {
+            // After N initial repeats, we increase the incrementing step amount
+            // We do this to minimize screen reader announcements of the value
+            // (values are announced every change, which can be chatty for SR users)
+            // And to make it easer to select a value when the range is large
+            stepper(count < threshold ? 1 : multiplier);
+            count++;
+          }, interval);
+        }, delay);
+      }
+    },
+    onMouseup: function onMouseup(evt) {
+      // `<body>` listener, only enabled when mousedown starts
+      var _ref2 = evt || {},
+          type = _ref2.type,
+          button = _ref2.button;
+      /* istanbul ignore if */
+
+
+      if (type === 'mouseup' && button) {
+        // we only care about left (main === 0) mouse button click
+        return;
+      }
+
+      this.resetTimers();
+      this.setMouseup(false); // Trigger the change event
+
+      this.emitChange();
+    },
+    setMouseup: function setMouseup(on) {
+      // Enable or disabled the body mouseup/touchend handlers
+      // Use try/catch to handle case when called server side
+      try {
+        Object(__WEBPACK_IMPORTED_MODULE_3__utils_events__["e" /* eventOnOff */])(on, document.body, 'mouseup', this.onMouseup, __WEBPACK_IMPORTED_MODULE_3__utils_events__["b" /* EVENT_OPTIONS_PASSIVE */]);
+        Object(__WEBPACK_IMPORTED_MODULE_3__utils_events__["e" /* eventOnOff */])(on, document.body, 'touchend', this.onMouseup, __WEBPACK_IMPORTED_MODULE_3__utils_events__["b" /* EVENT_OPTIONS_PASSIVE */]);
+      } catch (_unused3) {}
+    },
+    resetTimers: function resetTimers() {
+      clearTimeout(this.$_autoDelayTimer);
+      clearInterval(this.$_autoRepeatTimer);
+    },
+    clearRepeat: function clearRepeat() {
+      this.resetTimers();
+      this.setMouseup(false);
+      this.$_keyIsDown = false;
+    }
+  },
+  render: function render(h) {
+    var _this2 = this,
+        _class;
+
+    var spinId = this.safeId();
+    var value = this.localValue;
+    var isVertical = this.vertical;
+    var isInline = this.inline && !isVertical;
+    var isDisabled = this.disabled;
+    var isReadonly = this.readonly && !isDisabled;
+    var isRequired = this.required && !isReadonly && !isDisabled;
+    var state = this.state;
+    var size = this.size;
+    var hasValue = !Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["g" /* isNull */])(value);
+    var formatter = Object(__WEBPACK_IMPORTED_MODULE_4__utils_inspect__["f" /* isFunction */])(this.formatterFn) ? this.formatterFn : this.defaultFormatter;
+
+    var makeButton = function makeButton(stepper, label, IconCmp, keyRef, shortcut, btnDisabled) {
+      var $icon = h(IconCmp, {
+        props: {
+          scale: _this2.hasFocus ? 1.5 : 1.25
+        },
+        attrs: {
+          'aria-hidden': 'true'
+        }
+      });
+
+      var handler = function handler(evt)
+      /* istanbul ignore next: until tests written */
+      {
+        if (!isDisabled && !isReadonly) {
+          _this2.handleStepRepeat(evt, stepper);
+        }
+      };
+
+      return h('button', {
+        key: keyRef || null,
+        ref: keyRef,
+        staticClass: 'btn btn-sm border-0 rounded-0',
+        class: {
+          'py-0': !isVertical
+        },
+        attrs: {
+          tabindex: '-1',
+          type: 'button',
+          disabled: isDisabled || isReadonly || btnDisabled,
+          'aria-disabled': isDisabled || isReadonly || btnDisabled ? 'true' : null,
+          'aria-controls': spinId,
+          'aria-label': label || null,
+          'aria-keyshortcuts': shortcut || null
+        },
+        on: {
+          mousedown: handler,
+          touchstart: handler
+        }
+      }, [h('div', {}, [$icon])]);
+    }; // TODO: Add button disabled state when `wrap` is `false` and at value max/min
+
+
+    var $increment = makeButton(this.stepUp, this.labelIncrement, __WEBPACK_IMPORTED_MODULE_10__icons_icons__["_170" /* BIconPlus */], 'inc', 'ArrowUp');
+    var $decrement = makeButton(this.stepDown, this.labelDecrement, __WEBPACK_IMPORTED_MODULE_10__icons_icons__["_69" /* BIconDash */], 'dec', 'ArrowDown');
+    var $hidden = h();
+
+    if (this.name && !isDisabled) {
+      $hidden = h('input', {
+        key: 'hidden',
+        attrs: {
+          type: 'hidden',
+          name: this.name,
+          form: this.form || null,
+          // TODO: Should this be set to '' if value is out of range?
+          value: this.valueAsFixed
+        }
+      });
+    }
+
+    var $spin = h( // We use 'output' element to make this accept a `<label for="id">` (Except IE)
+    'output', {
+      ref: 'spinner',
+      key: 'output',
+      staticClass: 'flex-grow-1',
+      class: {
+        'w-100': !isVertical && !isInline,
+        'd-flex': isVertical,
+        'align-self-center': !isVertical,
+        'align-items-center': isVertical,
+        'py-1': isVertical,
+        'px-1': !isVertical,
+        'mx-1': isVertical,
+        'border-top': isVertical,
+        'border-bottom': isVertical,
+        'border-left': !isVertical,
+        'border-right': !isVertical
+      },
+      attrs: {
+        id: spinId,
+        role: 'spinbutton',
+        tabindex: isDisabled ? null : '0',
+        'aria-live': 'off',
+        'aria-label': this.ariaLabel || null,
+        'aria-controls': this.ariaControls || null,
+        // TODO: May want to check if the value is in range
+        'aria-invalid': state === false || !hasValue && isRequired ? 'true' : null,
+        'aria-required': isRequired ? 'true' : null,
+        // These attrs are required for role spinbutton
+        'aria-valuemin': Object(__WEBPACK_IMPORTED_MODULE_6__utils_string__["f" /* toString */])(this.computedMin),
+        'aria-valuemax': Object(__WEBPACK_IMPORTED_MODULE_6__utils_string__["f" /* toString */])(this.computedMax),
+        // These should be `null` if the value is out of range
+        // They must also be non-existent attrs if the value is out of range or `null`
+        'aria-valuenow': hasValue ? value : null,
+        'aria-valuetext': hasValue ? formatter(value) : null
+      }
+    }, [h('div', {
+      staticClass: 'w-100'
+    }, hasValue ? formatter(value) : this.placeholder || '')]);
+    return h('div', {
+      staticClass: 'b-form-spinbutton form-control p-0',
+      class: (_class = {
+        disabled: isDisabled,
+        readonly: isReadonly,
+        focus: this.hasFocus
+      }, _defineProperty(_class, "form-control-".concat(size), !!size), _defineProperty(_class, 'd-inline-flex', isInline || isVertical), _defineProperty(_class, 'd-flex', !isInline && !isVertical), _defineProperty(_class, 'align-items-stretch', !isVertical), _defineProperty(_class, 'flex-column', isVertical), _defineProperty(_class, 'is-valid', state === true), _defineProperty(_class, 'is-invalid', state === false), _class),
+      attrs: _objectSpread({}, this.$attrs, {
+        role: 'group',
+        lang: this.computedLocale,
+        tabindex: isDisabled ? null : '-1',
+        // We want to keep the order of the buttons regardless
+        // of locale (flex will re-order based on rtl/ltr)
+        dir: 'ltr'
+      }),
+      on: {
+        keydown: this.onKeydown,
+        keyup: this.onKeyup,
+        // We use capture phase (`!` prefix) since focus and blur do not bubble
+        '!focus': this.onFocusBlur,
+        '!blur': this.onFocusBlur
+      }
+    }, isVertical ? [$increment, $hidden, $spin, $decrement] : [$decrement, $hidden, $spin, $increment]);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/components/form-spinbutton/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormSpinbuttonPlugin; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__form_spinbutton__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-spinbutton/form-spinbutton.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_plugins__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/plugins.js");
+/* unused harmony reexport BFormSpinbutton */
+
+
+var FormSpinbuttonPlugin =
+/*#__PURE__*/
+Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["b" /* pluginFactory */])({
+  components: {
+    BFormSpinbutton: __WEBPACK_IMPORTED_MODULE_0__form_spinbutton__["a" /* BFormSpinbutton */],
+    BSpinbutton: __WEBPACK_IMPORTED_MODULE_0__form_spinbutton__["a" /* BFormSpinbutton */]
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap-vue/esm/components/form-tags/form-tag.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BFormTag; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/vue.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_normalize_slot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/normalize-slot.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__badge_badge__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/badge/badge.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__button_button_close__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/button-close.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/key-codes.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_normalize_slot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/normalize-slot.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__badge_badge__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/badge/badge.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__button_button_close__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/button-close.js");
+
 
 
 
@@ -8585,12 +10981,12 @@ var BFormTag =
 /*#__PURE__*/
 __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
   name: NAME,
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_id__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__mixins_normalize_slot__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins_id__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__mixins_normalize_slot__["a" /* default */]],
   props: {
     variant: {
       type: String,
       default: function _default() {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__utils_config__["c" /* getComponentConfig */])(NAME, 'variant');
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'variant');
       }
     },
     disabled: {
@@ -8608,7 +11004,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     removeLabel: {
       type: String,
       default: function _default() {
-        return Object(__WEBPACK_IMPORTED_MODULE_1__utils_config__["c" /* getComponentConfig */])(NAME, 'removeLabel');
+        return Object(__WEBPACK_IMPORTED_MODULE_2__utils_config__["c" /* getComponentConfig */])(NAME, 'removeLabel');
       }
     },
     tag: {
@@ -8617,40 +11013,53 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     }
   },
   methods: {
-    onClick: function onClick() {
-      this.$emit('remove');
+    onDelete: function onDelete(evt) {
+      var type = evt.type,
+          keyCode = evt.keyCode;
+
+      if (!this.disabled && (type === 'click' || type === 'keydown' && keyCode === __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].DELETE)) {
+        this.$emit('remove');
+      }
     }
   },
   render: function render(h) {
     var tagId = this.safeId();
+    var tagLabelId = this.safeId('_taglabel_');
     var $remove = h();
 
     if (!this.disabled) {
-      $remove = h(__WEBPACK_IMPORTED_MODULE_5__button_button_close__["a" /* BButtonClose */], {
+      $remove = h(__WEBPACK_IMPORTED_MODULE_6__button_button_close__["a" /* BButtonClose */], {
         staticClass: 'b-form-tag-remove ml-1',
         props: {
           ariaLabel: this.removeLabel
         },
         attrs: {
-          'aria-controls': tagId
+          'aria-controls': tagId,
+          'aria-describedby': tagLabelId,
+          'aria-keyshortcuts': 'Delete'
         },
         on: {
-          click: this.onClick
+          click: this.onDelete,
+          keydown: this.onDelete
         }
       });
     }
 
     var $tag = h('span', {
-      staticClass: 'b-form-tag-content flex-grow-1 text-truncate'
+      staticClass: 'b-form-tag-content flex-grow-1 text-truncate',
+      attrs: {
+        id: tagLabelId
+      }
     }, this.normalizeSlot('default') || this.title || [h()]);
-    return h(__WEBPACK_IMPORTED_MODULE_4__badge_badge__["a" /* BBadge */], {
+    return h(__WEBPACK_IMPORTED_MODULE_5__badge_badge__["a" /* BBadge */], {
       staticClass: 'b-form-tag d-inline-flex align-items-baseline mw-100',
       class: {
         disabled: this.disabled
       },
       attrs: {
         id: tagId,
-        title: this.title || null
+        title: this.title || null,
+        'aria-labelledby': tagLabelId
       },
       props: {
         tag: this.tag,
@@ -8669,8 +11078,8 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BFormTags; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_vue__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/vue.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_key_codes__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/key-codes.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/key-codes.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_loose_equal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/loose-equal.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_array__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/array.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_config__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/config.js");
@@ -8679,10 +11088,10 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_string__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/string.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_id__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/id.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mixins_normalize_slot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/mixins/normalize-slot.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__form_tag__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tag.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__button_button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/button.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__form_form_invalid_feedback__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-invalid-feedback.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__form_form_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-text.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__button_button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/button.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__form_tag__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tag.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -8719,7 +11128,11 @@ var NAME = 'BFormTags'; // Supported input types (for built in input)
 
 var TYPES = ['text', 'email', 'tel', 'url', 'number']; // Pre-compiled regular expressions for performance reasons
 
-var RX_SPACES = /[\s\uFEFF\xA0]+/g; // --- Utility methods ---
+var RX_SPACES = /[\s\uFEFF\xA0]+/g; // KeyCode constants
+
+var ENTER = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].ENTER,
+    BACKSPACE = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].BACKSPACE,
+    DELETE = __WEBPACK_IMPORTED_MODULE_1__utils_key_codes__["a" /* default */].DELETE; // --- Utility methods ---
 // Escape special chars in string and replace
 // contiguous spaces with a whitespace match
 
@@ -8849,6 +11262,12 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
         return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'tagRemoveLabel');
       }
     },
+    tagRemovedLabel: {
+      type: String,
+      default: function _default() {
+        return Object(__WEBPACK_IMPORTED_MODULE_5__utils_config__["c" /* getComponentConfig */])(NAME, 'tagRemovedLabel');
+      }
+    },
     tagValidator: {
       type: Function,
       default: null
@@ -8905,6 +11324,8 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       hasFocus: false,
       newTag: '',
       tags: [],
+      // Tags that were removed
+      removedTags: [],
       // Populated when tags are parsed
       tagsState: cleanTagsState()
     };
@@ -8935,7 +11356,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     },
     computedSeparator: function computedSeparator() {
       // Merge the array into a string
-      return Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])(this.separator).filter(__WEBPACK_IMPORTED_MODULE_7__utils_inspect__["m" /* isString */]).filter(__WEBPACK_IMPORTED_MODULE_1__utils_identity__["a" /* default */]).join('');
+      return Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])(this.separator).filter(__WEBPACK_IMPORTED_MODULE_7__utils_inspect__["m" /* isString */]).filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]).join('');
     },
     computedSeparatorRegExp: function computedSeparatorRegExp() {
       // We use a computed prop here to precompile the RegExp
@@ -8982,10 +11403,18 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     value: function value(newVal) {
       this.tags = cleanTags(newVal);
     },
-    tags: function tags(newVal) {
+    tags: function tags(newVal, oldVal) {
       // Update the `v-model` (if it differs from the value prop)
       if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_loose_equal__["a" /* default */])(newVal, this.value)) {
         this.$emit('input', newVal);
+      }
+
+      if (!Object(__WEBPACK_IMPORTED_MODULE_3__utils_loose_equal__["a" /* default */])(newVal, oldVal)) {
+        newVal = Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])(newVal).filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]);
+        oldVal = Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])(oldVal).filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]);
+        this.removedTags = oldVal.filter(function (old) {
+          return !Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(newVal, old);
+        });
       }
     },
     tagsState: function tagsState(newVal, oldVal) {
@@ -9051,6 +11480,8 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       this.focus();
     },
     removeTag: function removeTag(tag) {
+      var _this2 = this;
+
       /* istanbul ignore next */
       if (this.disabled) {
         return;
@@ -9064,7 +11495,9 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
         return t !== tag;
       }); // Return focus to the input (if possible)
 
-      this.focus();
+      this.$nextTick(function () {
+        _this2.focus();
+      });
     },
     // --- Input element event handlers ---
     onInputInput: function onInputInput(evt) {
@@ -9120,20 +11553,24 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       var value = evt.target.value || '';
       /* istanbul ignore else: testing to be added later */
 
-      if (!this.noAddOnEnter && keyCode === __WEBPACK_IMPORTED_MODULE_2__utils_key_codes__["a" /* default */].ENTER) {
+      if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
         evt.preventDefault();
         this.addTag();
-      } else if (this.removeOnDelete && keyCode === __WEBPACK_IMPORTED_MODULE_2__utils_key_codes__["a" /* default */].BACKSPACE && value === '') {
-        // Remove the last tag if the user pressed backspace and the input is empty
+      } else if (this.removeOnDelete && (keyCode === BACKSPACE || keyCode === DELETE) && value === '') {
+        // Remove the last tag if the user pressed backspace/delete and the input is empty
         evt.preventDefault();
-        this.tags.pop();
+        this.tags = this.tags.slice(0, -1);
       }
     },
     // --- Wrapper event handlers ---
     onClick: function onClick(evt) {
+      var _this3 = this;
+
       if (!this.disabled && Object(__WEBPACK_IMPORTED_MODULE_7__utils_inspect__["d" /* isEvent */])(evt) && evt.target === evt.currentTarget) {
-        this.$nextTick(this.focus);
+        this.$nextTick(function () {
+          _this3.focus();
+        });
       }
     },
     onFocusin: function onFocusin() {
@@ -9143,12 +11580,12 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       this.hasFocus = false;
     },
     handleAutofocus: function handleAutofocus() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.$nextTick(function () {
         Object(__WEBPACK_IMPORTED_MODULE_6__utils_dom__["v" /* requestAF */])(function () {
-          if (_this2.autofocus && !_this2.disabled) {
-            _this2.focus();
+          if (_this4.autofocus && !_this4.disabled) {
+            _this4.focus();
           }
         });
       });
@@ -9174,10 +11611,10 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       // Normally only a single tag is provided, but copy/paste
       // can enter multiple tags in a single operation
 
-      return (separatorRe ? newTag.split(separatorRe) : [newTag]).map(__WEBPACK_IMPORTED_MODULE_8__utils_string__["g" /* trim */]).filter(__WEBPACK_IMPORTED_MODULE_1__utils_identity__["a" /* default */]);
+      return (separatorRe ? newTag.split(separatorRe) : [newTag]).map(__WEBPACK_IMPORTED_MODULE_8__utils_string__["g" /* trim */]).filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]);
     },
     parseTags: function parseTags(newTag) {
-      var _this3 = this;
+      var _this5 = this;
 
       // Takes `newTag` value and parses it into `validTags`,
       // `invalidTags`, and duplicate tags as an object
@@ -9192,12 +11629,12 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       }; // Parse the unique tags
 
       tags.forEach(function (tag) {
-        if (Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(_this3.tags, tag) || Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(parsed.valid, tag)) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(_this5.tags, tag) || Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(parsed.valid, tag)) {
           // Unique duplicate tags
           if (!Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["a" /* arrayIncludes */])(parsed.duplicate, tag)) {
             parsed.duplicate.push(tag);
           }
-        } else if (_this3.validateTag(tag)) {
+        } else if (_this5.validateTag(tag)) {
           // We only add unique/valid tags
           parsed.valid.push(tag);
         } else {
@@ -9244,12 +11681,12 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 
       var $tags = tags.map(function (tag) {
         tag = Object(__WEBPACK_IMPORTED_MODULE_8__utils_string__["f" /* toString */])(tag);
-        return h(__WEBPACK_IMPORTED_MODULE_11__form_tag__["a" /* BFormTag */], {
+        return h(__WEBPACK_IMPORTED_MODULE_14__form_tag__["a" /* BFormTag */], {
           key: "li-tag__".concat(tag),
           staticClass: 'mt-1 mr-1',
           class: tagClass,
           props: {
-            // 'BFormTag' will auto generate an ID
+            // `BFormTag` will auto generate an ID
             // so we do not need to set the ID prop
             tag: 'li',
             title: tag,
@@ -9269,7 +11706,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       var invalidFeedbackId = invalidTagText && isInvalid ? this.safeId('__invalid_feedback__') : null;
       var duplicateFeedbackId = duplicateTagText && isDuplicate ? this.safeId('__duplicate_feedback__') : null; // Compute the `aria-describedby` attribute value
 
-      var ariaDescribedby = [inputAttrs['aria-describedby'], invalidFeedbackId, duplicateFeedbackId].filter(__WEBPACK_IMPORTED_MODULE_1__utils_identity__["a" /* default */]).join(' '); // Input
+      var ariaDescribedby = [inputAttrs['aria-describedby'], invalidFeedbackId, duplicateFeedbackId].filter(__WEBPACK_IMPORTED_MODULE_2__utils_identity__["a" /* default */]).join(' '); // Input
 
       var $input = h('input', {
         ref: 'input',
@@ -9295,7 +11732,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
         on: inputHandlers
       }); // Add button
 
-      var $button = h(__WEBPACK_IMPORTED_MODULE_14__button_button__["a" /* BButton */], {
+      var $button = h(__WEBPACK_IMPORTED_MODULE_11__button_button__["a" /* BButton */], {
         ref: 'button',
         staticClass: 'b-form-tags-button py-0',
         class: {
@@ -9326,26 +11763,24 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       var tagListId = this.safeId('__TAG__LIST__');
       var $field = h('li', {
         key: '__li-input__',
-        staticClass: 'd-inline-flex flex-grow-1 mt-1',
+        staticClass: 'flex-grow-1 mt-1',
         attrs: {
-          role: 'group',
+          role: 'none',
           'aria-live': 'off',
           'aria-controls': tagListId
         }
-      }, [$input, $button]); // Wrap in an unordered list element (we use a list for accessibility)
+      }, [h('div', {
+        staticClass: 'd-flex',
+        attrs: {
+          role: 'group'
+        }
+      }, [$input, $button])]); // Wrap in an unordered list element (we use a list for accessibility)
 
       var $ul = h('ul', {
         key: '_tags_list_',
         staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
         attrs: {
-          id: tagListId,
-          // Don't interrupt the user abruptly
-          // Although maybe this should be 'assertive'
-          // to provide immediate feedback of the tag added/removed
-          'aria-live': 'polite',
-          // Only read elements that have been added or removed
-          'aria-atomic': 'false',
-          'aria-relevant': 'additions removals'
+          id: tagListId
         }
       }, // `concat()` is faster than array spread when args are known to be arrays
       Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])($tags, $field)); // Assemble the feedback
@@ -9395,7 +11830,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     }
   },
   render: function render(h) {
-    var _this4 = this;
+    var _this6 = this;
 
     // Scoped slot properties
     var scope = {
@@ -9436,7 +11871,29 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       duplicateTagText: this.duplicateTagText
     }; // Generate the user interface
 
-    var $content = this.normalizeSlot('default', scope) || this.defaultRender(scope); // Add hidden inputs for form submission
+    var $content = this.normalizeSlot('default', scope) || this.defaultRender(scope); // Generate the `aria-live` region for the current value(s)
+
+    var $output = h('output', {
+      staticClass: 'sr-only',
+      attrs: {
+        id: this.safeId('_selected-tags_'),
+        role: 'status',
+        for: this.computedInputId,
+        'aria-live': this.hasFocus ? 'polite' : 'off',
+        'aria-atomic': 'true',
+        'aria-relevant': 'additions text'
+      }
+    }, this.tags.join(', ')); // Removed tag live region
+
+    var $removed = h('div', {
+      staticClass: 'sr-only',
+      attrs: {
+        id: this.safeId('_removed-tags_'),
+        role: 'status',
+        'aria-live': this.hasFocus ? 'assertive' : 'off',
+        'aria-atomic': 'true'
+      }
+    }, this.removedTags.length > 0 ? "(".concat(this.tagRemovedLabel, ") ").concat(this.removedTags.join(', ')) : ''); // Add hidden inputs for form submission
 
     var $hidden = h();
 
@@ -9449,8 +11906,8 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
           attrs: {
             type: 'hidden',
             value: tag,
-            name: _this4.name,
-            form: _this4.form || null
+            name: _this6.name,
+            form: _this6.form || null
           }
         });
       });
@@ -9468,14 +11925,15 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
       attrs: {
         id: this.safeId(),
         role: 'group',
-        tabindex: this.disabled || this.noOuterFocus ? null : '-1'
+        tabindex: this.disabled || this.noOuterFocus ? null : '-1',
+        'aria-describedby': this.safeId('_selected_')
       },
       on: {
         focusin: this.onFocusin,
         focusout: this.onFocusout,
         click: this.onClick
       }
-    }, Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])($content, $hidden));
+    }, Object(__WEBPACK_IMPORTED_MODULE_4__utils_array__["b" /* concat */])($output, $removed, $content, $hidden));
   }
 });
 
@@ -10560,40 +13018,46 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["b" /* pluginFactory */])({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__button_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button-group/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__button_toolbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button-toolbar/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__calendar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/calendar/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__form_checkbox__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__form_datepicker__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-datepicker/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__form_select__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__image__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__layout__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__form_spinbutton__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-spinbutton/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__image__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__layout__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/index.js");
  // Component group plugins
+
+
+
 
 
 
@@ -10646,39 +13110,42 @@ Object(__WEBPACK_IMPORTED_MODULE_0__utils_plugins__["b" /* pluginFactory */])({
     ButtonPlugin: __WEBPACK_IMPORTED_MODULE_4__button__["a" /* ButtonPlugin */],
     ButtonGroupPlugin: __WEBPACK_IMPORTED_MODULE_5__button_group__["a" /* ButtonGroupPlugin */],
     ButtonToolbarPlugin: __WEBPACK_IMPORTED_MODULE_6__button_toolbar__["a" /* ButtonToolbarPlugin */],
-    CardPlugin: __WEBPACK_IMPORTED_MODULE_7__card__["a" /* CardPlugin */],
-    CarouselPlugin: __WEBPACK_IMPORTED_MODULE_8__carousel__["a" /* CarouselPlugin */],
-    CollapsePlugin: __WEBPACK_IMPORTED_MODULE_9__collapse__["a" /* CollapsePlugin */],
-    DropdownPlugin: __WEBPACK_IMPORTED_MODULE_10__dropdown__["a" /* DropdownPlugin */],
-    EmbedPlugin: __WEBPACK_IMPORTED_MODULE_11__embed__["a" /* EmbedPlugin */],
-    FormPlugin: __WEBPACK_IMPORTED_MODULE_12__form__["a" /* FormPlugin */],
-    FormGroupPlugin: __WEBPACK_IMPORTED_MODULE_13__form_group__["a" /* FormGroupPlugin */],
+    CalendarPlugin: __WEBPACK_IMPORTED_MODULE_7__calendar__["a" /* CalendarPlugin */],
+    CardPlugin: __WEBPACK_IMPORTED_MODULE_8__card__["a" /* CardPlugin */],
+    CarouselPlugin: __WEBPACK_IMPORTED_MODULE_9__carousel__["a" /* CarouselPlugin */],
+    CollapsePlugin: __WEBPACK_IMPORTED_MODULE_10__collapse__["a" /* CollapsePlugin */],
+    DropdownPlugin: __WEBPACK_IMPORTED_MODULE_11__dropdown__["a" /* DropdownPlugin */],
+    EmbedPlugin: __WEBPACK_IMPORTED_MODULE_12__embed__["a" /* EmbedPlugin */],
+    FormPlugin: __WEBPACK_IMPORTED_MODULE_13__form__["a" /* FormPlugin */],
     FormCheckboxPlugin: __WEBPACK_IMPORTED_MODULE_14__form_checkbox__["a" /* FormCheckboxPlugin */],
-    FormRadioPlugin: __WEBPACK_IMPORTED_MODULE_15__form_radio__["a" /* FormRadioPlugin */],
-    FormInputPlugin: __WEBPACK_IMPORTED_MODULE_17__form_input__["a" /* FormInputPlugin */],
-    FormTagsPlugin: __WEBPACK_IMPORTED_MODULE_16__form_tags__["a" /* FormTagsPlugin */],
-    FormTextareaPlugin: __WEBPACK_IMPORTED_MODULE_18__form_textarea__["a" /* FormTextareaPlugin */],
-    FormFilePlugin: __WEBPACK_IMPORTED_MODULE_19__form_file__["a" /* FormFilePlugin */],
+    FormDatepickerPlugin: __WEBPACK_IMPORTED_MODULE_15__form_datepicker__["a" /* FormDatepickerPlugin */],
+    FormFilePlugin: __WEBPACK_IMPORTED_MODULE_16__form_file__["a" /* FormFilePlugin */],
+    FormGroupPlugin: __WEBPACK_IMPORTED_MODULE_17__form_group__["a" /* FormGroupPlugin */],
+    FormInputPlugin: __WEBPACK_IMPORTED_MODULE_18__form_input__["a" /* FormInputPlugin */],
+    FormRadioPlugin: __WEBPACK_IMPORTED_MODULE_19__form_radio__["a" /* FormRadioPlugin */],
     FormSelectPlugin: __WEBPACK_IMPORTED_MODULE_20__form_select__["a" /* FormSelectPlugin */],
-    ImagePlugin: __WEBPACK_IMPORTED_MODULE_21__image__["a" /* ImagePlugin */],
-    InputGroupPlugin: __WEBPACK_IMPORTED_MODULE_22__input_group__["a" /* InputGroupPlugin */],
-    JumbotronPlugin: __WEBPACK_IMPORTED_MODULE_23__jumbotron__["a" /* JumbotronPlugin */],
-    LayoutPlugin: __WEBPACK_IMPORTED_MODULE_24__layout__["a" /* LayoutPlugin */],
-    LinkPlugin: __WEBPACK_IMPORTED_MODULE_25__link__["a" /* LinkPlugin */],
-    ListGroupPlugin: __WEBPACK_IMPORTED_MODULE_26__list_group__["a" /* ListGroupPlugin */],
-    MediaPlugin: __WEBPACK_IMPORTED_MODULE_27__media__["a" /* MediaPlugin */],
-    ModalPlugin: __WEBPACK_IMPORTED_MODULE_28__modal__["a" /* ModalPlugin */],
-    NavPlugin: __WEBPACK_IMPORTED_MODULE_29__nav__["a" /* NavPlugin */],
-    NavbarPlugin: __WEBPACK_IMPORTED_MODULE_30__navbar__["a" /* NavbarPlugin */],
-    PaginationPlugin: __WEBPACK_IMPORTED_MODULE_31__pagination__["a" /* PaginationPlugin */],
-    PaginationNavPlugin: __WEBPACK_IMPORTED_MODULE_32__pagination_nav__["a" /* PaginationNavPlugin */],
-    PopoverPlugin: __WEBPACK_IMPORTED_MODULE_33__popover__["a" /* PopoverPlugin */],
-    ProgressPlugin: __WEBPACK_IMPORTED_MODULE_34__progress__["a" /* ProgressPlugin */],
-    SpinnerPlugin: __WEBPACK_IMPORTED_MODULE_35__spinner__["a" /* SpinnerPlugin */],
-    TablePlugin: __WEBPACK_IMPORTED_MODULE_36__table__["a" /* TablePlugin */],
-    TabsPlugin: __WEBPACK_IMPORTED_MODULE_37__tabs__["a" /* TabsPlugin */],
-    ToastPlugin: __WEBPACK_IMPORTED_MODULE_38__toast__["a" /* ToastPlugin */],
-    TooltipPlugin: __WEBPACK_IMPORTED_MODULE_39__tooltip__["a" /* TooltipPlugin */]
+    FormSpinbuttonPlugin: __WEBPACK_IMPORTED_MODULE_21__form_spinbutton__["a" /* FormSpinbuttonPlugin */],
+    FormTagsPlugin: __WEBPACK_IMPORTED_MODULE_22__form_tags__["a" /* FormTagsPlugin */],
+    FormTextareaPlugin: __WEBPACK_IMPORTED_MODULE_23__form_textarea__["a" /* FormTextareaPlugin */],
+    ImagePlugin: __WEBPACK_IMPORTED_MODULE_24__image__["a" /* ImagePlugin */],
+    InputGroupPlugin: __WEBPACK_IMPORTED_MODULE_25__input_group__["a" /* InputGroupPlugin */],
+    JumbotronPlugin: __WEBPACK_IMPORTED_MODULE_26__jumbotron__["a" /* JumbotronPlugin */],
+    LayoutPlugin: __WEBPACK_IMPORTED_MODULE_27__layout__["a" /* LayoutPlugin */],
+    LinkPlugin: __WEBPACK_IMPORTED_MODULE_28__link__["a" /* LinkPlugin */],
+    ListGroupPlugin: __WEBPACK_IMPORTED_MODULE_29__list_group__["a" /* ListGroupPlugin */],
+    MediaPlugin: __WEBPACK_IMPORTED_MODULE_30__media__["a" /* MediaPlugin */],
+    ModalPlugin: __WEBPACK_IMPORTED_MODULE_31__modal__["a" /* ModalPlugin */],
+    NavPlugin: __WEBPACK_IMPORTED_MODULE_32__nav__["a" /* NavPlugin */],
+    NavbarPlugin: __WEBPACK_IMPORTED_MODULE_33__navbar__["a" /* NavbarPlugin */],
+    PaginationPlugin: __WEBPACK_IMPORTED_MODULE_34__pagination__["a" /* PaginationPlugin */],
+    PaginationNavPlugin: __WEBPACK_IMPORTED_MODULE_35__pagination_nav__["a" /* PaginationNavPlugin */],
+    PopoverPlugin: __WEBPACK_IMPORTED_MODULE_36__popover__["a" /* PopoverPlugin */],
+    ProgressPlugin: __WEBPACK_IMPORTED_MODULE_37__progress__["a" /* ProgressPlugin */],
+    SpinnerPlugin: __WEBPACK_IMPORTED_MODULE_38__spinner__["a" /* SpinnerPlugin */],
+    TablePlugin: __WEBPACK_IMPORTED_MODULE_39__table__["a" /* TablePlugin */],
+    TabsPlugin: __WEBPACK_IMPORTED_MODULE_40__tabs__["a" /* TabsPlugin */],
+    ToastPlugin: __WEBPACK_IMPORTED_MODULE_41__toast__["a" /* ToastPlugin */],
+    TooltipPlugin: __WEBPACK_IMPORTED_MODULE_42__tooltip__["a" /* TooltipPlugin */]
   }
 });
 
@@ -13516,7 +15983,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     // Private method to get the current document active element
     getActiveElement: function getActiveElement() {
       if (__WEBPACK_IMPORTED_MODULE_8__utils_env__["j" /* isBrowser */]) {
-        var activeElement = document.activeElement; // Note: On IE11, `document.activeElement` may be null.
+        var activeElement = document.activeElement; // Note: On IE 11, `document.activeElement` may be null.
         // So we test it for truthiness first.
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
         // Returning focus to document.body may cause unwanted scrolls, so we
@@ -13578,10 +16045,14 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
     onEnter: function onEnter() {
       var _this2 = this;
 
-      this.isBlock = true; // We add show class 1 frame after
+      this.isBlock = true; // We add the `show` class 1 frame later
+      // `requestAF()` runs the callback before the next repaint, so we need
+      // two calls to guarantee the next frame has been rendered
 
       Object(__WEBPACK_IMPORTED_MODULE_7__utils_dom__["v" /* requestAF */])(function () {
-        _this2.isShow = true;
+        Object(__WEBPACK_IMPORTED_MODULE_7__utils_dom__["v" /* requestAF */])(function () {
+          _this2.isShow = true;
+        });
       });
     },
     onAfterEnter: function onAfterEnter() {
@@ -14186,7 +16657,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 
  // -- Constants --
 
-var props = Object(__WEBPACK_IMPORTED_MODULE_5__utils_pluck_props__["a" /* default */])(['menuClass', 'toggleClass', 'noCaret', 'role'], __WEBPACK_IMPORTED_MODULE_1__dropdown_dropdown__["b" /* props */]); // @vue/component
+var props = Object(__WEBPACK_IMPORTED_MODULE_5__utils_pluck_props__["a" /* default */])(['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'], __WEBPACK_IMPORTED_MODULE_1__dropdown_dropdown__["b" /* props */]); // @vue/component
 
 var BNavItemDropdown =
 /*#__PURE__*/
@@ -16036,7 +18507,7 @@ var filterEvent = function filterEvent(evt) {
   }
 
   var label = el.tagName === 'LABEL' ? el : Object(__WEBPACK_IMPORTED_MODULE_0__utils_dom__["c" /* closest */])('label', el); // If the label's form control is not disabled then we don't propagate event
-  // Modern browsers have `label.control` that references the associated input, but IE11
+  // Modern browsers have `label.control` that references the associated input, but IE 11
   // does not have this property on the label element, so we resort to DOM lookups
 
   if (label) {
@@ -23518,18 +25989,107 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 
 /***/ }),
 
+/***/ "./node_modules/bootstrap-vue/esm/directives/hover/hover.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VBHover; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_env__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/env.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_events__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_inspect__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/inspect.js");
+// v-b-hover directive
+
+
+ // --- Constants ---
+
+var PROP = '__BV_hover_handler__';
+var MOUSEENTER = 'mouseenter';
+var MOUSELEAVE = 'mouseleave'; // --- Utility methods ---
+
+var createListener = function createListener(handler) {
+  var listener = function listener(evt) {
+    handler(evt.type === MOUSEENTER, evt);
+  };
+
+  listener.fn = handler;
+  return listener;
+};
+
+var updateListeners = function updateListeners(on, el, listener) {
+  Object(__WEBPACK_IMPORTED_MODULE_1__utils_events__["e" /* eventOnOff */])(on, el, MOUSEENTER, listener, __WEBPACK_IMPORTED_MODULE_1__utils_events__["a" /* EVENT_OPTIONS_NO_CAPTURE */]);
+  Object(__WEBPACK_IMPORTED_MODULE_1__utils_events__["e" /* eventOnOff */])(on, el, MOUSELEAVE, listener, __WEBPACK_IMPORTED_MODULE_1__utils_events__["a" /* EVENT_OPTIONS_NO_CAPTURE */]);
+}; // --- Directive bind/unbind/update handler ---
+
+
+var directive = function directive(el, _ref) {
+  var _ref$value = _ref.value,
+      handler = _ref$value === void 0 ? null : _ref$value;
+
+  if (__WEBPACK_IMPORTED_MODULE_0__utils_env__["j" /* isBrowser */]) {
+    var listener = el[PROP];
+    var hasListener = Object(__WEBPACK_IMPORTED_MODULE_2__utils_inspect__["f" /* isFunction */])(listener);
+    var handlerChanged = !(hasListener && listener.fn === handler);
+
+    if (hasListener && handlerChanged) {
+      updateListeners(false, el, listener);
+      delete el[PROP];
+    }
+
+    if (Object(__WEBPACK_IMPORTED_MODULE_2__utils_inspect__["f" /* isFunction */])(handler) && handlerChanged) {
+      el[PROP] = createListener(handler);
+      updateListeners(true, el, el[PROP]);
+    }
+  }
+}; // VBHover directive
+
+
+var VBHover = {
+  bind: directive,
+  componentUpdated: directive,
+  unbind: function unbind(el) {
+    directive(el, {
+      value: null
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/directives/hover/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VBHoverPlugin; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/hover/hover.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_plugins__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/plugins.js");
+/* unused harmony reexport VBHover */
+
+
+var VBHoverPlugin =
+/*#__PURE__*/
+Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["b" /* pluginFactory */])({
+  directives: {
+    VBHover: __WEBPACK_IMPORTED_MODULE_0__hover__["a" /* VBHover */]
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap-vue/esm/directives/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return directivesPlugin; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_plugins__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/plugins.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/hover/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/index.js");
+
 
 
 
@@ -23542,12 +26102,13 @@ var directivesPlugin =
 /*#__PURE__*/
 Object(__WEBPACK_IMPORTED_MODULE_0__utils_plugins__["b" /* pluginFactory */])({
   plugins: {
-    VBModalPlugin: __WEBPACK_IMPORTED_MODULE_1__modal__["a" /* VBModalPlugin */],
-    VBPopoverPlugin: __WEBPACK_IMPORTED_MODULE_2__popover__["a" /* VBPopoverPlugin */],
-    VBScrollspyPlugin: __WEBPACK_IMPORTED_MODULE_3__scrollspy__["a" /* VBScrollspyPlugin */],
-    VBTogglePlugin: __WEBPACK_IMPORTED_MODULE_4__toggle__["a" /* VBTogglePlugin */],
-    VBTooltipPlugin: __WEBPACK_IMPORTED_MODULE_5__tooltip__["a" /* VBTooltipPlugin */],
-    VBVisiblePlugin: __WEBPACK_IMPORTED_MODULE_6__visible__["a" /* VBVisiblePlugin */]
+    VBHoverPlugin: __WEBPACK_IMPORTED_MODULE_1__hover__["a" /* VBHoverPlugin */],
+    VBModalPlugin: __WEBPACK_IMPORTED_MODULE_2__modal__["a" /* VBModalPlugin */],
+    VBPopoverPlugin: __WEBPACK_IMPORTED_MODULE_3__popover__["a" /* VBPopoverPlugin */],
+    VBScrollspyPlugin: __WEBPACK_IMPORTED_MODULE_4__scrollspy__["a" /* VBScrollspyPlugin */],
+    VBTogglePlugin: __WEBPACK_IMPORTED_MODULE_5__toggle__["a" /* VBTogglePlugin */],
+    VBTooltipPlugin: __WEBPACK_IMPORTED_MODULE_6__tooltip__["a" /* VBTooltipPlugin */],
+    VBVisiblePlugin: __WEBPACK_IMPORTED_MODULE_7__visible__["a" /* VBVisiblePlugin */]
   }
 });
 
@@ -26031,7 +28592,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 // --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: 1.0.0-alpha2
-// @Generated: 2020-02-15T08:17:31.991Z
+// @Generated: 2020-02-18T22:15:15.803Z
 //
 // This file is generated on each build. Do not edit this file!
 
@@ -27049,7 +29610,7 @@ __WEBPACK_IMPORTED_MODULE_0__utils_vue__["a" /* default */].extend({
 // --- BEGIN AUTO-GENERATED FILE ---
 //
 // @IconsVersion: 1.0.0-alpha2
-// @Generated: 2020-02-15T08:17:31.991Z
+// @Generated: 2020-02-18T22:15:15.803Z
 //
 // This file is generated on each build. Do not edit this file!
  // Icon helper component
@@ -27459,276 +30020,292 @@ Object(__WEBPACK_IMPORTED_MODULE_0__utils_plugins__["c" /* pluginFactoryNoConfig
 /* unused harmony reexport ButtonToolbarPlugin */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_button_toolbar_button_toolbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/button-toolbar/button-toolbar.js");
 /* unused harmony reexport BButtonToolbar */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_calendar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/calendar/index.js");
+/* unused harmony reexport CalendarPlugin */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_calendar_calendar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/calendar/calendar.js");
+/* unused harmony reexport BCalendar */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/index.js");
 /* unused harmony reexport CardPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_card_card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_card_card__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card.js");
 /* unused harmony reexport BCard */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_card_card_body__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-body.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_card_card_body__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-body.js");
 /* unused harmony reexport BCardBody */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_card_card_footer__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-footer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_card_card_footer__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-footer.js");
 /* unused harmony reexport BCardFooter */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_card_card_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_card_card_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-group.js");
 /* unused harmony reexport BCardGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_card_card_header__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-header.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_card_card_header__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-header.js");
 /* unused harmony reexport BCardHeader */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_card_card_img__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-img.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_card_card_img__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-img.js");
 /* unused harmony reexport BCardImg */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_card_card_img_lazy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-img-lazy.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_card_card_img_lazy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-img-lazy.js");
 /* unused harmony reexport BCardImgLazy */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_card_card_sub_title__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-sub-title.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_card_card_sub_title__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-sub-title.js");
 /* unused harmony reexport BCardSubTitle */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_card_card_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_card_card_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-text.js");
 /* unused harmony reexport BCardText */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_card_card_title__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-title.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_card_card_title__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/card/card-title.js");
 /* unused harmony reexport BCardTitle */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/index.js");
 /* unused harmony reexport CarouselPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_carousel_carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/carousel.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_carousel_carousel__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/carousel.js");
 /* unused harmony reexport BCarousel */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_carousel_carousel_slide__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/carousel-slide.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_carousel_carousel_slide__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/carousel/carousel-slide.js");
 /* unused harmony reexport BCarouselSlide */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/index.js");
 /* unused harmony reexport CollapsePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_collapse_collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/collapse.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_collapse_collapse__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/collapse/collapse.js");
 /* unused harmony reexport BCollapse */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/index.js");
 /* unused harmony reexport DropdownPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_dropdown_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_dropdown_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown.js");
 /* unused harmony reexport BDropdown */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_dropdown_dropdown_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-item.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_dropdown_dropdown_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-item.js");
 /* unused harmony reexport BDropdownItem */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_dropdown_dropdown_item_button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-item-button.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_dropdown_dropdown_item_button__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-item-button.js");
 /* unused harmony reexport BDropdownItemButton */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_dropdown_dropdown_divider__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-divider.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_dropdown_dropdown_divider__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-divider.js");
 /* unused harmony reexport BDropdownDivider */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_dropdown_dropdown_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__components_dropdown_dropdown_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-form.js");
 /* unused harmony reexport BDropdownForm */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_dropdown_dropdown_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__components_dropdown_dropdown_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-group.js");
 /* unused harmony reexport BDropdownGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__components_dropdown_dropdown_header__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-header.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__components_dropdown_dropdown_header__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-header.js");
 /* unused harmony reexport BDropdownHeader */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__components_dropdown_dropdown_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__components_dropdown_dropdown_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/dropdown/dropdown-text.js");
 /* unused harmony reexport BDropdownText */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__components_embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__components_embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/index.js");
 /* unused harmony reexport EmbedPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__components_embed_embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/embed.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__components_embed_embed__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/embed/embed.js");
 /* unused harmony reexport BEmbed */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__components_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__components_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/index.js");
 /* unused harmony reexport FormPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__components_form_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__components_form_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form.js");
 /* unused harmony reexport BForm */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__components_form_form_datalist__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-datalist.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__components_form_form_datalist__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-datalist.js");
 /* unused harmony reexport BFormDatalist */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__components_form_form_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__components_form_form_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-text.js");
 /* unused harmony reexport BFormText */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__components_form_form_invalid_feedback__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-invalid-feedback.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__components_form_form_invalid_feedback__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-invalid-feedback.js");
 /* unused harmony reexport BFormInvalidFeedback */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__components_form_form_valid_feedback__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-valid-feedback.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__components_form_form_valid_feedback__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form/form-valid-feedback.js");
 /* unused harmony reexport BFormValidFeedback */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__components_form_checkbox__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__components_form_checkbox__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/index.js");
 /* unused harmony reexport FormCheckboxPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__components_form_checkbox_form_checkbox__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/form-checkbox.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__components_form_checkbox_form_checkbox__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/form-checkbox.js");
 /* unused harmony reexport BFormCheckbox */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__components_form_checkbox_form_checkbox_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/form-checkbox-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__components_form_checkbox_form_checkbox_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-checkbox/form-checkbox-group.js");
 /* unused harmony reexport BFormCheckboxGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__components_form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__components_form_datepicker__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-datepicker/index.js");
+/* unused harmony reexport FormDatepickerPlugin */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__components_form_datepicker_form_datepicker__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-datepicker/form-datepicker.js");
+/* unused harmony reexport BFormDatepicker */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64__components_form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/index.js");
 /* unused harmony reexport FormFilePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__components_form_file_form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/form-file.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65__components_form_file_form_file__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-file/form-file.js");
 /* unused harmony reexport BFormFile */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__components_form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66__components_form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/index.js");
 /* unused harmony reexport FormGroupPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_63__components_form_group_form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/form-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67__components_form_group_form_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-group/form-group.js");
 /* unused harmony reexport BFormGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_64__components_form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68__components_form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/index.js");
 /* unused harmony reexport FormInputPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_65__components_form_input_form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/form-input.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69__components_form_input_form_input__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-input/form-input.js");
 /* unused harmony reexport BFormInput */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_66__components_form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70__components_form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/index.js");
 /* unused harmony reexport FormRadioPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_67__components_form_radio_form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/form-radio.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71__components_form_radio_form_radio__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/form-radio.js");
 /* unused harmony reexport BFormRadio */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_68__components_form_radio_form_radio_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/form-radio-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72__components_form_radio_form_radio_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-radio/form-radio-group.js");
 /* unused harmony reexport BFormRadioGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_69__components_form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73__components_form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/index.js");
 /* unused harmony reexport FormTagsPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_70__components_form_tags_form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tags.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74__components_form_tags_form_tags__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tags.js");
 /* unused harmony reexport BFormTags */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_71__components_form_tags_form_tag__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tag.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75__components_form_tags_form_tag__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-tags/form-tag.js");
 /* unused harmony reexport BFormTag */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_72__components_form_select__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76__components_form_select__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/index.js");
 /* unused harmony reexport FormSelectPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_73__components_form_select_form_select__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77__components_form_select_form_select__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select.js");
 /* unused harmony reexport BFormSelect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_74__components_form_select_form_select_option__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select-option.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78__components_form_select_form_select_option__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select-option.js");
 /* unused harmony reexport BFormSelectOption */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_75__components_form_select_form_select_option_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select-option-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79__components_form_select_form_select_option_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-select/form-select-option-group.js");
 /* unused harmony reexport BFormSelectOptionGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_76__components_form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80__components_form_spinbutton__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-spinbutton/index.js");
+/* unused harmony reexport FormSpinbuttonPlugin */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81__components_form_spinbutton_form_spinbutton__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-spinbutton/form-spinbutton.js");
+/* unused harmony reexport BFormSpinbutton */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82__components_form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/index.js");
 /* unused harmony reexport FormTextareaPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_77__components_form_textarea_form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/form-textarea.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83__components_form_textarea_form_textarea__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/form-textarea/form-textarea.js");
 /* unused harmony reexport BFormTextarea */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_78__components_image__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84__components_image__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/index.js");
 /* unused harmony reexport ImagePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_79__components_image_img__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/img.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85__components_image_img__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/img.js");
 /* unused harmony reexport BImg */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_80__components_image_img_lazy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/img-lazy.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86__components_image_img_lazy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/image/img-lazy.js");
 /* unused harmony reexport BImgLazy */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81__components_input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87__components_input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/index.js");
 /* unused harmony reexport InputGroupPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_82__components_input_group_input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_88__components_input_group_input_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group.js");
 /* unused harmony reexport BInputGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_83__components_input_group_input_group_addon__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-addon.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_89__components_input_group_input_group_addon__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-addon.js");
 /* unused harmony reexport BInputGroupAddon */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_84__components_input_group_input_group_append__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-append.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_90__components_input_group_input_group_append__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-append.js");
 /* unused harmony reexport BInputGroupAppend */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_85__components_input_group_input_group_prepend__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-prepend.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_91__components_input_group_input_group_prepend__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-prepend.js");
 /* unused harmony reexport BInputGroupPrepend */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_86__components_input_group_input_group_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_92__components_input_group_input_group_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/input-group/input-group-text.js");
 /* unused harmony reexport BInputGroupText */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_87__components_jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_93__components_jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/index.js");
 /* unused harmony reexport JumbotronPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_88__components_jumbotron_jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/jumbotron.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_94__components_jumbotron_jumbotron__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/jumbotron/jumbotron.js");
 /* unused harmony reexport BJumbotron */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_89__components_layout__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_95__components_layout__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/index.js");
 /* unused harmony reexport LayoutPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_90__components_layout_container__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/container.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_96__components_layout_container__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/container.js");
 /* unused harmony reexport BContainer */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_91__components_layout_row__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/row.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_97__components_layout_row__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/row.js");
 /* unused harmony reexport BRow */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_92__components_layout_col__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/col.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_98__components_layout_col__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/col.js");
 /* unused harmony reexport BCol */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_93__components_layout_form_row__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/form-row.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_99__components_layout_form_row__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/layout/form-row.js");
 /* unused harmony reexport BFormRow */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_94__components_link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_100__components_link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/index.js");
 /* unused harmony reexport LinkPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_95__components_link_link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/link.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_101__components_link_link__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/link/link.js");
 /* unused harmony reexport BLink */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_96__components_list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_102__components_list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/index.js");
 /* unused harmony reexport ListGroupPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_97__components_list_group_list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/list-group.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_103__components_list_group_list_group__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/list-group.js");
 /* unused harmony reexport BListGroup */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_98__components_list_group_list_group_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/list-group-item.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_104__components_list_group_list_group_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/list-group/list-group-item.js");
 /* unused harmony reexport BListGroupItem */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_99__components_media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_105__components_media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/index.js");
 /* unused harmony reexport MediaPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_100__components_media_media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_106__components_media_media__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media.js");
 /* unused harmony reexport BMedia */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_101__components_media_media_aside__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media-aside.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_107__components_media_media_aside__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media-aside.js");
 /* unused harmony reexport BMediaAside */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_102__components_media_media_body__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media-body.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_108__components_media_media_body__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/media/media-body.js");
 /* unused harmony reexport BMediaBody */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_103__components_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_109__components_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/index.js");
 /* unused harmony reexport ModalPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_104__components_modal_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/modal.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_110__components_modal_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/modal/modal.js");
 /* unused harmony reexport BModal */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_105__components_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_111__components_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/index.js");
 /* unused harmony reexport NavPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_106__components_nav_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_112__components_nav_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav.js");
 /* unused harmony reexport BNav */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_107__components_nav_nav_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_113__components_nav_nav_form__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-form.js");
 /* unused harmony reexport BNavForm */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_108__components_nav_nav_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-item.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_114__components_nav_nav_item__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-item.js");
 /* unused harmony reexport BNavItem */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_109__components_nav_nav_item_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-item-dropdown.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_115__components_nav_nav_item_dropdown__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-item-dropdown.js");
 /* unused harmony reexport BNavItemDropdown */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_110__components_nav_nav_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_116__components_nav_nav_text__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/nav/nav-text.js");
 /* unused harmony reexport BNavText */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_111__components_navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_117__components_navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/index.js");
 /* unused harmony reexport NavbarPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_112__components_navbar_navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_118__components_navbar_navbar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar.js");
 /* unused harmony reexport BNavbar */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_113__components_navbar_navbar_brand__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-brand.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_119__components_navbar_navbar_brand__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-brand.js");
 /* unused harmony reexport BNavbarBrand */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_114__components_navbar_navbar_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-nav.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_120__components_navbar_navbar_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-nav.js");
 /* unused harmony reexport BNavbarNav */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_115__components_navbar_navbar_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-toggle.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_121__components_navbar_navbar_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/navbar/navbar-toggle.js");
 /* unused harmony reexport BNavbarToggle */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_116__components_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_122__components_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/index.js");
 /* unused harmony reexport PaginationPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_117__components_pagination_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/pagination.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_123__components_pagination_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination/pagination.js");
 /* unused harmony reexport BPagination */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_118__components_pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_124__components_pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/index.js");
 /* unused harmony reexport PaginationNavPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_119__components_pagination_nav_pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/pagination-nav.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_125__components_pagination_nav_pagination_nav__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/pagination-nav/pagination-nav.js");
 /* unused harmony reexport BPaginationNav */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_120__components_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_126__components_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/index.js");
 /* unused harmony reexport PopoverPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_121__components_popover_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/popover.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_127__components_popover_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/popover/popover.js");
 /* unused harmony reexport BPopover */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_122__components_progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_128__components_progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/index.js");
 /* unused harmony reexport ProgressPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_123__components_progress_progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/progress.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_129__components_progress_progress__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/progress.js");
 /* unused harmony reexport BProgress */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_124__components_progress_progress_bar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/progress-bar.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_130__components_progress_progress_bar__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/progress/progress-bar.js");
 /* unused harmony reexport BProgressBar */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_125__components_spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_131__components_spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/index.js");
 /* unused harmony reexport SpinnerPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_126__components_spinner_spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/spinner.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_132__components_spinner_spinner__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/spinner/spinner.js");
 /* unused harmony reexport BSpinner */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_127__components_table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_133__components_table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/index.js");
 /* unused harmony reexport TablePlugin */
 /* unused harmony reexport TableLitePlugin */
 /* unused harmony reexport TableSimplePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_128__components_table_table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_134__components_table_table__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table.js");
 /* unused harmony reexport BTable */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_129__components_table_table_lite__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table-lite.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_135__components_table_table_lite__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table-lite.js");
 /* unused harmony reexport BTableLite */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_130__components_table_table_simple__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table-simple.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_136__components_table_table_simple__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/table-simple.js");
 /* unused harmony reexport BTableSimple */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_131__components_table_tbody__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tbody.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_137__components_table_tbody__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tbody.js");
 /* unused harmony reexport BTbody */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_132__components_table_thead__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/thead.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_138__components_table_thead__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/thead.js");
 /* unused harmony reexport BThead */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_133__components_table_tfoot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tfoot.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_139__components_table_tfoot__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tfoot.js");
 /* unused harmony reexport BTfoot */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_134__components_table_tr__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_140__components_table_tr__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/tr.js");
 /* unused harmony reexport BTr */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_135__components_table_th__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/th.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_141__components_table_th__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/th.js");
 /* unused harmony reexport BTh */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_136__components_table_td__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/td.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_142__components_table_td__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/table/td.js");
 /* unused harmony reexport BTd */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_137__components_tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_143__components_tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/index.js");
 /* unused harmony reexport TabsPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_138__components_tabs_tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/tabs.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_144__components_tabs_tabs__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/tabs.js");
 /* unused harmony reexport BTabs */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_139__components_tabs_tab__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/tab.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_145__components_tabs_tab__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tabs/tab.js");
 /* unused harmony reexport BTab */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_140__components_toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_146__components_toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/index.js");
 /* unused harmony reexport ToastPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_141__components_toast_toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/toast.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_147__components_toast_toast__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/toast.js");
 /* unused harmony reexport BToast */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_142__components_toast_toaster__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/toaster.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_148__components_toast_toaster__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/toast/toaster.js");
 /* unused harmony reexport BToaster */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_143__components_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_149__components_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/index.js");
 /* unused harmony reexport TooltipPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_144__components_tooltip_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/tooltip.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_150__components_tooltip_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/components/tooltip/tooltip.js");
 /* unused harmony reexport BTooltip */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_145__directives_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_151__directives_hover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/hover/index.js");
+/* unused harmony reexport VBHoverPlugin */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_152__directives_hover_hover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/hover/hover.js");
+/* unused harmony reexport VBHover */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_153__directives_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/index.js");
 /* unused harmony reexport VBModalPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_146__directives_modal_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/modal.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_154__directives_modal_modal__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/modal/modal.js");
 /* unused harmony reexport VBModal */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_147__directives_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_155__directives_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/index.js");
 /* unused harmony reexport VBPopoverPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_148__directives_popover_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/popover.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_156__directives_popover_popover__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/popover/popover.js");
 /* unused harmony reexport VBPopover */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_149__directives_scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_157__directives_scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/index.js");
 /* unused harmony reexport VBScrollspyPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_150__directives_scrollspy_scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/scrollspy.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_158__directives_scrollspy_scrollspy__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/scrollspy/scrollspy.js");
 /* unused harmony reexport VBScrollspy */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_151__directives_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_159__directives_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/index.js");
 /* unused harmony reexport VBTogglePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_152__directives_toggle_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/toggle.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_160__directives_toggle_toggle__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/toggle/toggle.js");
 /* unused harmony reexport VBToggle */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_153__directives_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_161__directives_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/index.js");
 /* unused harmony reexport VBTooltipPlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_154__directives_tooltip_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/tooltip.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_162__directives_tooltip_tooltip__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/tooltip/tooltip.js");
 /* unused harmony reexport VBTooltip */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_155__directives_visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_163__directives_visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/index.js");
 /* unused harmony reexport VBVisiblePlugin */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_156__directives_visible_visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/visible.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_164__directives_visible_visible__ = __webpack_require__("./node_modules/bootstrap-vue/esm/directives/visible/visible.js");
 /* unused harmony reexport VBVisible */
 /*!
- * BootstrapVue 2.4.2
+ * BootstrapVue 2.5.0
  *
  * @link https://bootstrap-vue.js.org
  * @source https://github.com/bootstrap-vue/bootstrap-vue
@@ -27799,6 +30376,9 @@ var BootstrapVue =
  // export * from './components/button-toolbar'
 
 
+ // export * from './components/calendar'
+
+
  // export * from './components/card'
 
 
@@ -27842,6 +30422,9 @@ var BootstrapVue =
 
 
 
+ // export * from './components/form-datepicker'
+
+
  // export * from './components/form-file'
 
 
@@ -27862,6 +30445,9 @@ var BootstrapVue =
  // export * from './components/form-select'
 
 
+
+
+ // export * from './components/form-spinbutton'
 
 
  // export * from './components/form-textarea'
@@ -27960,7 +30546,10 @@ var BootstrapVue =
 // Webpack v5 fixes the optimizations with re-export of re-exports so this
 // can be reverted back to `export * from './scrollspy'` when Webpack v5 is released
 // https://github.com/webpack/webpack/pull/9203 (available in Webpack v5.0.0-alpha.15)
-// export * from './directives/modal'
+// export * from './directives/hover'
+
+
+ // export * from './directives/modal'
 
 
  // export * from './directives/popover'
@@ -28158,15 +30747,6 @@ var AttachmentMap = {
       type: Boolean,
       default: false
     },
-    text: {
-      // Button label
-      type: String,
-      default: ''
-    },
-    html: {
-      // Button label
-      type: String
-    },
     dropup: {
       // place on top if possible
       type: Boolean,
@@ -28194,11 +30774,6 @@ var AttachmentMap = {
     },
     noFlip: {
       // Disable auto-flipping of menu from bottom<=>top
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // If true, only render menu contents when open
       type: Boolean,
       default: false
     },
@@ -28357,6 +30932,15 @@ var AttachmentMap = {
       }
 
       this.$_popper = null;
+    },
+    updatePopper: function updatePopper()
+    /* istanbul ignore next: not easy to test */
+    {
+      // Instructs popper to re-computes the dropdown position
+      // usefull if the content changes size
+      try {
+        this.$_popper.scheduleUpdate();
+      } catch (_unused) {}
     },
     getPopperConfig: function getPopperConfig() {
       var placement = AttachmentMap.BOTTOM;
@@ -28583,7 +31167,9 @@ var AttachmentMap = {
       return filterVisibles(Object(__WEBPACK_IMPORTED_MODULE_3__utils_dom__["x" /* selectAll */])(Selector.ITEM_SELECTOR, this.$refs.menu));
     },
     focusMenu: function focusMenu() {
-      this.$refs.menu.focus && this.$refs.menu.focus();
+      try {
+        this.$refs.menu.focus();
+      } catch (_unused2) {}
     },
     focusToggler: function focusToggler() {
       var _this4 = this;
@@ -31179,6 +33765,20 @@ var cloneDeep = function cloneDeep(obj) {
     textVariant: null,
     ariaLabel: 'Close'
   },
+  BCalendar: {
+    // BFormDate will choose these first if not provided in BFormDate section
+    labelPrevYear: 'Previous year',
+    labelPrevMonth: 'Previous month',
+    labelCurrentMonth: 'Current month',
+    labelNextMonth: 'Next month',
+    labelNextYear: 'Next year',
+    labelToday: 'Today',
+    labelSelected: 'Selected date',
+    labelNoDateSelected: 'No date selected',
+    labelCalendar: 'Calendar',
+    labelNav: 'Calendar navigation',
+    labelHelp: 'Use cursor keys to navigate calendar dates'
+  },
   BCardSubTitle: {
     // `<b-card>` and `<b-card-body>` also inherit this prop
     subTitleTextVariant: 'muted'
@@ -31195,11 +33795,33 @@ var cloneDeep = function cloneDeep(obj) {
     variant: 'secondary',
     splitVariant: null
   },
+  BFormDatepicker: {
+    // BFormDatepicker will choose from BCalendar first if not provided in BFormDatepicker section
+    labelPrevYear: null,
+    labelPrevMonth: null,
+    labelCurrentMonth: null,
+    labelNextMonth: null,
+    labelNextYear: null,
+    labelToday: null,
+    labelSelected: null,
+    labelNoDateSelected: null,
+    labelCalendar: null,
+    labelNav: null,
+    labelHelp: null,
+    // These props are specific to BFormDatepicker
+    labelTodayButton: 'Select today',
+    labelResetButton: 'Reset',
+    labelCloseButton: 'Close'
+  },
   BFormFile: {
     browseText: 'Browse',
     // Chrome default file prompt
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here'
+  },
+  BFormSpinbutton: {
+    labelDecrement: 'Decrement',
+    labelIncrement: 'Increment'
   },
   BFormTag: {
     removeLabel: 'Remove tag',
@@ -31212,6 +33834,7 @@ var cloneDeep = function cloneDeep(obj) {
     invalidTagText: 'Invalid tag(s)',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
+    tagRemovedLabel: 'Tag removed',
     tagVariant: 'secondary'
   },
   BFormText: {
@@ -31613,6 +34236,168 @@ var copyProps = function copyProps(props) {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (copyProps);
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap-vue/esm/utils/date.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return parseYMD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return formatYMD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return resolveLocale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createDateFormatter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return datesEqual; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return firstDateOfMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return lastDateOfMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return oneMonthAgo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return oneMonthAhead; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return oneYearAgo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return oneYearAhead; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__identity__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/identity.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/array.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__inspect__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/inspect.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__number__ = __webpack_require__("./node_modules/bootstrap-vue/esm/utils/number.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+// Date utility functions
+
+
+
+ // --- Constants ---
+
+var RX_DATE = /^\d+-\d+-\d+$/; // --- Date utility methods ---
+// Create or clone a date (`new Date(...)` shortcut)
+
+var createDate = function createDate() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return _construct(Date, args);
+}; // Parse a date sting, or Date object, into a Date object (with no time information)
+
+var parseYMD = function parseYMD(date) {
+  if (Object(__WEBPACK_IMPORTED_MODULE_2__inspect__["m" /* isString */])(date) && RX_DATE.test(date.trim())) {
+    var _date$split$map = date.split('-').map(__WEBPACK_IMPORTED_MODULE_3__number__["c" /* toInteger */]),
+        _date$split$map2 = _slicedToArray(_date$split$map, 3),
+        year = _date$split$map2[0],
+        month = _date$split$map2[1],
+        day = _date$split$map2[2];
+
+    return createDate(year, month - 1, day);
+  } else if (Object(__WEBPACK_IMPORTED_MODULE_2__inspect__["c" /* isDate */])(date)) {
+    return createDate(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  return null;
+}; // Format a date object as `YYYY-MM-DD` format
+
+var formatYMD = function formatYMD(date) {
+  date = parseYMD(date);
+
+  if (!date) {
+    return null;
+  }
+
+  var year = date.getFullYear();
+  var month = "0".concat(date.getMonth() + 1).slice(-2);
+  var day = "0".concat(date.getDate()).slice(-2);
+  return "".concat(year, "-").concat(month, "-").concat(day);
+}; // Given a locale (or locales), resolve the browser available locale
+
+var resolveLocale = function resolveLocale(locales)
+/* istanbul ignore next */
+{
+  var calendar = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'gregory';
+  locales = Object(__WEBPACK_IMPORTED_MODULE_1__array__["b" /* concat */])(locales).filter(__WEBPACK_IMPORTED_MODULE_0__identity__["a" /* default */]);
+  var fmt = new Intl.DateTimeFormat(locales, {
+    calendar: calendar
+  });
+  return fmt.resolvedOptions().locale;
+}; // Create a `Intl.DateTimeFormat` formatter function
+
+var createDateFormatter = function createDateFormatter(locale, options)
+/* istanbul ignore next */
+{
+  var dtf = new Intl.DateTimeFormat(locale, options);
+  return dtf.format;
+}; // Determine if two dates are the same date (ignoring time portion)
+
+var datesEqual = function datesEqual(date1, date2) {
+  // Returns true of the date portion of two date objects are equal
+  // We don't compare the time portion
+  return formatYMD(date1) === formatYMD(date2);
+}; // --- Date "math" utility methods (for BCalendar component mainly) ---
+
+var firstDateOfMonth = function firstDateOfMonth(date) {
+  date = createDate(date);
+  date.setDate(1);
+  return date;
+};
+var lastDateOfMonth = function lastDateOfMonth(date) {
+  date = createDate(date);
+  date.setMonth(date.getMonth() + 1);
+  date.setDate(0);
+  return date;
+};
+var oneMonthAgo = function oneMonthAgo(date) {
+  date = createDate(date);
+  var month = date.getMonth();
+  date.setMonth(month - 1);
+
+  if (date.getMonth() === month) {
+    date.setDate(0);
+  }
+
+  return date;
+};
+var oneMonthAhead = function oneMonthAhead(date) {
+  date = createDate(date);
+  var month = date.getMonth();
+  date.setMonth(month + 1);
+
+  if (date.getMonth() === (month + 2) % 12) {
+    date.setDate(0);
+  }
+
+  return date;
+};
+var oneYearAgo = function oneYearAgo(date) {
+  date = createDate(date);
+  var month = date.getMonth();
+  date.setMonth(month - 12);
+
+  if (date.getMonth() !== month) {
+    date.setDate(0);
+  }
+
+  return date;
+};
+var oneYearAhead = function oneYearAhead(date) {
+  date = createDate(date);
+  var month = date.getMonth();
+  date.setMonth(month + 12);
+
+  if (date.getMonth() !== month) {
+    date.setDate(0);
+  }
+
+  return date;
+};
 
 /***/ }),
 
