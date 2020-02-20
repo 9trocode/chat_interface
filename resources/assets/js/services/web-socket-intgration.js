@@ -72,7 +72,7 @@ export class SocketConnection {
         store.commit("SOCKET_ONCLOSE", error);
       });
 
-      return result
+      return result;
     }
   }
 }
