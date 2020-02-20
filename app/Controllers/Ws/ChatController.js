@@ -1,6 +1,6 @@
 'use strict';
 const User = use("App/Models/User");
-const Message = use('App/Models/Message')
+const Message = use('App/Models/Message');
 
 
 class ChatController {
@@ -15,6 +15,8 @@ class ChatController {
     let users = await User.query().fetch();
     this.socket.broadcastToAll('message', users)
   }
+
+
   async onChatMessage (data) {
     // same as: socket.on('chatMessage')
       const { receiver_id } = data;
