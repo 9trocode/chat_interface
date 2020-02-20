@@ -27,6 +27,7 @@
         {
           receiver_id: 1, 
           message: 'hello', 
+          sender_id: 5,
         }
       )
     },

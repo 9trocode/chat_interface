@@ -4302,7 +4302,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted: function mounted() {
     this.privateChat({
       receiver_id: 1,
-      message: 'hello'
+      message: 'hello',
+      sender_id: 5
     });
   },
 
@@ -24967,21 +24968,17 @@ var SocketConnection = function () {
         });
 
         result.on('chatMessage', function (data) {
-          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
           return data;
         });
 
         result.on('sendChannelMessage', function (data) {
-          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
           return data;
         });
         result.on('getChatMessage', function (data) {
-          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_RECEIVING_MESSAGE', data);
           return data;
         });
 
         result.on('getChannels', function (data) {
-          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
           return data;
         });
 
@@ -25154,11 +25151,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     // Chat Mutation
     SOCKET_SET_SENDING_MESSAGE: function SOCKET_SET_SENDING_MESSAGE(state, data) {
       state.chat.sending_message = !state.chat.sending_message;
-      state.chat.message.push(data.message);
+      state.chat.messages.push(data);
     },
     SOCKET_SET_RECEIVING_MESSAGE: function SOCKET_SET_RECEIVING_MESSAGE(state, data) {
       state.chat.receiving_message = !state.chat.receiving_message;
-      state.chat.message.push(data.message);
+      state.chat.messages.push(data);
     }
   },
   actions: {
@@ -25209,14 +25206,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 2:
                 _context2.next = 4;
-                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:private:' + data.receiver_id + ':' + data.sender_id);
 
               case 4:
                 subscribe = _context2.sent;
 
+                commit('SOCKET_SET_SENDING_MESSAGE', data);
                 subscribe.emit("chatMessage", data);
 
-              case 6:
+              case 7:
               case 'end':
                 return _context2.stop();
             }
@@ -25243,14 +25241,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 2:
                 _context3.next = 4;
-                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:private:' + data.receiver_id + ':' + data.sender_id);
 
               case 4:
                 subscribe = _context3.sent;
 
+                commit('SOCKET_SET_RECEIVING_MESSAGE', data);
                 subscribe.emit("getChatMessage", data);
 
-              case 6:
+              case 7:
               case 'end':
                 return _context3.stop();
             }
@@ -25263,6 +25262,76 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
 
       return getPrivateChat;
+    }(),
+    sendChannelMessage: function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(_ref7, data) {
+        var commit = _ref7.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context4.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:channel:' + data.channel_id);
+
+              case 4:
+                subscribe = _context4.sent;
+
+                commit('SOCKET_SET_SENDING_MESSAGE', data);
+                subscribe.emit('sendChannelMessage', data);
+
+              case 7:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function sendChannelMessage(_x7, _x8) {
+        return _ref8.apply(this, arguments);
+      }
+
+      return sendChannelMessage;
+    }(),
+    getChannelMessage: function () {
+      var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(_ref9, data) {
+        var commit = _ref9.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context5.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:channel:' + data.channel_id);
+
+              case 4:
+                subscribe = _context5.sent;
+
+                commit('SOCKET_SET_RECEIVING_MESSAGE', data);
+                subscribe.emit('sendChannelMessage', data);
+
+              case 7:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function getChannelMessage(_x9, _x10) {
+        return _ref10.apply(this, arguments);
+      }
+
+      return getChannelMessage;
     }()
   },
   getters: {
