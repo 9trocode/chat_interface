@@ -1,6 +1,6 @@
 <template>
   <section class="leftbar">
-    <span class="title">CHAT<span class="title_sub"> YARD</span></span>
+    <span class="title">CHAT<span class="title_sub">YARD</span></span>
 
     <section class="profile">
       <div class="user">
@@ -10,7 +10,20 @@
           alt="User_Avatar"
         />
         <span class="ml-8 user__name">Ivan Bryan</span>
-        <i class="fa fa-angle-down ml-4"></i>
+        <label class="dropdown">
+          <div class="dd-button">
+            <i class="fa fa-angle-down ml-4"></i>
+          </div>
+
+          <input type="checkbox" class="dd-input" id="test">
+
+          <ul class="dd-menu">
+            <li>Action</li>
+            <li>Another action</li>
+            <li>Something else here</li>
+          </ul>
+        </label>
+
       </div>
 
       <div class="online__status">
