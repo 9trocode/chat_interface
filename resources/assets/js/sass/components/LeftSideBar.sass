@@ -93,7 +93,8 @@
     .profile__container
       overflow: scroll
       position: relative
-      height: calc( 100vw -  1000px)
+      height: 15rem
+      width: 100%
 
       .profiles
         display: flex
@@ -103,13 +104,19 @@
         opacity: 1
         +fonts(Open Sans,14px,400,left,19px,0px, #ffffffb3)
 
+        .active
+          background-color: #424242b3
+          border-radius: 4px
+
+
         .profile
-          margin: 6px 0px
           padding: .3rem
           cursor: pointer
+          width: 100%
           &:hover
             background-color: #424242b3
             border-radius: 4px
+       
   .channels
     margin-top: 30px
     width: 100%
@@ -133,6 +140,10 @@
       overflow: scroll
       position: relative
       height: calc( 100vw -  1060px)
+
+      .active
+        background-color: #424242b3
+        border-radius: 4px
 
       .list
         display: flex

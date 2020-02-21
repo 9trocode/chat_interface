@@ -4471,12 +4471,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      channels: ['Relationship', 'Sport', 'Entertainment', 'Tech', 'SavagePosts', 'Lifestyle', 'Travels']
+      channels: ['Relationship', 'Sport', 'Entertainment', 'Tech', 'SavagePosts', 'Lifestyle', 'Travels'],
+      profile_select_id: '',
+      channel_select_id: ''
     };
+  },
+
+  methods: {
+    selectId: function selectId(type, value) {
+      if (type === 'profile') {
+        this.profile_select_id = value;
+      } else {
+        this.channel_select_id = value;
+      }
+    }
   }
 });
 
@@ -4802,7 +4824,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#mainContainer[data-v-4805b082] {\n  height: 100vh;\n  overflow-y: scroll;\n  font-family: 'Open Sans', sans-serif;\n}\n#mainContainer .top-bar[data-v-4805b082] {\n    padding: 2rem;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 62%;\n    position: fixed;\n    height: calc(100vw - 1170px);\n    border-bottom: .3px solid #FFFFFF46;\n    z-index: 99;\n    background-color: inherit;\n}\n#mainContainer .top-bar .top-left-text[data-v-4805b082] {\n      font-size: 18px !important;\n      letter-spacing: 0px !important;\n      line-height: 24px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: bold !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 0.9;\n}\n#mainContainer .top-bar .light-text[data-v-4805b082] {\n      font-size: 16px !important;\n      letter-spacing: 0px !important;\n      line-height: 22px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffff80 !important;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .fa-user[data-v-4805b082] {\n      color: #ffffff80;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .top-left-subtext[data-v-4805b082] {\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 1;\n}\n#mainContainer .channel-name p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 12px;\n}\n#mainContainer .channel-title[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-title h5[data-v-4805b082] {\n      color: #FFFFFFB3;\n      font-size: 25px;\n}\n#mainContainer .icon[data-v-4805b082] {\n    color: #FFFFFFB3;\n}\n#mainContainer .icon-container[data-v-4805b082] {\n    display: flex;\n    margin-top: 10px;\n}\n#mainContainer .icon-container p[data-v-4805b082] {\n      margin-left: 10px;\n      color: #FFFFFF80;\n}\n#mainContainer .search[data-v-4805b082] {\n    position: relative;\n    margin-top: 10px;\n}\n#mainContainer .search input[data-v-4805b082] {\n      background: #FFFFFF0F 0% 0% no-repeat padding-box;\n      border-radius: 50px;\n      opacity: 1;\n      letter-spacing: 0.9px;\n      color: #FFFFFF4D;\n      border: 0;\n      padding-left: 30px;\n      width: 278px;\n      height: 40px;\n}\n#mainContainer .search input[data-v-4805b082]:active, #mainContainer .search input[data-v-4805b082]:focus {\n        box-shadow: none !important;\n        outline: none !important;\n}\n#mainContainer .search img[data-v-4805b082] {\n      width: 12px;\n      height: 12px;\n      object-fit: contain;\n      position: absolute;\n      left: 10px;\n      top: 15px;\n}\n#mainContainer .content-container[data-v-4805b082] {\n    padding: 50px 20px;\n    margin-top: calc(100vw - 1150px);\n}\n#mainContainer .content-container h6[data-v-4805b082] {\n      color: #FFFFFF80;\n      font-size: 12px;\n      text-align: center;\n      margin-bottom: 3rem;\n}\n#mainContainer .content-container .chat-content[data-v-4805b082] {\n      padding-bottom: 40px;\n}\n#mainContainer .content-container .chat-container[data-v-4805b082] {\n      width: auto;\n      height: auto;\n      min-height: 35px;\n      max-width: 1000px;\n      transform: matrix(-1, 0, 0, -1, 0, 0);\n      background: #FFFFFF46;\n      border-radius: 15px 0px 15px 15px;\n      margin-left: 12px;\n      align-self: center;\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      flex-wrap: wrap;\n      flex: 1 1 auto;\n}\n#mainContainer .content-container .chat-container .content[data-v-4805b082] {\n        letter-spacing: 0;\n        color: #FFFFFF;\n        font-size: 12px;\n        transform: rotate(180deg);\n        padding-bottom: 8px;\n        padding-left: 10px;\n        padding-right: 20px;\n        display: flex;\n        justify-content: flex-start;\n}\n#mainContainer .replied-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 4px;\n    margin-right: 47px;\n}\n#mainContainer .content-container .chat-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 2px;\n}\n#mainContainer .content-container .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n#mainContainer .replied-content[data-v-4805b082] {\n    padding-bottom: 40px;\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .content-container .replied-content .chat-container[data-v-4805b082] {\n    letter-spacing: 0;\n    color: #FFFFFF;\n    font-size: 12px;\n    padding-bottom: 8px;\n    margin-right: 10px;\n}\n#mainContainer .replied-content .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row-reverse;\n}\n#mainContainer .content-container .image-container img[data-v-4805b082] {\n    width: 35px;\n    height: 35px;\n}\n#mainContainer .more[data-v-4805b082] {\n    margin-top: 20px;\n}\n#mainContainer .chat-content .smiley[data-v-4805b082] {\n    margin-left: 45px;\n    background: #FFFFFF1A;\n    width: 5%;\n    display: flex;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .replied-content .smiley[data-v-4805b082] {\n    background: #FFFFFF1A;\n    width: 100%;\n    display: flex;\n    align-self: flex-end;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .smiley img[data-v-4805b082] {\n    width: 10px;\n    height: 10px;\n    margin-top: 2px;\n    margin-left: 3px;\n}\n#mainContainer .smiley p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 10px;\n    padding-left: 4px;\n}\n#mainContainer .left[data-v-4805b082] {\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .big-search[data-v-4805b082] {\n    position: absolute;\n    bottom: 10px;\n    width: 62%;\n    left: 19%;\n    height: 50px;\n    background: #343434;\n    bottom: 0;\n}\n#mainContainer .big-search input[data-v-4805b082] {\n      background: #272727;\n      width: 95%;\n      border: none;\n      height: 40px;\n      border-radius: 30px;\n      margin-left: 20px;\n      margin-top: 6px;\n      padding-left: 40px;\n      font-size: 14px;\n      color: #909090;\n}\n#mainContainer .big-search input[data-v-4805b082]:active, #mainContainer .big-search input[data-v-4805b082]:focus {\n        box-shadow: none;\n        outline: none;\n}\n#mainContainer .big-search .icon-img[data-v-4805b082] {\n      position: absolute;\n      display: flex;\n      bottom: 25%;\n      right: 5%;\n}\n#mainContainer .big-search .icon-img img[data-v-4805b082] {\n        width: 20px;\n        height: 20px;\n        object-fit: contain;\n        margin-right: 20px;\n}\n[data-v-4805b082]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n#mainContainer[data-v-4805b082] {\n  height: 100vh;\n  overflow-y: scroll;\n  font-family: 'Open Sans', sans-serif;\n}\n#mainContainer .top-bar[data-v-4805b082] {\n    padding: 2rem;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    position: sticky;\n    top: 0;\n    border-bottom: .3px solid #FFFFFF46;\n    z-index: 99;\n    background-color: inherit;\n}\n#mainContainer .top-bar .top-left-text[data-v-4805b082] {\n      font-size: 18px !important;\n      letter-spacing: 0px !important;\n      line-height: 24px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: bold !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 0.9;\n}\n#mainContainer .top-bar .light-text[data-v-4805b082] {\n      font-size: 16px !important;\n      letter-spacing: 0px !important;\n      line-height: 22px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffff80 !important;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .fa-user[data-v-4805b082] {\n      color: #ffffff80;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .top-left-subtext[data-v-4805b082] {\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 1;\n}\n#mainContainer .channel-name p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 12px;\n}\n#mainContainer .channel-title[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-title h5[data-v-4805b082] {\n      color: #FFFFFFB3;\n      font-size: 25px;\n}\n#mainContainer .icon[data-v-4805b082] {\n    color: #FFFFFFB3;\n}\n#mainContainer .icon-container[data-v-4805b082] {\n    display: flex;\n    margin-top: 10px;\n}\n#mainContainer .icon-container p[data-v-4805b082] {\n      margin-left: 10px;\n      color: #FFFFFF80;\n}\n#mainContainer .search[data-v-4805b082] {\n    position: relative;\n    margin-top: 10px;\n}\n#mainContainer .search input[data-v-4805b082] {\n      background: #FFFFFF0F 0% 0% no-repeat padding-box;\n      border-radius: 50px;\n      opacity: 1;\n      letter-spacing: 0.9px;\n      color: #FFFFFF4D;\n      border: 0;\n      padding-left: 30px;\n      width: 278px;\n      height: 40px;\n}\n#mainContainer .search input[data-v-4805b082]:active, #mainContainer .search input[data-v-4805b082]:focus {\n        box-shadow: none !important;\n        outline: none !important;\n}\n#mainContainer .search img[data-v-4805b082] {\n      width: 12px;\n      height: 12px;\n      object-fit: contain;\n      position: absolute;\n      left: 10px;\n      top: 15px;\n}\n#mainContainer .content-container[data-v-4805b082] {\n    padding: 50px 20px;\n}\n#mainContainer .content-container h6[data-v-4805b082] {\n      color: #FFFFFF80;\n      font-size: 12px;\n      text-align: center;\n      margin-bottom: 3rem;\n}\n#mainContainer .content-container .chat-content[data-v-4805b082] {\n      padding-bottom: 40px;\n}\n#mainContainer .content-container .chat-container[data-v-4805b082] {\n      width: auto;\n      height: auto;\n      min-height: 35px;\n      max-width: 1000px;\n      transform: matrix(-1, 0, 0, -1, 0, 0);\n      background: #FFFFFF46;\n      border-radius: 15px 0px 15px 15px;\n      margin-left: 12px;\n      align-self: center;\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      flex-wrap: wrap;\n      flex: 1 1 auto;\n}\n#mainContainer .content-container .chat-container .content[data-v-4805b082] {\n        letter-spacing: 0;\n        color: #FFFFFF;\n        font-size: 12px;\n        transform: rotate(180deg);\n        padding-bottom: 8px;\n        padding-left: 10px;\n        padding-right: 20px;\n        display: flex;\n        justify-content: flex-start;\n}\n#mainContainer .replied-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 4px;\n    margin-right: 47px;\n}\n#mainContainer .content-container .chat-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 2px;\n}\n#mainContainer .content-container .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n#mainContainer .replied-content[data-v-4805b082] {\n    padding-bottom: 40px;\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .content-container .replied-content .chat-container[data-v-4805b082] {\n    letter-spacing: 0;\n    color: #FFFFFF;\n    font-size: 12px;\n    padding-bottom: 8px;\n    margin-right: 10px;\n}\n#mainContainer .replied-content .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row-reverse;\n}\n#mainContainer .content-container .image-container img[data-v-4805b082] {\n    width: 35px;\n    height: 35px;\n}\n#mainContainer .more[data-v-4805b082] {\n    margin-top: 20px;\n}\n#mainContainer .chat-content .smiley[data-v-4805b082] {\n    margin-left: 45px;\n    background: #FFFFFF1A;\n    width: 5%;\n    display: flex;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .replied-content .smiley[data-v-4805b082] {\n    background: #FFFFFF1A;\n    width: 100%;\n    display: flex;\n    align-self: flex-end;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .smiley img[data-v-4805b082] {\n    width: 10px;\n    height: 10px;\n    margin-top: 2px;\n    margin-left: 3px;\n}\n#mainContainer .smiley p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 10px;\n    padding-left: 4px;\n}\n#mainContainer .left[data-v-4805b082] {\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .big-search[data-v-4805b082] {\n    position: absolute;\n    bottom: 10px;\n    width: 62%;\n    left: 19%;\n    height: 50px;\n    background: #343434;\n    bottom: 0;\n}\n#mainContainer .big-search input[data-v-4805b082] {\n      background: #272727;\n      width: 95%;\n      border: none;\n      height: 40px;\n      border-radius: 30px;\n      margin-left: 20px;\n      margin-top: 6px;\n      padding-left: 40px;\n      font-size: 14px;\n      color: #909090;\n}\n#mainContainer .big-search input[data-v-4805b082]:active, #mainContainer .big-search input[data-v-4805b082]:focus {\n        box-shadow: none;\n        outline: none;\n}\n#mainContainer .big-search .icon-img[data-v-4805b082] {\n      position: absolute;\n      display: flex;\n      bottom: 25%;\n      right: 5%;\n}\n#mainContainer .big-search .icon-img img[data-v-4805b082] {\n        width: 20px;\n        height: 20px;\n        object-fit: contain;\n        margin-right: 20px;\n}\n[data-v-4805b082]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -4817,7 +4839,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section__top[data-v-63f88519] {\n      background-color: inherit;\n      padding: .3rem;\n}\n.leftbar .direct__message .section__top .section[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        align-items: center;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 700 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n}\n.leftbar .direct__message .section__top .section .fa[data-v-63f88519] {\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container[data-v-63f88519] {\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1000px);\n}\n.leftbar .direct__message .profile__container .profiles[data-v-63f88519] {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-evenly;\n        margin-top: 20px;\n        opacity: 1;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519] {\n          margin: 6px 0px;\n          padding: .3rem;\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519]:hover {\n            background-color: #424242b3;\n            border-radius: 4px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1060px);\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 2px 0px;\n        padding: .3rem;\n        cursor: pointer;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519]:hover {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
+exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section__top[data-v-63f88519] {\n      background-color: inherit;\n      padding: .3rem;\n}\n.leftbar .direct__message .section__top .section[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        align-items: center;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 700 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n}\n.leftbar .direct__message .section__top .section .fa[data-v-63f88519] {\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container[data-v-63f88519] {\n      overflow: scroll;\n      position: relative;\n      height: 15rem;\n      width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles[data-v-63f88519] {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-evenly;\n        margin-top: 20px;\n        opacity: 1;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profile__container .profiles .active[data-v-63f88519] {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519] {\n          padding: .3rem;\n          cursor: pointer;\n          width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519]:hover {\n            background-color: #424242b3;\n            border-radius: 4px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1060px);\n}\n.leftbar .channels .hashtag .active[data-v-63f88519] {\n        background-color: #424242b3;\n        border-radius: 4px;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 2px 0px;\n        padding: .3rem;\n        cursor: pointer;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519]:hover {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
 
 // exports
 
@@ -6944,25 +6966,39 @@ var render = function() {
       _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "profile__container" }, [
-        _c(
-          "div",
-          { staticClass: "profiles" },
-          _vm._l(20, function(i) {
-            return _c("div", { key: i, staticClass: "profile" }, [
-              _vm._m(3, true),
-              _vm._v(" "),
-              _c(
+        _c("div", { staticClass: "profiles" }, [
+          _c(
+            "div",
+            _vm._l(20, function(i) {
+              return _c(
                 "div",
                 {
-                  staticClass: "online__status",
-                  class: { offline: i % 2 == 0 }
+                  key: i,
+                  class:
+                    _vm.profile_select_id === i ? "profile active" : "profile",
+                  on: {
+                    click: function() {
+                      return _vm.selectId("profile", i)
+                    }
+                  }
                 },
-                [_c("i", { staticClass: "fa fa-circle" })]
+                [
+                  _vm._m(3, true),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "online__status",
+                      class: { offline: i % 2 == 0 }
+                    },
+                    [_c("i", { staticClass: "fa fa-circle" })]
+                  )
+                ]
               )
-            ])
-          }),
-          0
-        )
+            }),
+            0
+          )
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -6973,28 +7009,40 @@ var render = function() {
         "ul",
         { staticClass: "hashtag" },
         _vm._l(_vm.channels, function(channel, i) {
-          return _c("li", { key: i, staticClass: "list" }, [
-            _c("div", [
-              _c("span", { staticClass: "hash mr-8" }, [_vm._v("#")]),
-              _c("span", [_vm._v(_vm._s(channel))])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: i % 2 == 0,
-                    expression: "i%2 == 0"
-                  }
-                ],
-                staticClass: "ellipse"
-              },
-              [_c("span", { staticClass: "ellipse_text" }, [_vm._v("1")])]
-            )
-          ])
+          return _c(
+            "li",
+            {
+              key: i,
+              class: _vm.channel_select_id === i ? "list active" : "list",
+              on: {
+                click: function() {
+                  return _vm.selectId("channel", i)
+                }
+              }
+            },
+            [
+              _c("div", [
+                _c("span", { staticClass: "hash mr-8" }, [_vm._v("#")]),
+                _c("span", [_vm._v(_vm._s(channel))])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: i % 2 == 0,
+                      expression: "i%2 == 0"
+                    }
+                  ],
+                  staticClass: "ellipse"
+                },
+                [_c("span", { staticClass: "ellipse_text" }, [_vm._v("1")])]
+              )
+            ]
+          )
         }),
         0
       )
@@ -7006,16 +7054,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "title" }, [
-      _vm._v("CHAT"),
-      _c("span", { staticClass: "title_sub" }, [_vm._v("YARD")])
+    return _c("div", { staticClass: "padded" }, [
+      _c("span", { staticClass: "title" }, [
+        _vm._v("CHAT"),
+        _c("span", { staticClass: "title_sub" }, [_vm._v("YARD")])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "profile" }, [
+    return _c("section", { staticClass: "profile padded" }, [
       _c("div", { staticClass: "user" }, [
         _c("img", {
           staticClass: "user__avatar",
@@ -7043,7 +7093,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "section__top" }, [
+    return _c("div", { staticClass: "section__top " }, [
       _c("div", { staticClass: "section" }, [
         _c("span", { staticClass: "section__header" }, [
           _vm._v("Direct Messages")
