@@ -28,7 +28,7 @@ class FileUploadSDK {
 }
 
 class uploadSDK {
-  upload(data) {
+  async upload(data) {
     if (true) {
       return new FileUploadSDK().upload(data);
     }

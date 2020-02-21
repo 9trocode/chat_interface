@@ -24,24 +24,28 @@
     </section>
 
     <section class="direct__message">
-      <div class="section">
-        <span class="section__header">Direct Messages</span>
-        <i class="fa fa-plus"></i>
+      <div class="section__top">
+        <div class="section">
+          <span class="section__header">Direct Messages</span>
+          <i class="fa fa-plus"></i>
+        </div>
       </div>
 
-      <div class="profiles">
-        <div v-for="i in 7" class="profile" :key="i">
-          <div class="user">
-            <img
-              class="user__avatar"
-              src="../../sass/avatars/Avatar.png"
-              alt="User_Avatar"
-            />
-            <span class="ml-8 user__name">Ivan Bryan</span>
-          </div>
+      <div class="profile__container">
+        <div class="profiles">
+          <div v-for="i in 20" class="profile" :key="i">
+            <div class="user">
+              <img
+                class="user__avatar"
+                src="../../sass/avatars/Avatar.png"
+                alt="User_Avatar"
+              />
+              <span class="ml-8 user__name">Ivan Bryan</span>
+            </div>
 
-          <div class="online__status" :class="{'offline': i%2 == 0}">
-            <i class="fa fa-circle"></i>
+            <div class="online__status" :class="{'offline': i%2 == 0}">
+              <i class="fa fa-circle"></i>
+            </div>
           </div>
         </div>
       </div>
