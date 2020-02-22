@@ -4259,7 +4259,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/left_sidebar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__);
@@ -4267,17 +4268,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_main_bar__);
+
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
-//
-//
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4293,13 +4297,33 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     };
   },
-  mounted: function mounted() {
-    this.privateChat({
-      receiver_id: 1,
-      message: 'hello',
-      sender_id: 5
-    });
-  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapGetters */])({
+    channels: "getChannel"
+  })),
+  mounted: function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.connectWs();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function mounted() {
+      return _ref.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
 
   components: {
     LeftSideBar: __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default.a,
@@ -4367,14 +4391,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                console.log(this.user);
+                _context.next = 3;
                 return this.authenticate(this.user).then(function () {
                   return _this.$router.push({ path: "/chat" });
                 }).catch(function (error) {
                   return console.log(error);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -4480,17 +4505,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      channels: ['Relationship', 'Sport', 'Entertainment', 'Tech', 'SavagePosts', 'Lifestyle', 'Travels'],
       profile_select_id: '',
       channel_select_id: ''
     };
   },
 
+  props: {
+    channels: {
+      type: Object | Array
+    }
+  },
   methods: {
     selectId: function selectId(type, value) {
       if (type === 'profile') {
@@ -4839,7 +4867,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section__top[data-v-63f88519] {\n      background-color: inherit;\n      padding: .3rem;\n}\n.leftbar .direct__message .section__top .section[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        align-items: center;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 700 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n}\n.leftbar .direct__message .section__top .section .fa[data-v-63f88519] {\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container[data-v-63f88519] {\n      overflow: scroll;\n      position: relative;\n      height: 15rem;\n      width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles[data-v-63f88519] {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-evenly;\n        margin-top: 20px;\n        opacity: 1;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profile__container .profiles .active[data-v-63f88519] {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519] {\n          padding: .3rem;\n          cursor: pointer;\n          width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519]:hover {\n            background-color: #424242b3;\n            border-radius: 4px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1060px);\n}\n.leftbar .channels .hashtag .active[data-v-63f88519] {\n        background-color: #424242b3;\n        border-radius: 4px;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 2px 0px;\n        padding: .3rem;\n        cursor: pointer;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519]:hover {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
+exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 40px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section__top[data-v-63f88519] {\n      background-color: inherit;\n      padding: .3rem;\n}\n.leftbar .direct__message .section__top .section[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        align-items: center;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 700 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n}\n.leftbar .direct__message .section__top .section .fa[data-v-63f88519] {\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container[data-v-63f88519] {\n      overflow: scroll;\n      position: relative;\n      height: 27rem;\n      width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles[data-v-63f88519] {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-evenly;\n        margin-top: 20px;\n        opacity: 1;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profile__container .profiles .active[data-v-63f88519] {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519] {\n          padding: 8px;\n          cursor: pointer;\n          width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519]:hover {\n            background-color: #424242b3;\n            border-radius: 4px;\n            width: auto;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1060px);\n}\n.leftbar .channels .hashtag .active[data-v-63f88519] {\n        background-color: #424242b3;\n        border-radius: 4px;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 2px 0px;\n        padding: 5px;\n        cursor: pointer;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519]:hover {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n[data-v-63f88519]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -6960,6 +6988,8 @@ var render = function() {
   return _c("section", { staticClass: "leftbar" }, [
     _vm._m(0),
     _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _vm._m(1),
     _vm._v(" "),
     _c("section", { staticClass: "direct__message" }, [
@@ -7023,7 +7053,7 @@ var render = function() {
             [
               _c("div", [
                 _c("span", { staticClass: "hash mr-8" }, [_vm._v("#")]),
-                _c("span", [_vm._v(_vm._s(channel))])
+                _c("span", [_vm._v(_vm._s(channel.channel_name))])
               ]),
               _vm._v(" "),
               _c(
@@ -7152,7 +7182,10 @@ var render = function() {
     "section",
     { staticClass: "main" },
     [
-      _c("LeftSideBar", { staticClass: "left-side-bar" }),
+      _c("LeftSideBar", {
+        staticClass: "left-side-bar",
+        attrs: { channels: this.channels }
+      }),
       _vm._v(" "),
       _c("Main", { staticClass: "main-bar" }),
       _vm._v(" "),
@@ -23617,7 +23650,7 @@ function h(tag, key, args) {
 /* unused harmony export install */
 /* unused harmony export mapState */
 /* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapGetters; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapActions; });
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -25288,17 +25321,17 @@ var SocketConnection = function () {
         });
 
         result.on('chatMessage', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_SENDING_MESSAGE', data);
           return data;
         });
 
-        result.on('sendChannelMessage', function (data) {
-          return data;
-        });
         result.on('getChatMessage', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit('SOCKET_SET_RECEIVING_MESSAGE', data);
           return data;
         });
 
         result.on('getChannels', function (data) {
+          __WEBPACK_IMPORTED_MODULE_0__store_store__["a" /* default */].commit("SOCKET_SET_CHANNEL_LIST", data.data);
           return data;
         });
 

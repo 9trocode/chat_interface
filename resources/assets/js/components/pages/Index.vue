@@ -32,6 +32,7 @@
     methods: {
       ...mapActions(["authenticate"]),
       async onSubmit() {
+        console.log(this.user);
         await this.authenticate(this.user)
           .then(() => this.$router.push({path: "/chat"}))
           .catch(error => console.log(error));

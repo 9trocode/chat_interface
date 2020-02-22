@@ -3,7 +3,7 @@
     <div class="padded">
         <span class="title">CHAT<span class="title_sub">YARD</span></span>
     </div>
-
+    <br>
     <section class="profile padded">
       <div class="user">
         <img
@@ -36,8 +36,8 @@
       <div class="profile__container">
         <div class="profiles">
           <div>
-            <div v-for="i in 20" 
-            :class="profile_select_id === i ? 'profile active' : 'profile'" 
+            <div v-for="i in 20"
+            :class="profile_select_id === i ? 'profile active' : 'profile'"
             v-on:click="() => selectId('profile',i)"
             :key="i">
               <div class="user">
@@ -57,7 +57,6 @@
         </div>
       </div>
     </section>
-
     <section class="channels">
       <div class="section mb-4">
         <span class="section__header">Channels</span>
@@ -70,7 +69,7 @@
          v-on:click="() => selectId('channel',i)"
          :key="i">
           <div>
-            <span class="hash mr-8">#</span><span>{{channel}}</span>
+            <span class="hash mr-8">#</span><span>{{channel.channel_name}}</span>
           </div>
 
           <div v-show='i%2 == 0' class="ellipse">
@@ -85,10 +84,14 @@
   export default {
     data() {
       return {
-        channels: ['Relationship', 'Sport', 'Entertainment', 'Tech', 'SavagePosts', 'Lifestyle', 'Travels'],
         profile_select_id: '',
         channel_select_id: '',
       };
+    },
+    props:{
+      channels: {
+        type: Object | Array
+      }
     },
     methods: {
       selectId(type, value) {

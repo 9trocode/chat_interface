@@ -1,13 +1,12 @@
 <template>
   <section class="main">
-    <LeftSideBar class="left-side-bar" ></LeftSideBar>
+    <LeftSideBar class="left-side-bar" v-bind:channels="this.channels"></LeftSideBar>
     <Main class="main-bar" ></Main>
     <RightSideBar  class="right-side-bar"></RightSideBar>
   </section>
 </template>
 
 <script>
-  import SocketConnection from '../../services/web-socket-intgration'
   import {mapState, mapActions, mapMutations, mapGetters} from "vuex";
   import LeftSideBar from "../utils/left_sidebar";
   import RightSideBar from "../utils/right_sidebar";
@@ -22,14 +21,13 @@
         }
       }
     },
-    mounted() {
-      this.privateChat(
-        {
-          receiver_id: 1, 
-          message: 'hello', 
-          sender_id: 5,
-        }
-      );
+    computed: {
+      ...mapGetters({
+        channels: "getChannel"
+      })
+    },
+   async mounted() {
+     await this.connectWs();
     },
     components: {
       LeftSideBar,
