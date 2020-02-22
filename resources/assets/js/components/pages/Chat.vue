@@ -26,8 +26,8 @@
         channels: "getChannel"
       })
     },
-   async mounted() {
-     await this.connectWs();
+    created() {
+      this.connectWs();
     },
     components: {
       LeftSideBar,
