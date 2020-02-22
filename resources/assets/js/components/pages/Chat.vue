@@ -26,7 +26,7 @@
         channels: "getChannel"
       })
     },
-    beforeCreate() {
+    created() {
       this.connectWs();
     },
     components: {

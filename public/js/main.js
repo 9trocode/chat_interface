@@ -4295,7 +4295,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])({
     channels: "getChannel"
   })),
-  beforeCreate: function beforeCreate() {
+  created: function created() {
     this.connectWs();
   },
 
