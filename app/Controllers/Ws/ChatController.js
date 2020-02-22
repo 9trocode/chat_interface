@@ -1,7 +1,7 @@
 'use strict'
 const User = use("App/Models/User");
 const Message = use("App/Models/Message");
-const Channel = use("App/Models/Channel")
+const Channel = use("App/Models/Channel");
 class ChatController {
   constructor ({ socket, request }) {
     this.socket = socket
