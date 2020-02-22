@@ -8,12 +8,14 @@ import Vuex from "vuex";
 // import users from "./modules/users";
 import auth from "./modules/http";
 import WS from "./modules/web-socket";
+import uploads from "./modules/uploads";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     auth,
-    WS
+    WS,
+    uploads,
   }
 });

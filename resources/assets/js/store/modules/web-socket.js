@@ -52,11 +52,12 @@ export default {
 
     // Chat Mutation
     SOCKET_SET_SENDING_MESSAGE(state, data) {
-      state.chat.sending_message = data;
+      state.chat.sending_message = !state.chat.sending_message;
+      state.chat.messages.push(data)
     },
     SOCKET_SET_RECEIVING_MESSAGE(state, data) {
         state.chat.receiving_message = !state.chat.receiving_message;
-        state.chat.message.push(data.message)
+        state.chat.messages.push(data)
     }
   },
   actions: {
@@ -68,14 +69,28 @@ export default {
 
     async privateChat({commit}, data) {
       await WS.connect();
-     let subscribe = await WS.subscribe('chat');
+     let subscribe = await WS.subscribe(`chat:private:${data.receiver_id}:${data.sender_id}`);
+     commit('SOCKET_SET_SENDING_MESSAGE', data);
      subscribe.emit("chatMessage", data);
     },
 
     async getPrivateChat({commit}, data) {
       await WS.connect();
-      let subscribe = await WS.subscribe('chat');
+      let subscribe = await WS.subscribe(`chat:private:${data.receiver_id}:${data.sender_id}`);
+      commit('SOCKET_SET_RECEIVING_MESSAGE', data);
       subscribe.emit("getChatMessage", data);
+    },
+    async sendChannelMessage({commit}, data) {
+      await WS.connect();
+      let subscribe = await WS.subscribe(`chat:channel:${data.channel_id}`);
+      commit('SOCKET_SET_SENDING_MESSAGE', data);
+      subscribe.emit('sendChannelMessage', data)
+    },
+    async getChannelMessage({commit}, data) {
+      await WS.connect();
+      let subscribe = await WS.subscribe(`chat:channel:${data.channel_id}`);
+      commit('SOCKET_SET_RECEIVING_MESSAGE', data);
+      subscribe.emit('sendChannelMessage', data)
     }
   },
   getters: {

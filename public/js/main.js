@@ -4259,7 +4259,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__ = __webpack_require__("./resources/assets/js/components/utils/left_sidebar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar__);
@@ -4267,17 +4268,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_right_sidebar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar__ = __webpack_require__("./resources/assets/js/components/utils/main_bar.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_main_bar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__utils_main_bar__);
+
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
-//
-//
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4293,12 +4297,33 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     };
   },
-  mounted: function mounted() {
-    this.privateChat({
-      receiver_id: 1,
-      message: 'hello'
-    });
-  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapGetters */])({
+    channels: "getChannel"
+  })),
+  mounted: function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.connectWs();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function mounted() {
+      return _ref.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
 
   components: {
     LeftSideBar: __WEBPACK_IMPORTED_MODULE_2__utils_left_sidebar___default.a,
@@ -4366,14 +4391,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                console.log(this.user);
+                _context.next = 3;
                 return this.authenticate(this.user).then(function () {
                   return _this.$router.push({ path: "/chat" });
                 }).catch(function (error) {
                   return console.log(error);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -4466,12 +4492,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      channels: ['Relationship', 'Sport', 'Entertainment', 'Tech', 'SavagePosts', 'Lifestyle', 'Travels']
+      profile_select_id: '',
+      channel_select_id: ''
     };
+  },
+
+  props: {
+    channels: {
+      type: Object | Array
+    }
+  },
+  methods: {
+    selectId: function selectId(type, value) {
+      if (type === 'profile') {
+        this.profile_select_id = value;
+      } else {
+        this.channel_select_id = value;
+      }
+    }
   }
 });
 
@@ -4797,7 +4852,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#mainContainer[data-v-4805b082] {\n  height: 100vh;\n  overflow-y: scroll;\n  font-family: 'Open Sans', sans-serif;\n}\n#mainContainer .top-bar[data-v-4805b082] {\n    padding: 20px;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n}\n#mainContainer .top-bar .top-left-text[data-v-4805b082] {\n      font-size: 18px !important;\n      letter-spacing: 0px !important;\n      line-height: 24px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: bold !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 0.9;\n}\n#mainContainer .top-bar .light-text[data-v-4805b082] {\n      font-size: 16px !important;\n      letter-spacing: 0px !important;\n      line-height: 22px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffff80 !important;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .fa-user[data-v-4805b082] {\n      color: #ffffff80;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .top-left-subtext[data-v-4805b082] {\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 1;\n}\n#mainContainer .channel-name p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 12px;\n}\n#mainContainer .channel-title[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-title h5[data-v-4805b082] {\n      color: #FFFFFFB3;\n      font-size: 25px;\n}\n#mainContainer .icon[data-v-4805b082] {\n    color: #FFFFFFB3;\n}\n#mainContainer .icon-container[data-v-4805b082] {\n    display: flex;\n    margin-top: 10px;\n}\n#mainContainer .icon-container p[data-v-4805b082] {\n      margin-left: 10px;\n      color: #FFFFFF80;\n}\n#mainContainer .search[data-v-4805b082] {\n    position: relative;\n    margin-top: 10px;\n}\n#mainContainer .search input[data-v-4805b082] {\n      background: #FFFFFF0F 0% 0% no-repeat padding-box;\n      border-radius: 50px;\n      opacity: 1;\n      letter-spacing: 0.9px;\n      color: #FFFFFF4D;\n      border: 0;\n      padding-left: 30px;\n      width: 278px;\n      height: 40px;\n}\n#mainContainer .search input[data-v-4805b082]:active, #mainContainer .search input[data-v-4805b082]:focus {\n        box-shadow: none !important;\n        outline: none !important;\n}\n#mainContainer .search img[data-v-4805b082] {\n      width: 12px;\n      height: 12px;\n      object-fit: contain;\n      position: absolute;\n      left: 10px;\n      top: 15px;\n}\n#mainContainer .content-container[data-v-4805b082] {\n    padding: 50px 20px;\n}\n#mainContainer .content-container h6[data-v-4805b082] {\n      color: #FFFFFF80;\n      font-size: 12px;\n      text-align: center;\n}\n#mainContainer .content-container .chat-content[data-v-4805b082] {\n      padding-top: 40px;\n}\n#mainContainer .content-container .chat-container[data-v-4805b082] {\n      width: auto;\n      height: auto;\n      min-height: 35px;\n      max-width: 1000px;\n      transform: matrix(-1, 0, 0, -1, 0, 0);\n      background: #FFFFFF46;\n      border-radius: 15px 0px 15px 15px;\n      margin-left: 12px;\n      align-self: center;\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      flex-wrap: wrap;\n      flex: 1 1 auto;\n}\n#mainContainer .content-container .chat-container .content[data-v-4805b082] {\n        letter-spacing: 0;\n        color: #FFFFFF;\n        font-size: 12px;\n        transform: rotate(180deg);\n        padding-bottom: 8px;\n        padding-left: 10px;\n        padding-right: 20px;\n        display: flex;\n        justify-content: flex-start;\n}\n#mainContainer .replied-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 4px;\n    margin-right: 47px;\n}\n#mainContainer .content-container .chat-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 2px;\n}\n#mainContainer .content-container .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n#mainContainer .replied-content[data-v-4805b082] {\n    padding-top: 40px;\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .content-container .replied-content .chat-container[data-v-4805b082] {\n    letter-spacing: 0;\n    color: #FFFFFF;\n    font-size: 12px;\n    padding-bottom: 8px;\n    margin-right: 10px;\n}\n#mainContainer .replied-content .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row-reverse;\n}\n#mainContainer .content-container .image-container img[data-v-4805b082] {\n    width: 35px;\n    height: 35px;\n}\n#mainContainer .more[data-v-4805b082] {\n    margin-top: 20px;\n}\n#mainContainer .chat-content .smiley[data-v-4805b082] {\n    margin-left: 45px;\n    background: #FFFFFF1A;\n    width: 5%;\n    display: flex;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .replied-content .smiley[data-v-4805b082] {\n    background: #FFFFFF1A;\n    width: 100%;\n    display: flex;\n    align-self: flex-end;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .smiley img[data-v-4805b082] {\n    width: 10px;\n    height: 10px;\n    margin-top: 2px;\n    margin-left: 3px;\n}\n#mainContainer .smiley p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 10px;\n    padding-left: 4px;\n}\n#mainContainer .left[data-v-4805b082] {\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .big-search[data-v-4805b082] {\n    position: absolute;\n    bottom: 10px;\n    width: 62%;\n    left: 19%;\n    height: 50px;\n    background: #343434;\n}\n#mainContainer .big-search input[data-v-4805b082] {\n      background: #272727;\n      width: 95%;\n      border: none;\n      height: 40px;\n      border-radius: 30px;\n      margin-left: 20px;\n      margin-top: 6px;\n      padding-left: 40px;\n      font-size: 14px;\n      color: #909090;\n}\n#mainContainer .big-search input[data-v-4805b082]:active, #mainContainer .big-search input[data-v-4805b082]:focus {\n        box-shadow: none;\n        outline: none;\n}\n#mainContainer .big-search .icon-img[data-v-4805b082] {\n      position: absolute;\n      display: flex;\n      bottom: 25%;\n      right: 5%;\n}\n#mainContainer .big-search .icon-img img[data-v-4805b082] {\n        width: 20px;\n        height: 20px;\n        object-fit: contain;\n        margin-right: 20px;\n}\n[data-v-4805b082]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n#mainContainer[data-v-4805b082] {\n  height: 100vh;\n  overflow-y: scroll;\n  font-family: 'Open Sans', sans-serif;\n}\n#mainContainer .top-bar[data-v-4805b082] {\n    padding: 2rem;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    position: sticky;\n    top: 0;\n    border-bottom: .3px solid #FFFFFF46;\n    z-index: 99;\n    background-color: inherit;\n}\n#mainContainer .top-bar .top-left-text[data-v-4805b082] {\n      font-size: 18px !important;\n      letter-spacing: 0px !important;\n      line-height: 24px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: bold !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 0.9;\n}\n#mainContainer .top-bar .light-text[data-v-4805b082] {\n      font-size: 16px !important;\n      letter-spacing: 0px !important;\n      line-height: 22px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffff80 !important;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .fa-user[data-v-4805b082] {\n      color: #ffffff80;\n      opacity: 0.5;\n}\n#mainContainer .top-bar .top-left-subtext[data-v-4805b082] {\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n      opacity: 1;\n}\n#mainContainer .channel-name p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 12px;\n}\n#mainContainer .channel-title[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n}\n#mainContainer .channel-title h5[data-v-4805b082] {\n      color: #FFFFFFB3;\n      font-size: 25px;\n}\n#mainContainer .icon[data-v-4805b082] {\n    color: #FFFFFFB3;\n}\n#mainContainer .icon-container[data-v-4805b082] {\n    display: flex;\n    margin-top: 10px;\n}\n#mainContainer .icon-container p[data-v-4805b082] {\n      margin-left: 10px;\n      color: #FFFFFF80;\n}\n#mainContainer .search[data-v-4805b082] {\n    position: relative;\n    margin-top: 10px;\n}\n#mainContainer .search input[data-v-4805b082] {\n      background: #FFFFFF0F 0% 0% no-repeat padding-box;\n      border-radius: 50px;\n      opacity: 1;\n      letter-spacing: 0.9px;\n      color: #FFFFFF4D;\n      border: 0;\n      padding-left: 30px;\n      width: 278px;\n      height: 40px;\n}\n#mainContainer .search input[data-v-4805b082]:active, #mainContainer .search input[data-v-4805b082]:focus {\n        box-shadow: none !important;\n        outline: none !important;\n}\n#mainContainer .search img[data-v-4805b082] {\n      width: 12px;\n      height: 12px;\n      object-fit: contain;\n      position: absolute;\n      left: 10px;\n      top: 15px;\n}\n#mainContainer .content-container[data-v-4805b082] {\n    padding: 50px 20px;\n}\n#mainContainer .content-container h6[data-v-4805b082] {\n      color: #FFFFFF80;\n      font-size: 12px;\n      text-align: center;\n      margin-bottom: 3rem;\n}\n#mainContainer .content-container .chat-content[data-v-4805b082] {\n      padding-bottom: 40px;\n}\n#mainContainer .content-container .chat-container[data-v-4805b082] {\n      width: auto;\n      height: auto;\n      min-height: 35px;\n      max-width: 1000px;\n      transform: matrix(-1, 0, 0, -1, 0, 0);\n      background: #FFFFFF46;\n      border-radius: 15px 0px 15px 15px;\n      margin-left: 12px;\n      align-self: center;\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      flex-wrap: wrap;\n      flex: 1 1 auto;\n}\n#mainContainer .content-container .chat-container .content[data-v-4805b082] {\n        letter-spacing: 0;\n        color: #FFFFFF;\n        font-size: 12px;\n        transform: rotate(180deg);\n        padding-bottom: 8px;\n        padding-left: 10px;\n        padding-right: 20px;\n        display: flex;\n        justify-content: flex-start;\n}\n#mainContainer .replied-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 4px;\n    margin-right: 47px;\n}\n#mainContainer .content-container .chat-content .name-time[data-v-4805b082] {\n    color: #585656;\n    font-size: 12px;\n    padding-left: 47px;\n    padding-top: 2px;\n}\n#mainContainer .content-container .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n#mainContainer .replied-content[data-v-4805b082] {\n    padding-bottom: 40px;\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .content-container .replied-content .chat-container[data-v-4805b082] {\n    letter-spacing: 0;\n    color: #FFFFFF;\n    font-size: 12px;\n    padding-bottom: 8px;\n    margin-right: 10px;\n}\n#mainContainer .replied-content .image-container[data-v-4805b082] {\n    display: flex;\n    flex-direction: row-reverse;\n}\n#mainContainer .content-container .image-container img[data-v-4805b082] {\n    width: 35px;\n    height: 35px;\n}\n#mainContainer .more[data-v-4805b082] {\n    margin-top: 20px;\n}\n#mainContainer .chat-content .smiley[data-v-4805b082] {\n    margin-left: 45px;\n    background: #FFFFFF1A;\n    width: 5%;\n    display: flex;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .replied-content .smiley[data-v-4805b082] {\n    background: #FFFFFF1A;\n    width: 100%;\n    display: flex;\n    align-self: flex-end;\n    padding: 3px;\n    border-radius: 4px;\n}\n#mainContainer .smiley img[data-v-4805b082] {\n    width: 10px;\n    height: 10px;\n    margin-top: 2px;\n    margin-left: 3px;\n}\n#mainContainer .smiley p[data-v-4805b082] {\n    color: #FFFFFFB3;\n    font-size: 10px;\n    padding-left: 4px;\n}\n#mainContainer .left[data-v-4805b082] {\n    display: flex;\n    justify-content: flex-end;\n}\n#mainContainer .big-search[data-v-4805b082] {\n    position: absolute;\n    bottom: 10px;\n    width: 62%;\n    left: 19%;\n    height: 50px;\n    background: #343434;\n    bottom: 0;\n}\n#mainContainer .big-search input[data-v-4805b082] {\n      background: #272727;\n      width: 95%;\n      border: none;\n      height: 40px;\n      border-radius: 30px;\n      margin-left: 20px;\n      margin-top: 6px;\n      padding-left: 40px;\n      font-size: 14px;\n      color: #909090;\n}\n#mainContainer .big-search input[data-v-4805b082]:active, #mainContainer .big-search input[data-v-4805b082]:focus {\n        box-shadow: none;\n        outline: none;\n}\n#mainContainer .big-search .icon-img[data-v-4805b082] {\n      position: absolute;\n      display: flex;\n      bottom: 25%;\n      right: 5%;\n}\n#mainContainer .big-search .icon-img img[data-v-4805b082] {\n        width: 20px;\n        height: 20px;\n        object-fit: contain;\n        margin-right: 20px;\n}\n[data-v-4805b082]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -4812,7 +4867,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 30px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .direct__message .profiles[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      justify-content: space-evenly;\n      margin-top: 20px;\n      opacity: 1;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 400 !important;\n      text-align: left !important;\n      color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profiles .profile[data-v-63f88519] {\n        margin: 6px 0px;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 5px 0px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n", ""]);
+exports.push([module.i, "\n.leftbar[data-v-63f88519] {\n  padding: 15px 40px 10px 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  height: 100vh;\n}\n.leftbar .title[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #fff !important;\n    align-self: flex-start;\n    margin-bottom: 28px;\n}\n.leftbar .title_sub[data-v-63f88519] {\n    font-size: 24px !important;\n    letter-spacing: 0px !important;\n    line-height: 29px !important;\n    font-family: Montserrat, \"sans-serif\" !important;\n    font-weight: 700 !important;\n    text-align: center !important;\n    color: #47CE66 !important;\n}\n.leftbar .subleftbar[data-v-63f88519] {\n    width: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n.leftbar .subleftbar[data-v-63f88519]::-webkit-scrollbar {\n    display: none;\n}\n.leftbar .profile[data-v-63f88519] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    width: 100%;\n    opacity: 1;\n    font-size: 14px !important;\n    letter-spacing: 0px !important;\n    line-height: 19px !important;\n    font-family: Open Sans, \"sans-serif\" !important;\n    font-weight: 400 !important;\n    text-align: left !important;\n    color: #ffffffb3 !important;\n}\n.leftbar .profile .user[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n}\n.leftbar .profile .online__status.offline[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #FFFFFF4D;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status[data-v-63f88519] {\n      width: 5px;\n      height: 5px;\n      color: #47CE66;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n}\n.leftbar .profile .online__status .fa.fa-circle[data-v-63f88519] {\n        font-size: 5px !important;\n}\n.leftbar .direct__message[data-v-63f88519] {\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    margin-top: 40px;\n    justify-content: space-between;\n}\n.leftbar .direct__message .section__top[data-v-63f88519] {\n      background-color: inherit;\n      padding: .3rem;\n}\n.leftbar .direct__message .section__top .section[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        align-items: center;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 700 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n}\n.leftbar .direct__message .section__top .section .fa[data-v-63f88519] {\n          cursor: pointer;\n}\n.leftbar .direct__message .profile__container[data-v-63f88519] {\n      overflow: scroll;\n      position: relative;\n      height: 27rem;\n      width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles[data-v-63f88519] {\n        display: flex;\n        flex-direction: column;\n        justify-content: space-evenly;\n        margin-top: 20px;\n        opacity: 1;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffffb3 !important;\n}\n.leftbar .direct__message .profile__container .profiles .active[data-v-63f88519] {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519] {\n          padding: 8px;\n          cursor: pointer;\n          width: 100%;\n}\n.leftbar .direct__message .profile__container .profiles .profile[data-v-63f88519]:hover {\n            background-color: #424242b3;\n            border-radius: 4px;\n            width: auto;\n}\n.leftbar .channels[data-v-63f88519] {\n    margin-top: 30px;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n}\n.leftbar .channels .section[data-v-63f88519] {\n      display: flex;\n      flex-direction: row;\n      justify-content: space-between;\n      align-items: center;\n      font-size: 14px !important;\n      letter-spacing: 0px !important;\n      line-height: 19px !important;\n      font-family: Open Sans, \"sans-serif\" !important;\n      font-weight: 700 !important;\n      text-align: left !important;\n      color: #ffffff83 !important;\n      opacity: 1;\n}\n.leftbar .channels .hashtag[data-v-63f88519] {\n      display: flex;\n      flex-direction: column;\n      padding: 0px;\n      width: 100%;\n      overflow: scroll;\n      position: relative;\n      height: calc( 100vw -  1060px);\n}\n.leftbar .channels .hashtag .active[data-v-63f88519] {\n        background-color: #424242b3;\n        border-radius: 4px;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519] {\n        display: flex;\n        flex-direction: row;\n        justify-content: space-between;\n        font-size: 14px !important;\n        letter-spacing: 0px !important;\n        line-height: 19px !important;\n        font-family: Open Sans, \"sans-serif\" !important;\n        font-weight: 400 !important;\n        text-align: left !important;\n        color: #ffffff83 !important;\n        list-style: none;\n        margin: 2px 0px;\n        padding: 5px;\n        cursor: pointer;\n}\n.leftbar .channels .hashtag .list[data-v-63f88519]:hover {\n          background-color: #424242b3;\n          border-radius: 4px;\n}\n.leftbar .channels .hashtag .list__selected.list[data-v-63f88519] {\n        background: #47CE66 0% 0% no-repeat padding-box;\n        opacity: 0.5;\n}\n.leftbar .channels .hashtag .ellipse[data-v-63f88519] {\n        width: 20px;\n        height: 20px;\n        border-radius: 100%;\n        background: #06AF80;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n}\n.leftbar .channels .hashtag .ellipse .ellipse_text[data-v-63f88519] {\n          font-size: 14px !important;\n          letter-spacing: 0px !important;\n          line-height: 19px !important;\n          font-family: Open Sans, \"sans-serif\" !important;\n          font-weight: 400 !important;\n          text-align: left !important;\n          color: #ffffff83 !important;\n}\n[data-v-63f88519]::-webkit-scrollbar {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -4944,6 +4999,316 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/path-browserify/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -6623,27 +6988,48 @@ var render = function() {
   return _c("section", { staticClass: "leftbar" }, [
     _vm._m(0),
     _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _vm._m(1),
     _vm._v(" "),
     _c("section", { staticClass: "direct__message" }, [
       _vm._m(2),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "profiles" },
-        _vm._l(7, function(i) {
-          return _c("div", { key: i, staticClass: "profile" }, [
-            _vm._m(3, true),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "online__status", class: { offline: i % 2 == 0 } },
-              [_c("i", { staticClass: "fa fa-circle" })]
-            )
-          ])
-        }),
-        0
-      )
+      _c("div", { staticClass: "profile__container" }, [
+        _c("div", { staticClass: "profiles" }, [
+          _c(
+            "div",
+            _vm._l(20, function(i) {
+              return _c(
+                "div",
+                {
+                  key: i,
+                  class:
+                    _vm.profile_select_id === i ? "profile active" : "profile",
+                  on: {
+                    click: function() {
+                      return _vm.selectId("profile", i)
+                    }
+                  }
+                },
+                [
+                  _vm._m(3, true),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "online__status",
+                      class: { offline: i % 2 == 0 }
+                    },
+                    [_c("i", { staticClass: "fa fa-circle" })]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("section", { staticClass: "channels" }, [
@@ -6653,28 +7039,40 @@ var render = function() {
         "ul",
         { staticClass: "hashtag" },
         _vm._l(_vm.channels, function(channel, i) {
-          return _c("li", { key: i, staticClass: "list" }, [
-            _c("div", [
-              _c("span", { staticClass: "hash mr-8" }, [_vm._v("#")]),
-              _c("span", [_vm._v(_vm._s(channel))])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: i % 2 == 0,
-                    expression: "i%2 == 0"
-                  }
-                ],
-                staticClass: "ellipse"
-              },
-              [_c("span", { staticClass: "ellipse_text" }, [_vm._v("1")])]
-            )
-          ])
+          return _c(
+            "li",
+            {
+              key: i,
+              class: _vm.channel_select_id === i ? "list active" : "list",
+              on: {
+                click: function() {
+                  return _vm.selectId("channel", i)
+                }
+              }
+            },
+            [
+              _c("div", [
+                _c("span", { staticClass: "hash mr-8" }, [_vm._v("#")]),
+                _c("span", [_vm._v(_vm._s(channel.channel_name))])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: i % 2 == 0,
+                      expression: "i%2 == 0"
+                    }
+                  ],
+                  staticClass: "ellipse"
+                },
+                [_c("span", { staticClass: "ellipse_text" }, [_vm._v("1")])]
+              )
+            ]
+          )
         }),
         0
       )
@@ -6686,16 +7084,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "title" }, [
-      _vm._v("CHAT"),
-      _c("span", { staticClass: "title_sub" }, [_vm._v("YARD")])
+    return _c("div", { staticClass: "padded" }, [
+      _c("span", { staticClass: "title" }, [
+        _vm._v("CHAT"),
+        _c("span", { staticClass: "title_sub" }, [_vm._v("YARD")])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "profile" }, [
+    return _c("section", { staticClass: "profile padded" }, [
       _c("div", { staticClass: "user" }, [
         _c("img", {
           staticClass: "user__avatar",
@@ -6723,12 +7123,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "section" }, [
-      _c("span", { staticClass: "section__header" }, [
-        _vm._v("Direct Messages")
-      ]),
-      _vm._v(" "),
-      _c("i", { staticClass: "fa fa-plus" })
+    return _c("div", { staticClass: "section__top " }, [
+      _c("div", { staticClass: "section" }, [
+        _c("span", { staticClass: "section__header" }, [
+          _vm._v("Direct Messages")
+        ]),
+        _vm._v(" "),
+        _c("i", { staticClass: "fa fa-plus" })
+      ])
     ])
   },
   function() {
@@ -6780,7 +7182,10 @@ var render = function() {
     "section",
     { staticClass: "main" },
     [
-      _c("LeftSideBar", { staticClass: "left-side-bar" }),
+      _c("LeftSideBar", {
+        staticClass: "left-side-bar",
+        attrs: { channels: this.channels }
+      }),
       _vm._v(" "),
       _c("Main", { staticClass: "main-bar" }),
       _vm._v(" "),
@@ -23245,7 +23650,7 @@ function h(tag, key, args) {
 /* unused harmony export install */
 /* unused harmony export mapState */
 /* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapGetters; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapActions; });
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -25032,6 +25437,77 @@ var SocketConnection = function () {
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/modules/uploads.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_uploadSdk__ = __webpack_require__("./resources/assets/js/utils/uploadSdk.js");
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  state: {
+    isUploading: false,
+    imgSource: ''
+  },
+  mutations: {
+    IMAGE_UPLOAD: function IMAGE_UPLOAD(state, data) {
+      state.imgSource = data;
+    },
+    IS_UPLOADING_IMAGE: function IS_UPLOADING_IMAGE(state) {
+      state.isUploading = !state.isUploading;
+    }
+  },
+  actions: {
+    uploadSingleImage: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref, data) {
+        var commit = _ref.commit;
+        var image;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit('IS_UPLOADING_IMAGE');
+                _context.next = 3;
+                return __WEBPACK_IMPORTED_MODULE_2__utils_uploadSdk__["a" /* default */].upload(data);
+
+              case 3:
+                image = _context.sent;
+
+                commit('IMAGE_UPLOAD', image);
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function uploadSingleImage(_x, _x2) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return uploadSingleImage;
+    }()
+  },
+  getters: {
+    getImage: function getImage(state) {
+      return state.imgSource;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/modules/web-socket.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -25098,11 +25574,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     // Chat Mutation
     SOCKET_SET_SENDING_MESSAGE: function SOCKET_SET_SENDING_MESSAGE(state, data) {
-      state.chat.sending_message = data;
+      state.chat.sending_message = !state.chat.sending_message;
+      state.chat.messages.push(data);
     },
     SOCKET_SET_RECEIVING_MESSAGE: function SOCKET_SET_RECEIVING_MESSAGE(state, data) {
       state.chat.receiving_message = !state.chat.receiving_message;
-      state.chat.message.push(data.message);
+      state.chat.messages.push(data);
     }
   },
   actions: {
@@ -25153,14 +25630,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 2:
                 _context2.next = 4;
-                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:private:' + data.receiver_id + ':' + data.sender_id);
 
               case 4:
                 subscribe = _context2.sent;
 
+                commit('SOCKET_SET_SENDING_MESSAGE', data);
                 subscribe.emit("chatMessage", data);
 
-              case 6:
+              case 7:
               case 'end':
                 return _context2.stop();
             }
@@ -25187,14 +25665,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 2:
                 _context3.next = 4;
-                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat');
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:private:' + data.receiver_id + ':' + data.sender_id);
 
               case 4:
                 subscribe = _context3.sent;
 
+                commit('SOCKET_SET_RECEIVING_MESSAGE', data);
                 subscribe.emit("getChatMessage", data);
 
-              case 6:
+              case 7:
               case 'end':
                 return _context3.stop();
             }
@@ -25207,6 +25686,76 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
 
       return getPrivateChat;
+    }(),
+    sendChannelMessage: function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(_ref7, data) {
+        var commit = _ref7.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context4.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:channel:' + data.channel_id);
+
+              case 4:
+                subscribe = _context4.sent;
+
+                commit('SOCKET_SET_SENDING_MESSAGE', data);
+                subscribe.emit('sendChannelMessage', data);
+
+              case 7:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function sendChannelMessage(_x7, _x8) {
+        return _ref8.apply(this, arguments);
+      }
+
+      return sendChannelMessage;
+    }(),
+    getChannelMessage: function () {
+      var _ref10 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(_ref9, data) {
+        var commit = _ref9.commit;
+        var subscribe;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].connect();
+
+              case 2:
+                _context5.next = 4;
+                return __WEBPACK_IMPORTED_MODULE_2__services_web_socket_intgration__["a" /* default */].subscribe('chat:channel:' + data.channel_id);
+
+              case 4:
+                subscribe = _context5.sent;
+
+                commit('SOCKET_SET_RECEIVING_MESSAGE', data);
+                subscribe.emit('sendChannelMessage', data);
+
+              case 7:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function getChannelMessage(_x9, _x10) {
+        return _ref10.apply(this, arguments);
+      }
+
+      return getChannelMessage;
     }()
   },
   getters: {
@@ -25233,6 +25782,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_http__ = __webpack_require__("./resources/assets/js/store/modules/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__ = __webpack_require__("./resources/assets/js/store/modules/web-socket.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_uploads__ = __webpack_require__("./resources/assets/js/store/modules/uploads.js");
 
 
 
@@ -25244,12 +25794,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   modules: {
     auth: __WEBPACK_IMPORTED_MODULE_2__modules_http__["a" /* default */],
-    WS: __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__["a" /* default */]
+    WS: __WEBPACK_IMPORTED_MODULE_3__modules_web_socket__["a" /* default */],
+    uploads: __WEBPACK_IMPORTED_MODULE_4__modules_uploads__["a" /* default */]
   }
 }));
 
@@ -25268,6 +25820,149 @@ function getHostname() {
 function getSocketProtocol() {
   return window.location.hostname === 'localhost' ? 'ws://' : 'wss://';
 }
+
+/***/ }),
+
+/***/ "./resources/assets/js/utils/random.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = generateRandomCharacters;
+function generateRandomCharacters() {
+  var random = '';
+  var characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_123467890#';
+  for (var i = 0; i < 16; i++) {
+    random += characters[Math.floor(Math.random() * characters.length)];
+  }
+  return random;
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/utils/uploadSdk.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__("./node_modules/babel-runtime/regenerator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__("./node_modules/path-browserify/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+var generateRandomCharacters = __webpack_require__("./resources/assets/js/utils/random.js");
+
+var FileUploadSDK = function () {
+  function FileUploadSDK() {
+    _classCallCheck(this, FileUploadSDK);
+  }
+
+  _createClass(FileUploadSDK, [{
+    key: 'upload',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(_ref) {
+        var request = _ref.request;
+        var image, RANDOM, subtype;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                image = request.file('message_image', {
+                  types: ['image'],
+                  size: '2mb',
+                  extnames: ['png', 'gif', 'mp4', 'mp3']
+                });
+
+                console.log(image);
+
+                RANDOM = generateRandomCharacters();
+                subtype = '';
+                _context.next = 6;
+                return image.move(__WEBPACK_IMPORTED_MODULE_1_path___default.a.join(__dirname, 'public/uploads'), function (file) {
+                  subtype = file.subtype;
+                  return {
+                    name: 'IMG_' + RANDOM + '.' + subtype
+                  };
+                });
+
+              case 6:
+                if (image.moved()) {
+                  _context.next = 8;
+                  break;
+                }
+
+                return _context.abrupt('return', image.error());
+
+              case 8:
+                return _context.abrupt('return', 'IMG_' + RANDOM + '.' + subtype);
+
+              case 9:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function upload(_x) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return upload;
+    }()
+  }]);
+
+  return FileUploadSDK;
+}();
+
+var uploadSDK = function () {
+  function uploadSDK() {
+    _classCallCheck(this, uploadSDK);
+  }
+
+  _createClass(uploadSDK, [{
+    key: 'upload',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(data) {
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (false) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt('return', new FileUploadSDK().upload(data));
+
+              case 2:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function upload(_x2) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return upload;
+    }()
+  }]);
+
+  return uploadSDK;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (new uploadSDK());
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "/"))
 
 /***/ }),
 

@@ -5,11 +5,16 @@
   font-family: 'Open Sans', sans-serif
 
   .top-bar
-    padding: 20px
+    padding: 2rem
     display: flex
     flex-direction: row
     justify-content: space-between
     align-items: center
+    position: sticky
+    top: 0
+    border-bottom: .3px solid #FFFFFF46
+    z-index: 99
+    background-color: inherit
     .top-left-text
       +fonts(Open Sans,18px,bold,left,24px,0px, #ffffffb3)
       opacity: 0.9
@@ -84,9 +89,10 @@
       color: #FFFFFF80
       font-size: 12px
       text-align: center
+      margin-bottom: 3rem
 
     .chat-content
-      padding-top: 40px
+      padding-bottom: 40px
 
     .chat-container
       width: auto
@@ -135,7 +141,7 @@
       flex-wrap: wrap
 
   .replied-content
-    padding-top: 40px
+    padding-bottom: 40px
     display: flex
     justify-content: flex-end
 
@@ -196,6 +202,7 @@
     left: 19%
     height: 50px
     background: #343434
+    bottom: 0
 
     input
       background: #272727
