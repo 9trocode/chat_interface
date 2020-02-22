@@ -4239,7 +4239,6 @@ module.exports = function isBuffer (obj) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__ = __webpack_require__("./resources/assets/js/services/web-socket-intgration.js");
 //
 //
 //
@@ -4250,11 +4249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
-  components: {},
-
-  beforeCreate: function beforeCreate() {
-    __WEBPACK_IMPORTED_MODULE_0__services_web_socket_intgration__["a" /* default */].connect();
-  }
+  components: {}
 });
 
 /***/ }),
@@ -4300,7 +4295,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])({
     channels: "getChannel"
   })),
-  created: function created() {
+  beforeCreate: function beforeCreate() {
     this.connectWs();
   },
 
