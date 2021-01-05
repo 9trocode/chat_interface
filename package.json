@@ -36,7 +36,7 @@
     "@adonisjs/websocket-client": "1.0.9",
     "@babel/polyfill": "^7.8.3",
     "adonis-vue-websocket": "^2.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
     "browser-cookies": "^1.2.0",
